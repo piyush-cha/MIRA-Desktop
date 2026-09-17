@@ -23,12 +23,23 @@ function createWindow() {
     backgroundColor: '#0B0F17'
   });
 
-  const isDev = process.env.NODE_ENV === 'development';
-  if (isDev) {
-    mainWindow.loadURL('http://localhost:5173');
+  const devUrl = 'http://localhost:5173';
+  const distPath = path.join(__dirname, '../dist/index.html');
+
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL(devUrl);
+  } else if (fs.existsSync(distPath)) {
+    mainWindow.loadFile(distPath);
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    mainWindow.loadURL(devUrl);
   }
+
+  // Fallback to built dist files if dev server is not running
+  mainWindow.webContents.on('did-fail-load', (event, errorCode) => {
+    if (errorCode !== -3 && fs.existsSync(distPath)) { // -3 is ABORTED
+      mainWindow.loadFile(distPath);
+    }
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;

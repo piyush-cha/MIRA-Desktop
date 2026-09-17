@@ -8,8 +8,22 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "electron:dev": "concurrently \"vite\" \"cross-env NODE_ENV=development electron .\"",
-    "electron:build": "vite build && electron-builder"
+    "electron:dev": "npx concurrently \"vite\" \"npx electron .\"",
+    "electron:build": "vite build && npx electron-builder"
+  },
+  "build": {
+    "appId": "com.mira.desktop",
+    "productName": "MIRA Enterprise Desktop",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": ["portable"]
+    }
   },
   "dependencies": {
     "react": "^18.2.0",

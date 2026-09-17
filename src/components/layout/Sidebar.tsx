@@ -104,39 +104,76 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
           </button>
         </div>
 
-        <div className="nav-section-title">System</div>
+        <div className="nav-section-title">System & Governance</div>
         <div className="nav-grid">
-          <button className="nav-item">
+          <button
+            className={`nav-item ${currentPage === 'legacy-codes' ? 'active' : ''}`}
+            onClick={() => onNavigate('legacy-codes')}
+          >
+            <Layers size={16} />
+            <span>Legacy Codes</span>
+          </button>
+          <button
+            className={`nav-item ${currentPage === 'policies' ? 'active' : ''}`}
+            onClick={() => onNavigate('policies')}
+          >
             <FileText size={16} />
             <span>Policies</span>
           </button>
-          <button className="nav-item">
+          <button
+            className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
+            onClick={() => onNavigate('audit')}
+          >
             <FileCheck size={16} />
             <span>Audit & Compliance</span>
           </button>
-           <button className="nav-item">
+          <button
+            className={`nav-item ${currentPage === 'users-roles' ? 'active' : ''}`}
+            onClick={() => onNavigate('users-roles')}
+          >
             <UserCircle size={16} />
             <span>Users & Roles</span>
+          </button>
+          <button
+            className={`nav-item ${currentPage === 'sap-settings' ? 'active' : ''}`}
+            onClick={() => onNavigate('sap-settings')}
+          >
+            <Activity size={16} />
+            <span>SAP S/4HANA Gateway</span>
           </button>
         </div>
       </div>
 
       <div style={{ flex: 1 }} />
 
-      {/* Profile */}
-      <div className="sidebar-profile" style={{ cursor: 'pointer' }} onClick={logout} title="Click to Log Out">
-        <div className="profile-avatar">
-          {user?.fullName ? user.fullName[0] : 'U'}
-        </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div className="profile-name" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {user?.fullName || 'User'}
+      {/* Profile Bar */}
+      <div className="sidebar-profile-row">
+        <div 
+          className="sidebar-profile" 
+          style={{ cursor: 'pointer', flex: 1 }} 
+          onClick={() => onNavigate('profile')} 
+          title="View Sovereign Profile"
+        >
+          <div className="profile-avatar">
+            {user?.fullName ? user.fullName[0] : 'U'}
           </div>
-          <div className="profile-role" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-             {user?.roleCode ? user.roleCode.replace(/_/g, ' ') : ''}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div className="profile-name" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {user?.fullName || 'User'}
+            </div>
+            <div className="profile-role" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {user?.roleCode ? user.roleCode.replace(/_/g, ' ') : ''}
+            </div>
           </div>
         </div>
-        <LogOut size={14} color="var(--text-muted)" />
+
+        <button 
+          className="sidebar-logout-btn"
+          onClick={logout}
+          title="Sign Out"
+        >
+          <LogOut size={14} />
+        </button>
       </div>
     </div>
   );
