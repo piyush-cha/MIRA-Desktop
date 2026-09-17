@@ -290,6 +290,48 @@ export const api = {
     const response = await apiClient.post('/sap/mcp/chat', payload);
     return response.data;
   },
+
+  // ===========================================================================
+  // CPSE Enterprise Admin & Inter-Plant Collaboration
+  // ===========================================================================
+  getCpseAdminOverview: async (cpseName: string, cpseCode: string) => {
+    const response = await apiClient.get(`/${cpseName.toLowerCase()}/overview/${cpseCode}`);
+    return response.data;
+  },
+
+  getInterPlantCollaborationGraph: async (cpseName: string) => {
+    const response = await apiClient.get(`/${cpseName.toLowerCase()}/collaboration/graph`);
+    return response.data;
+  },
+
+  triggerInterPlantTransfer: async (cpseName: string, payload: {
+    source_plant: string;
+    target_plant: string;
+    material_code: string;
+    quantity: number;
+    uom: string;
+    urgency: string;
+  }) => {
+    const response = await apiClient.post(`/${cpseName.toLowerCase()}/collaboration/transfer`, payload);
+    return response.data;
+  },
+
+  getCpseAdminCatalog: async (cpseName: string, cpseCode: string, search?: string) => {
+    const response = await apiClient.get(`/${cpseName.toLowerCase()}/catalog/${cpseCode}`, { params: { search } });
+    return response.data;
+  },
+
+  createHierarchyNode: async (cpseName: string, payload: {
+    cpse_code: string;
+    parent_node_code: string;
+    unit_name: string;
+    unit_code: string;
+    type_code: string;
+    location: string;
+  }) => {
+    const response = await apiClient.post(`/${cpseName.toLowerCase()}/nodes/create`, payload);
+    return response.data;
+  },
 };
 
 // ===========================================================================

@@ -72,7 +72,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
             onClick={() => onNavigate('onboarding')}
           >
             <Building2 size={16} />
-            <span>CPSEs</span>
+            <span>CPSEs Directory</span>
+          </button>
+          <button
+            className={`nav-item ${currentPage === 'admin' || currentPage === 'cpse-portal' ? 'active' : ''}`}
+            onClick={() => onNavigate('admin')}
+          >
+            <Building2 size={16} color="#2563eb" />
+            <span style={{ fontWeight: 700, color: '#2563eb' }}>CPSE Admin Portal</span>
           </button>
           <button
             className={`nav-item ${currentPage === 'cnmc' ? 'active' : ''}`}
