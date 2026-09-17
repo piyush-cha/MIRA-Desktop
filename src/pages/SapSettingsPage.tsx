@@ -68,8 +68,8 @@ export const SapSettingsPage: React.FC<{ onNavigate: (page: string) => void }> =
 
             return (
               <div key={cfg.config_id} className="sap-config-card">
-                <div className="sap-card-header">
-                  <div className="flex items-center gap-2">
+                <div className="sap-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <div className="sap-logo-badge">{cfg.cpse_code}</div>
                     <div>
                       <h3 className="sap-card-title">{cfg.cpse_code} SAP Gateway</h3>
@@ -88,12 +88,12 @@ export const SapSettingsPage: React.FC<{ onNavigate: (page: string) => void }> =
 
                 <div className="sap-field-row">
                   <span className="sap-field-label">Linked Plant Codes:</span>
-                  <span className="font-mono text-xs">{cfg.plant_codes}</span>
+                  <span style={{ fontFamily: 'monospace', fontSize: '11.5px', color: 'var(--text-primary)', fontWeight: 600 }}>{cfg.plant_codes}</span>
                 </div>
 
                 <div className="sap-field-row">
                   <span className="sap-field-label">Delta Sync Interval:</span>
-                  <span className="text-xs font-semibold">{cfg.sync_interval_mins} minutes</span>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)' }}>{cfg.sync_interval_mins} minutes</span>
                 </div>
 
                 {result && (
@@ -102,13 +102,13 @@ export const SapSettingsPage: React.FC<{ onNavigate: (page: string) => void }> =
                       <CheckCircle2 size={13} color="#10b981" />
                       <span>Diagnostics: Latency {result.handshake_latency_ms}ms</span>
                     </div>
-                    <div className="text-xs text-muted">
+                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.4 }}>
                       Ready: {result.odata_services_ready?.slice(0, 2).join(', ')}...
                     </div>
                   </div>
                 )}
 
-                <div className="sap-card-actions">
+                <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
                   <button 
                     className="gov-btn secondary small w-full"
                     disabled={isTesting}

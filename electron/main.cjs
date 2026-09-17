@@ -2,6 +2,10 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+// Suppress GPU disk cache lock errors in Windows environment
+app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
+app.commandLine.appendSwitch('disable-http-cache');
+
 let mainWindow;
 
 function createWindow() {

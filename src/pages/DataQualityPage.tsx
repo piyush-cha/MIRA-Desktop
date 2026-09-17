@@ -138,7 +138,7 @@ export const DataQualityPage: React.FC<{ onNavigate: (page: string) => void }> =
                       {issue.details}
                     </td>
                     <td>
-                      <div className="flex items-center gap-2">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <button 
                           className="gov-btn small primary"
                           disabled={actionInProgress === issue.issue_id}
