@@ -11,6 +11,7 @@ export interface UserProfile {
   cpseId?: string | null;
   cpseName?: string | null;
   cpseCode?: string | null;
+  plantUnitId?: string | null;
   scope?: string | null;
   designation?: string | null;
 }

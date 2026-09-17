@@ -391,17 +391,34 @@ export const MiraFloatingBot: React.FC = () => {
 
   return (
     <>
-      {/* ─────── Floating 3D Character (when chat is closed) ─────── */}
+      {/* ─────── Sleek Non-Intrusive Floating Copilot Pill ─────── */}
       {!isOpen && (
-        <div className="mira-floating-character-wrapper">
-          <MiraSpeechBubble text={speechText} visible={showSpeech} />
-          <Mira3DAvatar mood={avatarMood} size={110} onClick={openChat} />
-          <div className="mira-char-name-badge" onClick={openChat}>
-            <span className="mira-char-pulse"></span>
-            MIRA Copilot
+        <div 
+          className="mira-floating-pill-trigger"
+          onClick={openChat}
+          onMouseEnter={() => setShowSpeech(true)}
+          onMouseLeave={() => setShowSpeech(false)}
+          title="Open MIRA Sovereign AI Copilot (SAP MM MCP)"
+        >
+          {showSpeech && (
+            <div className="mira-speech-bubble-tooltip">
+              {speechText || "Click to open MIRA Copilot & SAP MCP ✨"}
+              <div className="mira-speech-tooltip-tail" />
+            </div>
+          )}
+          <div className="mira-pill-avatar-icon">
+            <Cpu size={16} color="#FFFFFF" />
+          </div>
+          <div className="mira-pill-label-wrap">
+            <div className="mira-pill-title-row">
+              <span className="mira-pill-title">MIRA Copilot</span>
+              <span className="mira-char-pulse" />
+            </div>
+            <span className="mira-pill-sub">SAP MM MCP · ONLINE</span>
           </div>
         </div>
       )}
+
 
       {/* ─────── Chat Window ─────── */}
       {isOpen && (

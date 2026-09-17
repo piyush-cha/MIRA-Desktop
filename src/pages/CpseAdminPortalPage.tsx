@@ -11,15 +11,39 @@ import {
 
 interface CpseAdminPortalPageProps {
   onNavigate: (page: string) => void;
+  initialTab?: 'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap';
 }
 
-export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavigate }) => {
+export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavigate, initialTab }) => {
   const { user } = useAuthStore();
   
-  const [selectedCpseCode, setSelectedCpseCode] = useState<string>(user?.cpseCode || 'COALINDIA');
-  const [selectedCpseName, setSelectedCpseName] = useState<string>(user?.cpseName || 'Coal India Limited');
+  const cpseNameMap: Record<string, string> = {
+    COALINDIA: 'Coal India Limited',
+    BHEL: 'Bharat Heavy Electricals Limited',
+    ONGC: 'Oil and Natural Gas Corporation',
+    SAIL: 'Steel Authority of India Limited',
+    NTPC: 'NTPC Limited',
+    IOCL: 'Indian Oil Corporation Limited'
+  };
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap'>('overview');
+  const initialCode = (user?.cpseCode && user.cpseCode !== 'GOV') ? user.cpseCode : 'COALINDIA';
+  const [selectedCpseCode, setSelectedCpseCode] = useState<string>(initialCode);
+  const [selectedCpseName, setSelectedCpseName] = useState<string>(cpseNameMap[initialCode] || user?.cpseName || 'Coal India Limited');
+
+  const [activeTab, setActiveTab] = useState<'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap'>(initialTab || 'overview');
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
+
+  useEffect(() => {
+    if (user?.cpseCode && user.cpseCode !== 'GOV') {
+      setSelectedCpseCode(user.cpseCode);
+      setSelectedCpseName(cpseNameMap[user.cpseCode] || user.cpseName || user.cpseCode);
+    }
+  }, [user]);
   
   // Data States
   const [overviewData, setOverviewData] = useState<any | null>(null);

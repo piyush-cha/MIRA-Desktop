@@ -332,6 +332,68 @@ export const api = {
     const response = await apiClient.post(`/${cpseName.toLowerCase()}/nodes/create`, payload);
     return response.data;
   },
+
+  // ---------------------------------------------------------------------------
+  // Plant & Area Operations Telemetry & Workflows
+  // ---------------------------------------------------------------------------
+  getPlantOverview: async (unitCode: string) => {
+    const response = await apiClient.get(`/plant-ops/overview/${unitCode}`);
+    return response.data;
+  },
+
+  getPlantInventory: async (unitCode: string, search?: string, statusFilter?: string, sloc?: string) => {
+    const response = await apiClient.get(`/plant-ops/inventory/${unitCode}`, {
+      params: { search, status_filter: statusFilter, sloc }
+    });
+    return response.data;
+  },
+
+  getPlantTransfers: async (unitCode: string) => {
+    const response = await apiClient.get(`/plant-ops/transfers/${unitCode}`);
+    return response.data;
+  },
+
+  requestPlantTransfer: async (payload: {
+    source_plant_code: string;
+    target_plant_code: string;
+    material_code: string;
+    standard_name: string;
+    quantity: number;
+    uom: string;
+    urgency: string;
+    requester_name: string;
+    reason: string;
+  }) => {
+    const response = await apiClient.post('/plant-ops/transfers/request', payload);
+    return response.data;
+  },
+
+  dispatchPlantTransfer: async (payload: {
+    transfer_id: string;
+    transporter_name: string;
+    vehicle_number: string;
+    driver_contact: string;
+    dispatch_notes?: string;
+  }) => {
+    const response = await apiClient.post('/plant-ops/transfers/dispatch', payload);
+    return response.data;
+  },
+
+  createPlantIndent: async (payload: {
+    plant_code: string;
+    storage_location: string;
+    cnmc_code: string;
+    legacy_code: string;
+    material_description: string;
+    quantity: number;
+    uom: string;
+    estimated_cost_inr: number;
+    work_order_ref: string;
+    criticality: string;
+  }) => {
+    const response = await apiClient.post('/plant-ops/indent', payload);
+    return response.data;
+  },
 };
 
 // ===========================================================================

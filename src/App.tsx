@@ -15,6 +15,7 @@ import { AuditCompliancePage } from './pages/AuditCompliancePage';
 import { UsersRolesPage } from './pages/UsersRolesPage';
 import { SapSettingsPage } from './pages/SapSettingsPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { PlantAreaDashboardPage } from './pages/PlantAreaDashboardPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { MiraFloatingBot } from './components/ai/MiraFloatingBot';
 
@@ -23,7 +24,19 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<string>('national');
 
   if (!isAuthenticated) {
-    return <LoginPage onSuccessLogin={(role) => setCurrentPage(role === 'NATIONAL_GOVERNANCE' ? 'national' : 'admin')} />;
+    return (
+      <LoginPage 
+        onSuccessLogin={(role) => {
+          if (role === 'NATIONAL_GOVERNANCE') {
+            setCurrentPage('national');
+          } else if (role === 'PLANT_USER' || role === 'AREA_ADMIN') {
+            setCurrentPage('plant-dashboard');
+          } else {
+            setCurrentPage('admin');
+          }
+        }} 
+      />
+    );
   }
 
   const handleNavigate = (page: string) => {
@@ -41,7 +54,22 @@ export default function App() {
         return <CpseOnboardingPage onNavigate={handleNavigate} />;
       case 'admin':
       case 'cpse-portal':
-        return <CpseAdminPortalPage onNavigate={handleNavigate} />;
+        return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="overview" />;
+      case 'admin-collab':
+        return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="collaboration" />;
+      case 'admin-hierarchy':
+        return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="hierarchy" />;
+      case 'admin-catalog':
+        return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="catalog" />;
+      case 'plant-dashboard':
+      case 'plant-inv':
+        return <PlantAreaDashboardPage onNavigate={handleNavigate} initialTab="inventory" />;
+      case 'plant-transfers':
+        return <PlantAreaDashboardPage onNavigate={handleNavigate} initialTab="transfers" />;
+      case 'plant-indents':
+        return <PlantAreaDashboardPage onNavigate={handleNavigate} initialTab="indents" />;
+      case 'plant-consumption':
+        return <PlantAreaDashboardPage onNavigate={handleNavigate} initialTab="consumption" />;
       case 'cnmc':
         return <CnmcMaterialPage onNavigate={handleNavigate} />;
       case 'cross-cpse':
