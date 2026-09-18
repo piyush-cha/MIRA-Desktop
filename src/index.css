@@ -514,7 +514,8 @@ html, body, #root {
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 16px;
-  height: 600px;
+  min-height: 700px;
+  height: 720px;
 }
 .graph-canvas-card {
   background: #0F172A;
@@ -541,6 +542,519 @@ html, body, #root {
 }
 .legend-item { display: flex; align-items: center; gap: 6px; }
 .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.graph-mode-toggle {
+  display: flex;
+  background: #0F172A;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 4px;
+}
+
+.graph-mode-toggle .mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.graph-mode-toggle .mode-btn:hover {
+  color: #FFFFFF;
+}
+
+.graph-mode-toggle .mode-btn.active {
+  background: #1E293B;
+  color: #38BDF8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Inter-CPSE Node Harmonization Pipeline ── */
+.pipeline-canvas-wrapper,
+.pipeline-pipeline-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0B1120;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #1E293B;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.pipeline-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #0F172A;
+  border-bottom: 1px solid #1E293B;
+  gap: 12px;
+  flex-wrap: wrap;
+  z-index: 20;
+}
+
+.pipeline-bar-left, .pipeline-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pipeline-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34D399;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.pipeline-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.pipeline-scenario-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pipeline-bar-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #64748B;
+  white-space: nowrap;
+}
+
+.pipeline-scenario-select {
+  background: #1E293B;
+  border: 1px solid #334155;
+  color: #F8FAFC;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  max-width: 380px;
+  transition: border-color 0.15s;
+}
+
+.pipeline-scenario-select:focus {
+  border-color: #3B82F6;
+}
+
+.pipeline-zoom-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.pipeline-icon-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.pipeline-icon-btn:hover {
+  color: #FFFFFF;
+  background: #334155;
+}
+
+.pipeline-zoom-label {
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+  color: #CBD5E1;
+  min-width: 36px;
+  text-align: center;
+}
+
+.pipeline-bar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.pipeline-bar-btn.secondary {
+  background: #1E293B;
+  color: #CBD5E1;
+  border: 1px solid #334155;
+}
+
+.pipeline-bar-btn.secondary:hover {
+  background: #334155;
+  color: #FFFFFF;
+}
+
+.pipeline-bar-btn.primary {
+  background: #2563EB;
+  color: #FFFFFF;
+  border: 1px solid #3B82F6;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.pipeline-bar-btn.primary:hover {
+  background: #1D4ED8;
+  transform: translateY(-1px);
+}
+
+/* Viewport & Canvas */
+.pipeline-canvas-viewport {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  background: #090E1A;
+  min-height: 520px;
+}
+
+.pipeline-canvas-content {
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-grid-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.pipeline-connections-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.pipeline-cable-path {
+  transition: stroke 0.2s ease;
+}
+
+/* Pipeline Node Card */
+.pipeline-node-card-wrapper {
+  user-select: none;
+}
+
+.pipeline-node-card {
+  background: #0F172A;
+  border: 1.5px solid #334155;
+  border-radius: 10px;
+  overflow: visible;
+  position: relative;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility;
+  transform: translateZ(0);
+}
+
+.pipeline-node-card:hover {
+  border-color: #60A5FA;
+}
+
+.pipeline-node-card.selected {
+  border-color: #38BDF8 !important;
+}
+
+/* Pipeline Colored Header Bar */
+.pipeline-node-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+}
+
+.pipeline-node-idx {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: var(--font-mono, monospace);
+}
+
+.pipeline-node-stage-tag {
+  text-transform: uppercase;
+}
+
+.pipeline-node-type-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Body */
+.pipeline-node-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.pipeline-node-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pipeline-node-icon-box {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #1E293B;
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pipeline-node-names {
+  flex: 1;
+  min-width: 0;
+}
+
+.pipeline-node-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8FAFC;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pipeline-node-subtitle {
+  font-size: 10.5px;
+  color: #94A3B8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Code Chip */
+.pipeline-node-code-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pipeline-code-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #1E293B;
+  border: 1px solid #334155;
+  color: #38BDF8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 155px;
+}
+
+.pipeline-cpse-badge {
+  background: #1E3A8A;
+  border: 1px solid #3B82F6;
+  color: #FFFFFF;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* Metric Row */
+.pipeline-node-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10.5px;
+  background: rgba(30, 41, 59, 0.4);
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(51, 65, 85, 0.4);
+}
+
+.pipeline-metric-label {
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.pipeline-metric-val {
+  color: #34D399;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+}
+
+/* Footer */
+.pipeline-node-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(51, 65, 85, 0.4);
+  padding-top: 5px;
+  font-size: 9.5px;
+}
+
+.pipeline-status-pill-small {
+  display: inline-flex;
+  padding: 1.5px 5px;
+  border-radius: 3px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pipeline-status-pill-small.optimal {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.pipeline-status-pill-small.breach {
+  background: rgba(244, 63, 94, 0.15);
+  color: #FB7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.pipeline-status-pill-small.synced, .pipeline-status-pill-small.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.pipeline-status-pill-small.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.pipeline-footer-hint {
+  color: #64748B;
+  font-style: italic;
+}
+
+/* Pipeline Connection Pins (Triangles) */
+.pipeline-pin {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+}
+
+.pipeline-pin.input {
+  left: -8px;
+}
+
+.pipeline-pin.output {
+  right: -8px;
+}
+
+.pipeline-pin-triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.pipeline-pin-triangle.input {
+  border-width: 5px 0 5px 7px;
+  border-color: transparent transparent transparent #34D399;
+  filter: drop-shadow(0 0 4px #34D399);
+}
+
+.pipeline-pin-triangle.output {
+  border-width: 5px 0 5px 7px;
+  border-color: transparent transparent transparent #F59E0B;
+  filter: drop-shadow(0 0 4px #F59E0B);
+}
+
+/* Footer Stats */
+.pipeline-footer-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  background: #0B1120;
+  border-top: 1px solid #1E293B;
+  font-size: 11px;
+  color: #94A3B8;
+  flex-wrap: wrap;
+  z-index: 20;
+}
+
+.pipeline-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pipeline-stat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pipeline-stat-dot.green { background: #10B981; box-shadow: 0 0 6px #10B981; }
+.pipeline-stat-dot.blue { background: #3B82F6; box-shadow: 0 0 6px #3B82F6; }
+.pipeline-stat-dot.gold { background: #F59E0B; box-shadow: 0 0 6px #F59E0B; }
+
+.pipeline-stat-hint {
+  margin-left: auto;
+  font-size: 10.5px;
+  color: #64748B;
+}
 
 .node-inspector-card {
   background: var(--bg-card);

@@ -3,10 +3,12 @@ import ReactECharts from 'echarts-for-react';
 import { 
   Activity, Network, Layers, Building2, Search, Filter, RefreshCw, 
   ArrowRight, ShieldCheck, DollarSign, TrendingDown, Eye, CheckCircle2,
-  AlertTriangle, Sparkles, ZoomIn, ZoomOut, Maximize2, Link2, SlidersHorizontal
+  AlertTriangle, Sparkles, ZoomIn, ZoomOut, Maximize2, Link2, SlidersHorizontal,
+  GitBranch
 } from 'lucide-react';
 import { AppShell } from '../components/layout/AppShell';
 import { api, getApiErrorMessage } from '../api/client';
+import { InterCpseNodePipeline } from '../components/intel/InterCpseNodePipeline';
 
 interface NodeItem {
   id: string;
@@ -46,6 +48,7 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
   const [selectedNode, setSelectedNode] = useState<NodeItem | null>(null);
   const [priceParity, setPriceParity] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'visualizer' | 'parity' | 'savings'>('visualizer');
+  const [editorMode, setEditorMode] = useState<'pipeline' | 'topology'>('pipeline');
   
   // Remap Modal State
   const [remapModalOpen, setRemapModalOpen] = useState<boolean>(false);
@@ -225,6 +228,29 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
           </div>
 
           <div className="intel-filters">
+            {activeTab === 'visualizer' && (
+              <div className="graph-mode-toggle">
+                <button 
+                  className={`mode-btn ${editorMode === 'pipeline' ? 'active' : ''}`}
+                  onClick={() => setEditorMode('pipeline')}
+                  type="button"
+                  title="Inter-CPSE Harmonization Node Pipeline"
+                >
+                  <GitBranch size={13} />
+                  <span>Inter-CPSE Pipeline</span>
+                </button>
+                <button 
+                  className={`mode-btn ${editorMode === 'topology' ? 'active' : ''}`}
+                  onClick={() => setEditorMode('topology')}
+                  type="button"
+                  title="ECharts Global Network Topology"
+                >
+                  <Network size={13} />
+                  <span>Network Topology</span>
+                </button>
+              </div>
+            )}
+
             {/* CPSE Filter */}
             <select 
               className="gov-select"
@@ -262,37 +288,61 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
         {activeTab === 'visualizer' && (
           <div className="visualizer-layout">
             <div className="graph-canvas-card">
-              {/* Legend overlay */}
-              <div className="graph-legend-overlay">
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#3b82f6' }}></span>
-                  <span>CPSE Entity</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#10b981' }}></span>
-                  <span>CNMC Golden Record</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#f59e0b' }}></span>
-                  <span>Approved Legacy Code</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#ef4444' }}></span>
-                  <span>Suggested / Under Review</span>
-                </div>
-              </div>
-
-              {loading ? (
-                <div className="chart-loading-state">
-                  <RefreshCw size={24} className="spinning" />
-                  <span>Computing Inter-CPSE Graph Physics & Topologies...</span>
-                </div>
-              ) : (
-                <ReactECharts
-                  option={getOption()}
-                  style={{ height: '580px', width: '100%' }}
-                  onEvents={{ click: onChartClick }}
+              {editorMode === 'pipeline' ? (
+                <InterCpseNodePipeline
+                  onSelectNode={(node) => {
+                    setSelectedNode({
+                      id: node.id,
+                      node_type: node.type === 'cpse_source' ? 'CPSE' : node.type === 'cnmc_golden' ? 'CNMC_GOLDEN' : 'LEGACY_MATERIAL',
+                      label: node.code,
+                      name: node.title,
+                      category: node.subtitle,
+                      cpse_code: node.cpseCode,
+                      unit_price_inr: parseFloat(node.metricValue.replace(/[^0-9.]/g, '')) || undefined,
+                      mapping_status: node.status,
+                      color: node.color,
+                      size: 35
+                    });
+                    if (node.code) setTargetCnmcInput(node.code);
+                  }}
+                  selectedNodeId={selectedNode?.id}
+                  onOpenRemapModal={() => setRemapModalOpen(true)}
                 />
+              ) : (
+                <>
+                  {/* Legend overlay */}
+                  <div className="graph-legend-overlay">
+                    <div className="legend-item">
+                      <span className="legend-dot" style={{ background: '#3b82f6' }}></span>
+                      <span>CPSE Entity</span>
+                    </div>
+                    <div className="legend-item">
+                      <span className="legend-dot" style={{ background: '#10b981' }}></span>
+                      <span>CNMC Golden Record</span>
+                    </div>
+                    <div className="legend-item">
+                      <span className="legend-dot" style={{ background: '#f59e0b' }}></span>
+                      <span>Approved Legacy Code</span>
+                    </div>
+                    <div className="legend-item">
+                      <span className="legend-dot" style={{ background: '#ef4444' }}></span>
+                      <span>Suggested / Under Review</span>
+                    </div>
+                  </div>
+
+                  {loading ? (
+                    <div className="chart-loading-state">
+                      <RefreshCw size={24} className="spinning" />
+                      <span>Computing Inter-CPSE Graph Physics & Topologies...</span>
+                    </div>
+                  ) : (
+                    <ReactECharts
+                      option={getOption()}
+                      style={{ height: '100%', width: '100%', minHeight: '620px' }}
+                      onEvents={{ click: onChartClick }}
+                    />
+                  )}
+                </>
               )}
             </div>
 
@@ -347,10 +397,13 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
                     )}
                   </div>
 
-                  {selectedNode.node_type === 'LEGACY_MATERIAL' && (
+                  {selectedNode && (
                     <button 
                       className="remap-action-btn"
-                      onClick={() => setRemapModalOpen(true)}
+                      onClick={() => {
+                        if (selectedNode.label) setTargetCnmcInput(selectedNode.label);
+                        setRemapModalOpen(true);
+                      }}
                     >
                       <Link2 size={14} />
                       <span>Remap / Align to Golden CNMC</span>
