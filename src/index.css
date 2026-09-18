@@ -332,6 +332,7 @@ html, body, #root {
 /* ── Container & Top Bars ── */
 .gov-page-container {
   padding: 24px;
+  padding-bottom: 90px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -923,56 +924,304 @@ html, body, #root {
 /* ── Policies & SAP Configs Grid ── */
 .policies-grid, .sap-configs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
 }
+
 .policy-card, .sap-config-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-lg);
-  padding: 18px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: var(--shadow-card);
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.2s ease;
 }
-.policy-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.policy-category-badge {
-  font-size: 10px;
-  font-weight: 700;
-  color: #2563EB;
-  background: #DBEAFE;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-.policy-title { font-size: 14px; font-weight: 700; margin-top: 4px; color: var(--text-primary); }
-.policy-key-text { font-size: 10px; color: var(--text-muted); background: var(--bg-card-alt); padding: 2px 4px; border-radius: 3px; }
-.policy-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
 
-.policy-control-row { display: flex; gap: 8px; align-items: center; }
-.policy-toggle-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-medium);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  background: var(--bg-card);
+/* Subtle top gradient accent on hover */
+.policy-card::before, .sap-config-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
-.policy-toggle-btn.enabled { color: #16A34A; background: #DCFCE7; border-color: #BBF7D0; }
-.policy-toggle-btn.disabled { color: #71717A; }
-.policy-input-wrapper { flex: 1; }
 
-.policy-meta-footer {
+.policy-card:hover, .sap-config-card:hover {
+  transform: translateY(-4px);
+  border-color: #CBD5E1;
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+}
+
+.policy-card:hover::before, .sap-config-card:hover::before {
+  opacity: 1;
+}
+
+.policy-card-top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Institutional Category Badges */
+.policy-category-badge {
   font-size: 10px;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border-light);
-  padding-top: 8px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2.5px 8px;
+  border-radius: 5px;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+
+.policy-category-badge.compliance {
+  background: #FEF3C7;
+  color: #B45309;
+  border-color: #FDE68A;
+}
+
+.policy-category-badge.harmonization {
+  background: #ECFDF5;
+  color: #047857;
+  border-color: #A7F3D0;
+}
+
+.policy-category-badge.sap-integration {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+}
+
+.policy-category-badge.security {
+  background: #FFF1F2;
+  color: #BE123C;
+  border-color: #FECDD3;
+}
+
+.policy-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  min-height: 38px;
+}
+
+.policy-key-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #64748B;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.policy-desc {
+  font-size: 12px;
+  color: #64748B;
+  line-height: 1.5;
+  min-height: 52px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Control Row */
+.policy-control-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.policy-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  flex: 1;
+}
+
+.policy-toggle-btn.enabled {
+  color: #047857;
+  background: #ECFDF5;
+  border: 1.5px solid #6EE7B7;
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.1);
+}
+
+.policy-toggle-btn.enabled:hover {
+  background: #D1FAE5;
+  border-color: #34D399;
+}
+
+.policy-toggle-btn.disabled {
+  color: #64748B;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+}
+
+.policy-toggle-btn.disabled:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  color: #334155;
+}
+
+.policy-input-wrapper {
+  flex: 1;
+}
+
+.policy-numeric-input {
+  width: 100%;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+  font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.policy-numeric-input:focus {
+  background: #FFFFFF;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Save Rule Button */
+.policy-save-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.policy-save-btn.idle {
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #94A3B8;
+  cursor: not-allowed;
+}
+
+.policy-save-btn.active {
+  background: #0F172A;
+  border: 1px solid #0F172A;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+}
+
+.policy-save-btn.active:hover {
+  background: #1E293B;
+  border-color: #1E293B;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Footer Metadata */
+.policy-meta-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border-top: 1px solid #F1F5F9;
+  padding: 10px 16px;
+  margin: 6px -20px -20px -20px;
+  background: #F8FAFC;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.policy-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.policy-meta-row .meta-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748B;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.policy-meta-row .meta-icon {
+  color: #94A3B8;
+  flex-shrink: 0;
+}
+
+.policy-meta-row .meta-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #1E293B;
+  font-weight: 600;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 190px;
+}
+
+.policy-meta-row .meta-val.timestamp {
+  font-family: var(--font-mono, monospace);
+  color: #475569;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  max-width: none;
+}
+
+.meta-updated-by b {
+  color: #475569;
+}
+
+.meta-updated-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748B;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── SAP Cards ── */
@@ -1148,6 +1397,254 @@ html, body, #root {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+/* ── Enterprise Organizational Hierarchy Tree & Modal ── */
+.modal-dialog.hierarchy-modal-dialog {
+  max-width: 740px;
+  width: 92%;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  animation: modalScaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-heading {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.modal-subheading {
+  font-size: 11.5px;
+  color: #64748B;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.modal-close-icon-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-close-icon-btn:hover {
+  background: #F1F5F9;
+  border-color: #E2E8F0;
+  color: #0F172A;
+}
+
+.hierarchy-modal-body {
+  padding: 20px;
+  background: #F8FAFC;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+/* ── Tree View Container ── */
+.hierarchy-tree-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tree-node-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Parent / Root Card */
+.tree-node-card.root {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tree-node-card.root:hover {
+  border-color: #94A3B8;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.tree-node-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tree-node-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.node-name-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.node-code-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+  padding: 1.5px 7px;
+  border-radius: 4px;
+}
+
+.node-location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: #64748B;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Node Type Badges */
+.node-type-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2.5px 8px;
+  border-radius: 4px;
+}
+
+.node-type-badge.holding,
+.node-type-badge.hq {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+
+.node-type-badge.area,
+.node-type-badge.division {
+  background: #FAF5FF;
+  color: #7E22CE;
+  border: 1px solid #E9D5FF;
+}
+
+.node-type-badge.plant,
+.node-type-badge.unit {
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+}
+
+/* Children Container & Connecting Branches */
+.tree-children-container {
+  margin-left: 28px;
+  padding-left: 22px;
+  border-left: 2px dashed #CBD5E1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  position: relative;
+}
+
+.tree-node-child-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  transition: all 0.15s ease;
+}
+
+.tree-node-child-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.06);
+  transform: translateX(2px);
+}
+
+.tree-child-connector {
+  position: absolute;
+  left: -22px;
+  top: 50%;
+  width: 20px;
+  height: 2px;
+  border-top: 2px dashed #CBD5E1;
+}
+
+/* Single Leaf Hint (When no children exist yet) */
+.tree-single-leaf-hint {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #EFF6FF;
+  border: 1px solid #DBEAFE;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 11.5px;
+  color: #1E40AF;
+  line-height: 1.4;
+}
+
+.tree-single-leaf-hint svg {
+  flex-shrink: 0;
+  color: #3B82F6;
+}
+
+.hierarchy-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #94A3B8;
+  gap: 10px;
+  font-size: 13px;
 }
 /* ===========================================================================
    Modern Enterprise Form Design System & Inputs
