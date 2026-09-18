@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { 
   Send, Mic, MicOff, Paperclip, X, Minimize2, Maximize2,
-  Command, AtSign, Cpu, MessageCircle
+  Command, AtSign, Cpu, MessageCircle, GripHorizontal
 } from 'lucide-react';
 import { api, getApiErrorMessage } from '../../api/client';
 import { useAuthStore } from '../../store/authStore';
@@ -186,6 +186,188 @@ export const MiraFloatingBot: React.FC = () => {
   const [speechText, setSpeechText] = useState<string>('');
   const [showSpeech, setShowSpeech] = useState<boolean>(false);
   
+  // Movable / Dragging States
+  const [charPos, setCharPos] = useState<{ x: number; y: number } | null>(() => {
+    try {
+      const saved = localStorage.getItem('mira_char_pos');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [windowPos, setWindowPos] = useState<{ x: number; y: number } | null>(() => {
+    try {
+      const saved = localStorage.getItem('mira_window_pos');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [isDraggingChar, setIsDraggingChar] = useState<boolean>(false);
+  const [isDraggingWindow, setIsDraggingWindow] = useState<boolean>(false);
+
+  const charRef = useRef<HTMLDivElement>(null);
+  const windowRef = useRef<HTMLDivElement>(null);
+  const isDraggingCharRef = useRef<boolean>(false);
+  const isDraggingWindowRef = useRef<boolean>(false);
+
+  // Persist positions in localStorage
+  useEffect(() => {
+    if (charPos) {
+      try {
+        localStorage.setItem('mira_char_pos', JSON.stringify(charPos));
+      } catch {}
+    }
+  }, [charPos]);
+
+  useEffect(() => {
+    if (windowPos) {
+      try {
+        localStorage.setItem('mira_window_pos', JSON.stringify(windowPos));
+      } catch {}
+    }
+  }, [windowPos]);
+
+  // Keep bot within screen bounds on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (charPos) {
+        setCharPos((prev) => {
+          if (!prev) return null;
+          return {
+            x: Math.max(10, Math.min(window.innerWidth - 130, prev.x)),
+            y: Math.max(10, Math.min(window.innerHeight - 150, prev.y))
+          };
+        });
+      }
+      if (windowPos) {
+        setWindowPos((prev) => {
+          if (!prev) return null;
+          return {
+            x: Math.max(10, Math.min(window.innerWidth - 490, prev.x)),
+            y: Math.max(10, Math.min(window.innerHeight - 80, prev.y))
+          };
+        });
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [charPos, windowPos]);
+
+  // Drag handler for the floating character
+  const handleCharMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if ('button' in e && e.button !== 0) return;
+    const elem = charRef.current;
+    if (!elem) return;
+
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+    const rect = elem.getBoundingClientRect();
+    const startX = clientX;
+    const startY = clientY;
+    const initialLeft = rect.left;
+    const initialTop = rect.top;
+    let hasMoved = false;
+
+    const onMove = (moveEvent: MouseEvent | TouchEvent) => {
+      const currentX = 'touches' in moveEvent ? moveEvent.touches[0].clientX : moveEvent.clientX;
+      const currentY = 'touches' in moveEvent ? moveEvent.touches[0].clientY : moveEvent.clientY;
+      const dx = currentX - startX;
+      const dy = currentY - startY;
+
+      if (!hasMoved && Math.hypot(dx, dy) > 4) {
+        hasMoved = true;
+        isDraggingCharRef.current = true;
+        setIsDraggingChar(true);
+      }
+
+      if (hasMoved) {
+        const clampedX = Math.max(10, Math.min(window.innerWidth - rect.width - 10, initialLeft + dx));
+        const clampedY = Math.max(10, Math.min(window.innerHeight - rect.height - 10, initialTop + dy));
+        setCharPos({ x: clampedX, y: clampedY });
+      }
+    };
+
+    const onEnd = () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
+      setIsDraggingChar(false);
+      if (hasMoved) {
+        setTimeout(() => {
+          isDraggingCharRef.current = false;
+        }, 80);
+      }
+    };
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onEnd);
+  };
+
+  // Drag handler for the chat window (via header)
+  const handleHeaderMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if ('button' in e && e.button !== 0) return;
+    const target = e.target as HTMLElement;
+    if (target.closest('select, button, input, textarea, a, option')) {
+      return;
+    }
+    const elem = windowRef.current;
+    if (!elem) return;
+
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+    const rect = elem.getBoundingClientRect();
+    const startX = clientX;
+    const startY = clientY;
+    const initialLeft = rect.left;
+    const initialTop = rect.top;
+    let hasMoved = false;
+
+    const onMove = (moveEvent: MouseEvent | TouchEvent) => {
+      const currentX = 'touches' in moveEvent ? moveEvent.touches[0].clientX : moveEvent.clientX;
+      const currentY = 'touches' in moveEvent ? moveEvent.touches[0].clientY : moveEvent.clientY;
+      const dx = currentX - startX;
+      const dy = currentY - startY;
+
+      if (!hasMoved && Math.hypot(dx, dy) > 4) {
+        hasMoved = true;
+        isDraggingWindowRef.current = true;
+        setIsDraggingWindow(true);
+      }
+
+      if (hasMoved) {
+        const clampedX = Math.max(10, Math.min(window.innerWidth - rect.width - 10, initialLeft + dx));
+        const clampedY = Math.max(10, Math.min(window.innerHeight - rect.height - 10, initialTop + dy));
+        setWindowPos({ x: clampedX, y: clampedY });
+      }
+    };
+
+    const onEnd = () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
+      setIsDraggingWindow(false);
+      if (hasMoved) {
+        setTimeout(() => {
+          isDraggingWindowRef.current = false;
+        }, 80);
+      }
+    };
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onEnd);
+  };
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const speechTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -383,20 +565,50 @@ export const MiraFloatingBot: React.FC = () => {
   };
 
   const openChat = useCallback(() => {
+    if (isDraggingCharRef.current) return;
     setIsOpen(true);
     setShowSpeech(false);
     setAvatarMood('happy');
     setTimeout(() => setAvatarMood('idle'), 2000);
   }, []);
 
+  const toggleMinimize = useCallback(() => {
+    setIsMinimized((prev) => {
+      const next = !prev;
+      if (!next && windowPos) {
+        const windowHeight = 640;
+        if (windowPos.y + windowHeight > window.innerHeight - 10) {
+          const adjustedY = Math.max(10, window.innerHeight - windowHeight - 10);
+          setWindowPos((p) => (p ? { ...p, y: adjustedY } : p));
+        }
+      }
+      return next;
+    });
+  }, [windowPos]);
+
   return (
     <>
       {/* ─────── Floating 3D Character (when chat is closed) ─────── */}
       {!isOpen && (
-        <div className="mira-floating-character-wrapper">
+        <div 
+          ref={charRef}
+          className={`mira-floating-character-wrapper ${isDraggingChar ? 'is-dragging' : ''}`}
+          onMouseDown={handleCharMouseDown}
+          onTouchStart={handleCharMouseDown}
+          onClick={openChat}
+          style={{
+            ...(charPos ? {
+              left: `${charPos.x}px`,
+              top: `${charPos.y}px`,
+              right: 'auto',
+              bottom: 'auto',
+            } : {}),
+          }}
+          title="Click to open Copilot • Drag to move anywhere"
+        >
           <MiraSpeechBubble text={speechText} visible={showSpeech} />
-          <Mira3DAvatar mood={avatarMood} size={110} onClick={openChat} />
-          <div className="mira-char-name-badge" onClick={openChat}>
+          <Mira3DAvatar mood={avatarMood} size={110} />
+          <div className="mira-char-name-badge">
             <span className="mira-char-pulse"></span>
             MIRA Copilot
           </div>
@@ -405,24 +617,53 @@ export const MiraFloatingBot: React.FC = () => {
 
       {/* ─────── Chat Window ─────── */}
       {isOpen && (
-        <div className={`mira-chat-window ${isMinimized ? 'minimized' : ''}`}>
+        <div 
+          ref={windowRef}
+          className={`mira-chat-window ${isMinimized ? 'minimized' : ''} ${isDraggingWindow ? 'is-dragging' : ''}`}
+          style={{
+            ...(windowPos ? {
+              left: `${windowPos.x}px`,
+              top: `${windowPos.y}px`,
+              right: 'auto',
+              bottom: 'auto',
+            } : {}),
+          }}
+        >
           {/* Header with small avatar */}
-          <div className="mira-chat-header">
+          <div 
+            className="mira-chat-header"
+            onMouseDown={handleHeaderMouseDown}
+            onTouchStart={handleHeaderMouseDown}
+            onClick={(e) => {
+              if (isDraggingWindowRef.current) return;
+              if (isMinimized && !(e.target as HTMLElement).closest('select, button')) {
+                toggleMinimize();
+              }
+            }}
+            title="Drag header to move chat anywhere on screen"
+          >
             <div className="mira-header-left">
+              <span className="mira-header-grip" title="Drag to move chat">
+                <GripHorizontal size={14} />
+              </span>
               <div className="mira-header-avatar-wrap">
                 <Mira3DAvatar mood={loading ? 'thinking' : avatarMood} size={36} />
               </div>
-              <div>
+              <div className="mira-header-text-group">
                 <div className="mira-header-title">
-                  MIRA Copilot <span className="mira-mcp-badge">SAP MM MCP</span>
+                  <span>MIRA Copilot</span>
+                  <span className="mira-mcp-badge">
+                    <span className="mira-mcp-dot"></span>
+                    SAP MM MCP
+                  </span>
                 </div>
-                <div className="mira-header-subtitle">
+                <div className="mira-header-subtitle" title="Sovereign Multilingual Material Intelligence">
                   Sovereign Multilingual Material Intelligence
                 </div>
               </div>
             </div>
 
-            <div className="mira-header-actions">
+            <div className="mira-header-actions" onClick={(e) => e.stopPropagation()}>
               {/* Language Selector */}
               <select 
                 className="mira-lang-select"
@@ -432,7 +673,7 @@ export const MiraFloatingBot: React.FC = () => {
               >
                 {LANGUAGES.map((l) => (
                   <option key={l.code} value={l.code}>
-                    {l.native} ({l.name})
+                    {l.native === l.name ? l.name : `${l.native} (${l.name})`}
                   </option>
                 ))}
               </select>
@@ -452,10 +693,13 @@ export const MiraFloatingBot: React.FC = () => {
                 <option value="COALINDIA">CIL</option>
               </select>
 
+              <div className="mira-header-divider"></div>
+
               <button 
                 className="mira-icon-btn" 
-                onClick={() => setIsMinimized(!isMinimized)}
+                onClick={toggleMinimize}
                 title={isMinimized ? "Expand" : "Minimize"}
+                type="button"
               >
                 {isMinimized ? <Maximize2 size={14} /> : <Minimize2 size={14} />}
               </button>
@@ -463,6 +707,7 @@ export const MiraFloatingBot: React.FC = () => {
                 className="mira-icon-btn close" 
                 onClick={() => { setIsOpen(false); setAvatarMood('waving'); }}
                 title="Close"
+                type="button"
               >
                 <X size={15} />
               </button>
