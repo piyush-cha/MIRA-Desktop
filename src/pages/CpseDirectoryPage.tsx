@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Building2, Plus, RefreshCw, Layers, ShieldCheck, ChevronRight, 
-  MapPin, CheckCircle, Clock, Search, ArrowUpRight, FolderTree, Database
+  MapPin, CheckCircle, Clock, Search, ArrowUpRight, FolderTree, Database, X
 } from 'lucide-react';
 import { AppShell } from '../components/layout/AppShell';
 import { api, getApiErrorMessage } from '../api/client';
@@ -156,41 +156,99 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
 
         {/* Hierarchy Modal */}
         {selectedHierarchy && (
-          <div className="modal-backdrop">
-            <div className="modal-dialog large">
+          <div className="modal-backdrop" onClick={() => setSelectedHierarchy(null)}>
+            <div className="modal-dialog large hierarchy-modal-dialog" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
-                <div className="flex items-center gap-2">
-                  <FolderTree size={18} color="#3b82f6" />
-                  <h3>{selectedHierarchy.cpse_name} — Organizational Node Hierarchy</h3>
+                <div className="modal-title-group">
+                  <div className="modal-icon-badge">
+                    <FolderTree size={18} />
+                  </div>
+                  <div>
+                    <h3 className="modal-heading">{selectedHierarchy.cpse_name}</h3>
+                    <p className="modal-subheading">Enterprise Organizational Node Hierarchy & Reporting Tree</p>
+                  </div>
                 </div>
-                <button onClick={() => setSelectedHierarchy(null)} className="close-btn">×</button>
+                <button 
+                  onClick={() => setSelectedHierarchy(null)} 
+                  className="modal-close-icon-btn"
+                  title="Close"
+                  type="button"
+                >
+                  <X size={16} />
+                </button>
               </div>
-              <div className="modal-body">
-                <div className="hierarchy-tree-view">
-                  {selectedHierarchy.tree?.map((node: any, idx: number) => (
-                    <div key={idx} className="tree-node-item">
-                      <div className="tree-node-row">
-                        <span className="node-type-badge holding">{node.type_code}</span>
-                        <span className="node-name-text"><b>{node.unit_name}</b> ({node.unit_code})</span>
-                        <span className="node-location"><MapPin size={12} /> {node.location || 'Headquarters'}</span>
-                      </div>
-                      {node.children?.length > 0 && (
-                        <div className="tree-children-container">
-                          {node.children.map((child: any, cidx: number) => (
-                            <div key={cidx} className="tree-node-child">
-                              <span className="node-type-badge area">{child.type_code}</span>
-                              <span>{child.unit_name} (<code>{child.unit_code}</code>)</span>
-                              <span className="node-location"><MapPin size={11} /> {child.location}</span>
+
+              <div className="modal-body hierarchy-modal-body">
+                {(!selectedHierarchy.tree || selectedHierarchy.tree.length === 0) ? (
+                  <div className="hierarchy-empty-state">
+                    <Building2 size={32} />
+                    <p>No organizational units found for this CPSE.</p>
+                  </div>
+                ) : (
+                  <div className="hierarchy-tree-view">
+                    {selectedHierarchy.tree.map((node: any, idx: number) => (
+                      <div key={idx} className="tree-node-item">
+                        {/* Parent / Root Node Card */}
+                        <div className="tree-node-card root">
+                          <div className="tree-node-main">
+                            <div className="tree-node-left">
+                              <span className={`node-type-badge ${(node.type_code || 'holding').toLowerCase()}`}>
+                                {node.type_code || 'HOLDING'}
+                              </span>
+                              <span className="node-name-text">{node.unit_name}</span>
+                              <code className="node-code-tag">{node.unit_code}</code>
                             </div>
-                          ))}
+                            <span className="node-location-badge">
+                              <MapPin size={12} />
+                              <span>{node.location || 'Corporate Headquarters'}</span>
+                            </span>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+
+                        {/* Children Container */}
+                        {node.children && node.children.length > 0 ? (
+                          <div className="tree-children-container">
+                            {node.children.map((child: any, cidx: number) => (
+                              <div key={cidx} className="tree-node-child-card">
+                                <div className="tree-child-connector"></div>
+                                <div className="tree-node-main">
+                                  <div className="tree-node-left">
+                                    <span className={`node-type-badge ${(child.type_code || 'plant').toLowerCase()}`}>
+                                      {child.type_code || 'UNIT'}
+                                    </span>
+                                    <span className="node-name-text">{child.unit_name}</span>
+                                    <code className="node-code-tag">{child.unit_code}</code>
+                                  </div>
+                                  {child.location && (
+                                    <span className="node-location-badge">
+                                      <MapPin size={11} />
+                                      <span>{child.location}</span>
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="tree-single-leaf-hint">
+                            <Layers size={13} />
+                            <span>Primary holding entity node • Additional operating units, refineries, and plants can be configured via CPSE Administration.</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
+
               <div className="modal-footer">
-                <button className="btn-secondary" onClick={() => setSelectedHierarchy(null)}>Close</button>
+                <button 
+                  className="gov-btn secondary" 
+                  onClick={() => setSelectedHierarchy(null)}
+                  type="button"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
