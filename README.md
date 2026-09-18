@@ -1,4 +1,4 @@
-# 🌐 MIRA: Material Intelligence, Rationalization & Alignment
+# 🌐 MIRA: Material Intelligence & Rationalization Assistant
 ### National Unified Material Master Framework (NUMMF) & Cross-CPSE Procurement Engine
 > **"One Nation – One Material Code" | AI-Driven Material Standardization, De-duplication & Inter-Enterprise Harmonization**
 
