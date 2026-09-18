@@ -96,8 +96,11 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
                     <span className="cpse-code-tag">{cpse.code}</span>
                     <span className="status-pill active">{cpse.status}</span>
                   </div>
-                  <h3 className="cpse-name-heading">{cpse.name}</h3>
-                  <div className="cpse-ministry-text">{cpse.ministry}</div>
+                  <h3 className="cpse-name-heading" title={cpse.name}>{cpse.name}</h3>
+                  <div className="cpse-ministry-text" title={cpse.ministry}>
+                    <Building2 size={12} className="ministry-icon" />
+                    <span>{cpse.ministry}</span>
+                  </div>
                 </div>
               </div>
 
@@ -116,17 +119,24 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
                 </div>
               </div>
 
-              <div className="cpse-progress-bar">
-                <div 
-                  className="progress-fill" 
-                  style={{ width: `${cpse.cnmc_coverage_pct || 15}%` }}
-                />
+              <div className="cpse-progress-section">
+                <div className="cpse-progress-info">
+                  <span className="cpse-progress-title">CNMC Harmonization</span>
+                  <span className="cpse-progress-value">{cpse.cnmc_coverage_pct ?? 0}%</span>
+                </div>
+                <div className="cpse-progress-bar">
+                  <div 
+                    className="progress-fill" 
+                    style={{ width: `${Math.min(100, Math.max(cpse.cnmc_coverage_pct ?? 0, 0))}%` }}
+                  />
+                </div>
               </div>
 
               <div className="cpse-card-footer">
                 <button 
                   className="cpse-action-btn secondary"
                   onClick={() => openHierarchy(cpse.code)}
+                  type="button"
                 >
                   <FolderTree size={14} />
                   <span>Hierarchy Tree</span>
@@ -134,6 +144,7 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
                 <button 
                   className="cpse-action-btn primary"
                   onClick={() => onNavigate('cross-cpse')}
+                  type="button"
                 >
                   <span>Intelligence</span>
                   <ArrowUpRight size={14} />
