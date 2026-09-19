@@ -31,7 +31,7 @@
   --shadow-sm:   0 1px 2px rgba(0,0,0,0.05);
   --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
   
-  --sidebar-w: 240px;
+  --sidebar-w: 256px;
   --header-h:  56px;
 }
 
@@ -103,20 +103,144 @@ html, body, #root {
 }
 .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
 .nav-item.active { background: var(--bg-hover); color: var(--accent-dark); font-weight: 600; }
-.sidebar-profile {
-  padding: 16px;
+/* ── Sidebar Sovereign Officer Profile (SAP S/4HANA Horizon Pattern) ── */
+.sidebar-profile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
   border-top: 1px solid var(--border-light);
-  display: flex; align-items: center; gap: 12px;
-}
-.profile-avatar {
-  width: 32px; height: 32px; border-radius: 4px;
-  background: var(--border-light);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 600; font-size: 14px; color: var(--text-secondary);
+  background: var(--bg-sidebar);
+  gap: 8px;
   flex-shrink: 0;
 }
-.profile-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-.profile-role { font-size: 11px; color: var(--text-muted); }
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.sidebar-profile:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-light);
+}
+
+.sidebar-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.sidebar-avatar-status {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 4px rgba(16, 185, 129, 0.5);
+}
+
+.sidebar-profile-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.profile-role-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.profile-designation-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #1D4ED8;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.profile-role-text {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.sidebar-logout-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-logout-btn:hover {
+  background: #FEE2E2;
+  color: #DC2626;
+  border-color: #FECACA;
+}
 
 /* ── Main Content ── */
 .main-content {
@@ -2431,23 +2555,6 @@ html, body, #root {
 }
 
 
-/* ── Sidebar profile row ── */
-.sidebar-profile-row {
-  display: flex;
-  align-items: center;
-  padding: 12px 14px;
-  border-top: 1px solid var(--border-light);
-  gap: 8px;
-}
-.sidebar-logout-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 6px;
-  border-radius: var(--radius-sm);
-}
-.sidebar-logout-btn:hover { background: var(--bg-hover); color: #DC2626; }
 
 /* ===========================================================================
    3D MIRA Character Bot — Floating AI Copilot & SAP MM MCP

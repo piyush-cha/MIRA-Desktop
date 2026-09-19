@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bell, HelpCircle, ChevronDown } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
+import { getOfficerMeta } from './Sidebar';
 
 interface TopBarProps {
   title: string;
@@ -9,6 +10,7 @@ interface TopBarProps {
 
 export const TopBar: React.FC<TopBarProps> = ({ title, subtitle }) => {
   const { user } = useAuthStore();
+  const officer = getOfficerMeta(user?.fullName, user?.roleCode);
 
   return (
     <div className="top-bar">
@@ -30,12 +32,17 @@ export const TopBar: React.FC<TopBarProps> = ({ title, subtitle }) => {
         <button className="icon-btn" title="Notifications">
           <Bell size={16} />
         </button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '8px', cursor: 'pointer' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)' }}>{user?.fullName || 'User'}</div>
-              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{user?.roleCode ? user.roleCode.replace(/_/g, ' ') : ''}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '8px', cursor: 'pointer' }}>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-primary)' }}>{officer.displayName}</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
+              <span className="profile-designation-badge" style={{ fontSize: '9px', padding: '0 4px' }}>{officer.designation}</span>
             </div>
-            <ChevronDown size={14} color="var(--text-muted)" />
+          </div>
+          <div className="profile-avatar" style={{ width: '30px', height: '30px', borderRadius: '8px', fontSize: '11px' }}>
+            {officer.initials}
+          </div>
+          <ChevronDown size={14} color="var(--text-muted)" />
         </div>
       </div>
     </div>
