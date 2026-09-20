@@ -3,7 +3,7 @@ import ReactECharts from 'echarts-for-react';
 import { 
   Activity, Network, Layers, Building2, Search, Filter, RefreshCw, 
   ArrowRight, ShieldCheck, DollarSign, TrendingDown, Eye, CheckCircle2,
-  AlertTriangle, Sparkles, ZoomIn, ZoomOut, Maximize2, Link2, SlidersHorizontal,
+  AlertTriangle, Sparkles, ZoomIn, ZoomOut, Maximize2, Link2,
   GitBranch, Copy, ArrowUpRight, BarChart3
 } from 'lucide-react';
 import { AppShell } from '../components/layout/AppShell';
@@ -538,7 +538,7 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
 
         {/* Tab 1: Interactive Node-to-Node Graph Editor */}
         {activeTab === 'visualizer' && (
-          <div className="visualizer-layout">
+          <div className="visualizer-layout full-width">
             <div className="graph-canvas-card">
               {editorMode === 'pipeline' ? (
                 <InterCpseNodePipeline
@@ -547,7 +547,7 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
                       id: node.id,
                       node_type: node.type === 'cpse_source' ? 'CPSE' : node.type === 'cnmc_golden' ? 'CNMC_GOLDEN' : 'LEGACY_MATERIAL',
                       label: node.code,
-                      name: node.title,
+                      name: `${node.title} — ${node.subtitle}`,
                       category: node.subtitle,
                       cpse_code: node.cpseCode,
                       unit_price_inr: parseFloat(node.metricValue.replace(/[^0-9.]/g, '')) || undefined,
@@ -555,10 +555,41 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
                       color: node.color,
                       size: 35
                     });
-                    if (node.code) setTargetCnmcInput(node.code);
+                    if (node.code) setTargetCnmcInput(node.code.startsWith('CNMC') ? node.code : 'CNMC-MEC-VLV-002150');
                   }}
                   selectedNodeId={selectedNode?.id}
-                  onOpenRemapModal={() => setRemapModalOpen(true)}
+                  onOpenRemapModal={(node) => {
+                    if (node) {
+                      setSelectedNode({
+                        id: node.id,
+                        node_type: node.type === 'cpse_source' ? 'CPSE' : node.type === 'cnmc_golden' ? 'CNMC_GOLDEN' : 'LEGACY_MATERIAL',
+                        label: node.code,
+                        name: `${node.title} — ${node.subtitle}`,
+                        category: node.subtitle,
+                        cpse_code: node.cpseCode,
+                        unit_price_inr: parseFloat(node.metricValue.replace(/[^0-9.]/g, '')) || undefined,
+                        mapping_status: node.status,
+                        color: node.color,
+                        size: 35
+                      });
+                      setTargetCnmcInput(node.code.startsWith('CNMC') ? node.code : 'CNMC-MEC-VLV-002150');
+                    } else if (!selectedNode) {
+                      setSelectedNode({
+                        id: 'node-01',
+                        node_type: 'LEGACY_MATERIAL',
+                        label: 'VLV-BL-2-150-FLG',
+                        name: 'ONGC Hazira Plant — Ball Valve 2" Cl.150 Flanged',
+                        category: 'Valves',
+                        cpse_code: 'ONGC',
+                        unit_price_inr: 14200,
+                        mapping_status: 'ALIGNED',
+                        color: 'blue',
+                        size: 35
+                      });
+                      setTargetCnmcInput('CNMC-MEC-VLV-002150');
+                    }
+                    setRemapModalOpen(true);
+                  }}
                 />
               ) : (
                 <>
@@ -595,78 +626,6 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
                     />
                   )}
                 </>
-              )}
-            </div>
-
-            {/* Inspector Side Drawer */}
-            <div className="node-inspector-card">
-              <div className="inspector-header">
-                <SlidersHorizontal size={16} />
-                <span>Node Inspector & Editor</span>
-              </div>
-
-              {selectedNode ? (
-                <div className="inspector-content">
-                  <div className="node-type-badge" style={{ backgroundColor: `${selectedNode.color}22`, color: selectedNode.color }}>
-                    {selectedNode.node_type.replace(/_/g, ' ')}
-                  </div>
-
-                  <h3 className="node-label-title">{selectedNode.label}</h3>
-                  <p className="node-desc-text">{selectedNode.name}</p>
-
-                  <div className="inspector-kv-list">
-                    {selectedNode.cpse_code && (
-                      <div className="kv-row">
-                        <span className="kv-label">CPSE Owner:</span>
-                        <span className="kv-val font-semibold">{selectedNode.cpse_code}</span>
-                      </div>
-                    )}
-                    {selectedNode.category && (
-                      <div className="kv-row">
-                        <span className="kv-label">Domain:</span>
-                        <span className="kv-val">{selectedNode.category}</span>
-                      </div>
-                    )}
-                    {selectedNode.unit_price_inr && (
-                      <div className="kv-row">
-                        <span className="kv-label">Procurement Rate:</span>
-                        <span className="kv-val text-emerald">₹{selectedNode.unit_price_inr.toLocaleString()} / {selectedNode.raw_uom || 'NOS'}</span>
-                      </div>
-                    )}
-                    {selectedNode.confidence_score && (
-                      <div className="kv-row">
-                        <span className="kv-label">AI Match Confidence:</span>
-                        <span className="kv-val text-amber">{(selectedNode.confidence_score * 100).toFixed(1)}%</span>
-                      </div>
-                    )}
-                    {selectedNode.mapping_status && (
-                      <div className="kv-row">
-                        <span className="kv-label">Standardization:</span>
-                        <span className={`status-pill ${selectedNode.mapping_status.toLowerCase()}`}>
-                          {selectedNode.mapping_status}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {selectedNode && (
-                    <button 
-                      className="remap-action-btn"
-                      onClick={() => {
-                        if (selectedNode.label) setTargetCnmcInput(selectedNode.label);
-                        setRemapModalOpen(true);
-                      }}
-                    >
-                      <Link2 size={14} />
-                      <span>Remap / Align to Golden CNMC</span>
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <div className="inspector-empty">
-                  <Eye size={28} opacity={0.4} />
-                  <p>Click any node in the graph to inspect metadata, analyze cross-CPSE links, or modify alignments.</p>
-                </div>
               )}
             </div>
           </div>
@@ -1062,10 +1021,10 @@ export const CrossCpseIntelPage: React.FC<{ onNavigate: (page: string) => void }
                   </div>
                 )}
               </div>
-              <div className="modal-footer">
-                <button className="btn-secondary" onClick={() => setRemapModalOpen(false)}>Cancel</button>
+              <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                <button className="gov-btn secondary" onClick={() => setRemapModalOpen(false)}>Cancel</button>
                 <button 
-                  className="btn-primary" 
+                  className="gov-btn primary" 
                   onClick={handleApplyRemap}
                   disabled={submittingRemap}
                 >

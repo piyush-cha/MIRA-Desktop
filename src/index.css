@@ -635,13 +635,14 @@ html, body, #root {
 
 /* ── Visualizer Layout ── */
 .visualizer-layout {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 16px;
-  min-height: 700px;
-  height: 720px;
+  display: block;
+  width: 100%;
+  min-height: 720px;
+  height: 750px;
 }
 .graph-canvas-card {
+  width: 100%;
+  height: 100%;
   background: #0F172A;
   border: 1px solid #1E293B;
   border-radius: var(--radius-lg);
@@ -5554,4 +5555,93 @@ html, body, #root {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+/* ── Node Inspector Modal ── */
+.node-inspect-modal {
+  max-width: 520px !important;
+}
+
+.node-modal-stage-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.node-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.node-modal-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.node-modal-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.node-spec-item {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.node-spec-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.node-spec-val {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.node-code-copy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.node-spec-code {
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: 700;
+  color: #0F172A;
+  background: #F1F5F9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.node-copy-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748B;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.node-copy-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
 }
