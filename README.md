@@ -13,24 +13,45 @@
 
 ## 🚀 Recent UI/UX Enhancements & Changelog
 
-### 1. SAP S/4HANA Horizon Officer Profile & Monogram Identity
+### 1. Sovereign Audit Trail & Cryptographic Compliance Hub (`AuditCompliancePage.tsx`)
+- **Executive Sovereign Compliance Scorecard**:
+  - Official certification ribbon (`LEVEL-4 SOVEREIGN AIR-GAPPED READY · MEITY / DPE AIR-GAP DIRECTIVE 2026`) with animated emerald beacon glow and benchmark status (`EXCEPTIONAL STANDING · 0 Non-Conformances Reported`).
+  - 4 Strategic Pillar Cards with micro-progress meter bars, live verification tags, and sanitized grammar (`"6 of 6 Connected CPSE SAP Gateways actively authenticated via SAML 2.0"`).
+- **Multi-Dimensional Search & Enterprise Filtering Toolbar**:
+  - Integrated search query filter (actions, actors, CPSE entities, PR codes, material details, and values) with quick-clear button.
+  - Granular dropdown filters for **Action Type** (`All`, `Autonomous SAP PR`, `CPSE Onboarded`), **CPSE Entity** (`SAIL`, `BHEL`, `HPCL`, `IOCL`, `ONGC`, `YPL`), and **Issuing Authority** (`MIRA Copilot (AI)`, `National Governance (DPE)`).
+  - Dynamic 1-click **Reset Filters** and live matching event counter.
+  - **Real Sovereign CSV Export**: Downloads a true signed `.csv` ledger report (`MIRA_Sovereign_Audit_Trail_<date>.csv`) with UTF-8 BOM encoding for SAP/Excel audit conformance.
+- **Chronological Sovereign Event Stream Table**:
+  - Color-coded action badges with icons (`SAP PR Autonomous` with `<Cpu />`, `CPSE Onboarded` with `<Building2 />`).
+  - Distinct actor identity tags (MIRA Sovereign Copilot autonomous agent vs National Governance central admin).
+  - CPSE entity badges with brand palette colors, copyable PR chips with instant feedback, and automatic sanitization of seed typos (`ndian Oil` → `Indian Oil`, `Vharat Heavy` → `Bharat Heavy`).
+  - Formatted payload cards cleanly breaking down material specifications, quantities, INR valuations, license tiers, and admin emails.
+  - SHA-256 seal status buttons with 1-click inspection trigger.
+- **Interactive Cryptographic Proof & Ledger Inspector Modal**:
+  - Displays full 64-character SHA-256 hash digest, canonical timestamp, executing authority, target CPSE, tamper-evident verification banner (`PASSED & VALID`), and formatted canonical JSON event payload block with 1-click copy.
+- **Floating Copilot Clearance**:
+  - Added bottom clearance padding (`padding-bottom: 120px`) ensuring the floating 3D MIRA Copilot character never obscures timestamps, table actions, or pagination.
+
+### 2. SAP S/4HANA Horizon Officer Profile & Monogram Identity
 - **Resolved String Truncation**: Intelligently parses compound backend credentials (e.g., `"Dr. A. P. Sharma — DG, DPE"`) to separate the Officer Name, Designation Badge (`[DG, DPE]`), and Sovereign Role Label (`National Governance`), completely resolving text overflow and clipping issues.
 - **Sovereign Sapphire Gradient Avatar**: Replaced generic grey placeholders with an executive sapphire-gradient tile (`#1E3A8A` → `#2563EB`) displaying an intelligent monogram (`AS`) and a live emerald session status indicator.
 - **Unified Layout & Proportions**: Adjusted sidebar width to standard enterprise dimensions (`--sidebar-w: 256px`) and eliminated redundant nested padding and double-border artifacts.
 - **TopBar Synchronization**: Synchronized the header user widget to match the sidebar's executive identity typography and monogram avatar.
 
-### 2. Interactive Inter-CPSE Harmonization Node Pipeline
+### 3. Interactive Inter-CPSE Harmonization Node Pipeline & Cross-CPSE Parity
 - **DAG Workflow Canvas**: Built a node-to-node mapping studio in `CrossCpseIntelPage.tsx` enabling drag-and-drop code alignment across enterprise silos.
 - **Precision Pointer Capture**: Implemented HTML5 pointer capture (`setPointerCapture`, `onPointerMove`, `onPointerUp`) with integer pixel anchoring (`Math.round`), eliminating subpixel blur, double transforms, and GPU rasterization issues.
 - **Adaptive S-Curve Cable Routing**: SVG Bézier connectors dynamically calculate curvature and loop buffers, anchoring directly to input/output pins via illuminated `<marker>` arrowheads with zero disconnects even when nodes are spaced far apart.
 - **Enterprise Nomenclature**: Fully aligned all titles, presets, and action buttons to strict procurement standards (*Commodity Domains*, *Inter-CPSE Harmonization Pipeline*, *Golden CNMC Record*).
+- **Multi-CPSE Price Parity Studio**: High-contrast price spread visualizations comparing local ERP material rates against national benchmarks across all 6 CPSEs with joint RFP savings projections.
 
-### 3. CNMC Material Code Chips & Governance
+### 4. CNMC Material Code Chips & Governance
 - **Enhanced Code Legibility**: Elevated material code font sizes, contrast ratios, and monospace styling (`--font-mono`).
 - **Interactive Copy & Inspection**: Integrated one-click clipboard copying with visual toast feedback and immediate item inspection modals.
 - **Category Tagging**: Added high-visibility badges for Category A, B, and C critical capital goods.
 
-### 4. Governance Policies & Audit Timestamps
+### 5. Governance Policies & Audit Timestamps
 - **Uncongested Metadata**: Redesigned policy cards and audit logs to prevent date and timestamp crowding.
 - **Clean Two-Column Layout**: Structured compliance tracking, policy owners, and modification logs for executive readability.
 
