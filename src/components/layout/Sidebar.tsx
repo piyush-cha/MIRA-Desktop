@@ -19,8 +19,44 @@ interface SidebarProps {
   onNavigate: (page: string) => void;
 }
 
+export const getOfficerMeta = (fullName?: string, roleCode?: string) => {
+  if (!fullName) {
+    return {
+      displayName: 'Authorized Officer',
+      designation: roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance',
+      initials: 'AO',
+      roleLabel: 'Governance'
+    };
+  }
+
+  // Handle compound titles like "Dr. A. P. Sharma — DG, DPE"
+  const parts = fullName.split(/\s*[—–-]\s*/);
+  const displayName = parts[0].trim();
+  const designation = parts[1]?.trim() || (roleCode === 'NATIONAL_GOVERNANCE' ? 'DG, DPE' : roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance');
+
+  // Compute smart monogram initials: "Dr. A. P. Sharma" -> "AS"
+  const nameWithoutHonorific = displayName.replace(/^(Dr\.|Prof\.|Shri\.|Smt\.|Mr\.|Mrs\.|Ms\.)\s+/i, '').trim();
+  const tokens = nameWithoutHonorific.split(/\s+/).filter(Boolean);
+
+  let initials = 'AO';
+  if (tokens.length === 1) {
+    initials = tokens[0].slice(0, 2).toUpperCase();
+  } else if (tokens.length >= 2) {
+    const firstChar = tokens[0].replace(/[^a-zA-Z]/g, '')[0] || tokens[0][0];
+    const lastChar = tokens[tokens.length - 1].replace(/[^a-zA-Z]/g, '')[0] || tokens[tokens.length - 1][0];
+    initials = (firstChar + lastChar).toUpperCase();
+  } else {
+    initials = displayName.slice(0, 2).toUpperCase();
+  }
+
+  const roleLabel = roleCode === 'NATIONAL_GOVERNANCE' ? 'National Governance' : roleCode ? roleCode.replace(/_/g, ' ') : 'Sovereign';
+
+  return { displayName, designation, initials, roleLabel };
+};
+
 export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
   const { user, logout } = useAuthStore();
+  const officer = getOfficerMeta(user?.fullName, user?.roleCode);
 
   return (
     <div className="sidebar">
@@ -153,23 +189,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
       <div style={{ flex: 1 }} />
 
-      {/* Profile Bar */}
+      {/* Sovereign Officer Profile Bar (SAP S/4HANA Enterprise Layout) */}
       <div className="sidebar-profile-row">
         <div 
           className="sidebar-profile" 
-          style={{ cursor: 'pointer', flex: 1 }} 
           onClick={() => onNavigate('profile')} 
-          title="View Sovereign Profile"
+          title="Open Sovereign Officer Profile & Security MFA"
         >
-          <div className="profile-avatar">
-            {user?.fullName ? user.fullName[0] : 'U'}
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div className="profile-name" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {user?.fullName || 'User'}
+          <div className="sidebar-avatar-wrapper">
+            <div className="profile-avatar">
+              {officer.initials}
             </div>
-            <div className="profile-role" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {user?.roleCode ? user.roleCode.replace(/_/g, ' ') : ''}
+            <span className="sidebar-avatar-status" title="Active Sovereign Session" />
+          </div>
+
+          <div className="sidebar-profile-info">
+            <div className="profile-name" title={officer.displayName}>
+              {officer.displayName}
+            </div>
+            <div className="profile-role-meta">
+              <span className="profile-designation-badge">{officer.designation}</span>
+              <span className="profile-role-text">{officer.roleLabel}</span>
             </div>
           </div>
         </div>
@@ -177,9 +217,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
         <button 
           className="sidebar-logout-btn"
           onClick={logout}
-          title="Sign Out"
+          title="Sign Out (Sovereign Session)"
         >
-          <LogOut size={14} />
+          <LogOut size={15} />
         </button>
       </div>
     </div>
