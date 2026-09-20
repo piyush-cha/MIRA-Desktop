@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { 
   Database, GitBranch, Cpu, ShieldCheck, CheckCircle2, ArrowRight,
   Plus, RotateCcw, ZoomIn, ZoomOut, Maximize2, Building2, Tag,
-  Layers, Sliders, Sparkles, Activity, Link2, ExternalLink
+  Layers, Sliders, Sparkles, Activity, Link2, ExternalLink, X, Copy, Check
 } from 'lucide-react';
 
 export interface InterCpseNode {
@@ -359,7 +359,7 @@ const PRESET_SCENARIOS: Record<string, { nodes: InterCpseNode[]; connections: In
 interface InterCpseNodePipelineProps {
   onSelectNode: (node: any) => void;
   selectedNodeId?: string | null;
-  onOpenRemapModal?: () => void;
+  onOpenRemapModal?: (node?: InterCpseNode) => void;
 }
 
 export const InterCpseNodePipeline: React.FC<InterCpseNodePipelineProps> = ({ 
@@ -375,15 +375,32 @@ export const InterCpseNodePipeline: React.FC<InterCpseNodePipelineProps> = ({
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  // Exact pointer drag tracking (integer pixels, zero subpixel blur, 100% attached cables)
-  const isDraggingRef = useRef(false);
-  const dragInfoRef = useRef<{
-    nodeId: string;
-    startX: number;
-    startY: number;
-    nodeStartX: number;
-    nodeStartY: number;
-  } | null>(null);
+  // Node inspection state & clipboard feedback
+  const [inspectingNode, setInspectingNode] = useState<InterCpseNode | null>(null);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const handleCopyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(code);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
+
+  const handleNodeClick = (node: InterCpseNode) => {
+    setInspectingNode(node);
+    const theme = colorTheme[node.color] || colorTheme.blue;
+    onSelectNode({
+      id: node.id,
+      label: node.code,
+      name: node.title,
+      node_type: node.type === 'cpse_source' ? 'CPSE' : node.type === 'cnmc_golden' ? 'CNMC_GOLDEN' : 'LEGACY_MATERIAL',
+      cpse_code: node.cpseCode,
+      category: node.subtitle,
+      unit_price_inr: parseFloat(node.metricValue.replace(/[^0-9.]/g, '')) || undefined,
+      confidence_score: 0.984,
+      mapping_status: node.status === 'optimal' || node.status === 'synced' ? 'APPROVED' : 'SUGGESTED',
+      color: theme.headerBar,
+    });
+  };
 
   // Switch scenario
   const handleScenarioChange = (scenarioKey: string) => {
@@ -395,81 +412,58 @@ export const InterCpseNodePipeline: React.FC<InterCpseNodePipelineProps> = ({
     }
   };
 
-  // Pointer Down to start dragging
+  // Smooth, reliable drag tracking with window event attachment (never gets stuck)
   const handleNodePointerDown = (nodeId: string, e: React.PointerEvent) => {
-    if (e.button !== 0) return; // Only left-click
+    if (e.button !== 0) return; // Left-click only
     e.stopPropagation();
 
     const node = nodes.find((n) => n.id === nodeId);
     if (!node) return;
 
-    try {
-      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    } catch {}
+    let hasDragged = false;
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const nodeStartX = node.position.x;
+    const nodeStartY = node.position.y;
 
-    dragInfoRef.current = {
-      nodeId,
-      startX: e.clientX,
-      startY: e.clientY,
-      nodeStartX: node.position.x,
-      nodeStartY: node.position.y,
-    };
-    isDraggingRef.current = false;
-    setDraggingNodeId(nodeId);
-  };
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      const dx = (moveEvent.clientX - startX) / zoomLevel;
+      const dy = (moveEvent.clientY - startY) / zoomLevel;
 
-  const handleNodePointerMove = (e: React.PointerEvent) => {
-    if (!dragInfoRef.current) return;
-    const { nodeId, startX, startY, nodeStartX, nodeStartY } = dragInfoRef.current;
-
-    const dx = (e.clientX - startX) / zoomLevel;
-    const dy = (e.clientY - startY) / zoomLevel;
-
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
-      isDraggingRef.current = true;
-    }
-
-    // Round strictly to integer pixels to prevent fractional rendering blur
-    const newX = Math.max(10, Math.round(nodeStartX + dx));
-    const newY = Math.max(10, Math.round(nodeStartY + dy));
-
-    setNodes((prev) =>
-      prev.map((node) =>
-        node.id === nodeId ? { ...node, position: { x: newX, y: newY } } : node
-      )
-    );
-  };
-
-  const handleNodePointerUp = (nodeId: string, e: React.PointerEvent) => {
-    if (dragInfoRef.current?.nodeId === nodeId) {
-      try {
-        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-      } catch {}
-
-      // If user merely clicked without dragging, trigger selection
-      if (!isDraggingRef.current) {
-        const node = nodes.find((n) => n.id === nodeId);
-        if (node) {
-          const theme = colorTheme[node.color] || colorTheme.blue;
-          onSelectNode({
-            id: node.id,
-            label: node.code,
-            name: node.subtitle,
-            node_type: node.type === 'cpse_source' ? 'LEGACY_MATERIAL' : node.type === 'cnmc_golden' ? 'CNMC_GOLDEN' : 'CPSE',
-            cpse_code: node.cpseCode,
-            category: node.stage,
-            unit_price_inr: parseFloat(node.metricValue.replace(/[^0-9.]/g, '')) || 14200,
-            confidence_score: 0.984,
-            mapping_status: node.status === 'optimal' || node.status === 'synced' ? 'APPROVED' : 'SUGGESTED',
-            color: theme.headerBar,
-          });
-        }
+      // Only enter dragging mode if moved > 5 pixels
+      if (!hasDragged && Math.hypot(dx, dy) > 5) {
+        hasDragged = true;
+        setDraggingNodeId(nodeId);
       }
 
-      dragInfoRef.current = null;
-      isDraggingRef.current = false;
+      if (hasDragged) {
+        const newX = Math.max(10, Math.round(nodeStartX + dx));
+        const newY = Math.max(10, Math.round(nodeStartY + dy));
+        setNodes((prev) =>
+          prev.map((n) => (n.id === nodeId ? { ...n, position: { x: newX, y: newY } } : n))
+        );
+      }
+    };
+
+    const onPointerUp = () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerUp);
+
       setDraggingNodeId(null);
-    }
+
+      // If released without significant dragging, it is an intentional click!
+      if (!hasDragged) {
+        const clickedNode = nodes.find((n) => n.id === nodeId);
+        if (clickedNode) {
+          handleNodeClick(clickedNode);
+        }
+      }
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
   };
 
   // Add new Custom Pipeline Node
@@ -748,7 +742,7 @@ export const InterCpseNodePipeline: React.FC<InterCpseNodePipelineProps> = ({
 
           {/* Interactive Mapping Nodes */}
           {nodes.map((node) => {
-            const isSelected = selectedNodeId === node.id;
+            const isSelected = selectedNodeId === node.id || inspectingNode?.id === node.id;
             const theme = colorTheme[node.color] || colorTheme.blue;
             const isDragging = draggingNodeId === node.id;
 
@@ -756,8 +750,7 @@ export const InterCpseNodePipeline: React.FC<InterCpseNodePipelineProps> = ({
               <div
                 key={node.id}
                 onPointerDown={(e) => handleNodePointerDown(node.id, e)}
-                onPointerMove={handleNodePointerMove}
-                onPointerUp={(e) => handleNodePointerUp(node.id, e)}
+                onContextMenu={(e) => e.preventDefault()}
                 style={{
                   position: 'absolute',
                   left: `${node.position.x}px`,
@@ -870,9 +863,113 @@ export const InterCpseNodePipeline: React.FC<InterCpseNodePipelineProps> = ({
           <span><b>6</b> Connected CPSE Silos</span>
         </div>
         <div className="pipeline-stat-hint">
-          <span>💡 Drag nodes freely on canvas • Select any node to inspect & remap in the Inspector</span>
+          <span>💡 Left-click any node to inspect & remap • Drag nodes to reposition cables</span>
         </div>
       </div>
+
+      {/* Interactive Node Inspector Modal */}
+      {inspectingNode && (
+        <div className="modal-backdrop" onClick={() => setInspectingNode(null)}>
+          <div className="modal-dialog node-inspect-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div className="flex items-center gap-2.5">
+                <div 
+                  className="modal-icon-badge" 
+                  style={{ 
+                    backgroundColor: colorTheme[inspectingNode.color]?.badgeBg || '#1e3a8a',
+                    width: '36px', height: '36px', borderRadius: '6px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}
+                >
+                  <Building2 size={18} color={colorTheme[inspectingNode.color]?.pin || '#60a5fa'} />
+                </div>
+                <div>
+                  <h3 className="modal-heading" style={{ fontSize: '15px', fontWeight: 700 }}>
+                    Node #{inspectingNode.nodeNumber} Inspector
+                  </h3>
+                  <p className="modal-subheading" style={{ fontSize: '11px', color: '#64748B' }}>
+                    Inter-CPSE Harmonization Pipeline Specification
+                  </p>
+                </div>
+              </div>
+              <button className="close-btn" onClick={() => setInspectingNode(null)} title="Close">
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="modal-body" style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div 
+                className="node-modal-stage-badge" 
+                style={{ 
+                  backgroundColor: colorTheme[inspectingNode.color]?.badgeBg, 
+                  color: colorTheme[inspectingNode.color]?.badgeText 
+                }}
+              >
+                {inspectingNode.stage}
+              </div>
+
+              <div>
+                <h4 className="node-modal-title">{inspectingNode.title}</h4>
+                <p className="node-modal-subtitle">{inspectingNode.subtitle}</p>
+              </div>
+
+              <div className="node-modal-specs-grid">
+                <div className="node-spec-item">
+                  <span className="node-spec-label">Material / Item Code</span>
+                  <div className="node-code-copy-row">
+                    <code className="node-spec-code">{inspectingNode.code}</code>
+                    <button 
+                      className="node-copy-btn" 
+                      onClick={() => handleCopyCode(inspectingNode.code)}
+                      title="Copy Code"
+                    >
+                      {copiedCode === inspectingNode.code ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                    </button>
+                  </div>
+                </div>
+
+                {inspectingNode.cpseCode && (
+                  <div className="node-spec-item">
+                    <span className="node-spec-label">CPSE Silo Entity</span>
+                    <span className="node-spec-val font-semibold">{inspectingNode.cpseCode}</span>
+                  </div>
+                )}
+
+                <div className="node-spec-item">
+                  <span className="node-spec-label">{inspectingNode.metricLabel}</span>
+                  <span className="node-spec-val font-mono font-bold text-emerald">{inspectingNode.metricValue}</span>
+                </div>
+
+                <div className="node-spec-item">
+                  <span className="node-spec-label">Harmonization Status</span>
+                  <span className={`status-pill ${inspectingNode.status === 'optimal' ? 'approved' : inspectingNode.status === 'breach' ? 'high' : 'medium'}`}>
+                    {inspectingNode.status.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="modal-footer" style={{ padding: '12px 20px', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button className="gov-btn secondary" onClick={() => setInspectingNode(null)}>
+                Close
+              </button>
+              {onOpenRemapModal && (
+                <button 
+                  className="gov-btn primary"
+                  onClick={() => {
+                    const nodeToRemap = inspectingNode;
+                    setInspectingNode(null);
+                    onOpenRemapModal(nodeToRemap || undefined);
+                  }}
+                >
+                  <Link2 size={14} />
+                  <span>Remap to Golden CNMC</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
