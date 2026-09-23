@@ -8,7 +8,7 @@ export const API_BASE_URL =
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
-  timeout: 8000,
+  timeout: 60000,
 });
 
 // Attach JWT from auth store on every request
@@ -25,15 +25,6 @@ apiClient.interceptors.request.use((config) => {
 // ===========================================================================
 
 export const api = {
-  login: async (username: string, password: string, cpseCode?: string) => {
-    const response = await apiClient.post('/auth/login', {
-      username,
-      password,
-      auth_provider: 'MIRA_NATIVE',
-      cpse_code: cpseCode || undefined,
-    });
-    return response.data;
-  },
 
   // ===========================================================================
   // National Governance Endpoints

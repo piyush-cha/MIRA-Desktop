@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UserCircle, Lock, ArrowRight } from 'lucide-react';
 import { useAuthStore, UserRole } from '../store/authStore';
 import { api } from '../api/client';
+import { supabase } from '../lib/supabase';
 
 interface LoginPageProps {
   onSuccessLogin: (role: UserRole) => void;
@@ -21,22 +22,37 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
     setError('');
 
     try {
-      const authRes = await api.login(username, password, role === 'NATIONAL_GOVERNANCE' ? 'GOV' : undefined);
+      let email = username;
+      // Provide easy mapping for the demo accounts from seed script
+      if (!username.includes('@')) {
+         if (username === 'national.admin') email = 'national.admin@gov.in';
+         else if (username === 'coalindia.admin') email = 'coalindia.admin@cil.gov.in';
+         else email = `${username}@cpse.gov.in`;
+      }
+
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (authError) throw authError;
+
+      const appMetadata = data.user?.app_metadata || {};
+      const mappedRole: UserRole = appMetadata.tier_level || (role === 'NATIONAL_GOVERNANCE' ? 'NATIONAL_GOVERNANCE' : 'CPSE_ADMIN');
       
-      const mappedRole: UserRole = authRes.role_code === 'CPSE_ADMIN' ? 'CPSE_ADMIN' : 'NATIONAL_GOVERNANCE';
-      login(authRes.access_token, {
-        id: authRes.user_id,
-        username: authRes.username,
-        fullName: authRes.full_name,
+      login(data.session?.access_token || '', {
+        id: data.user?.id || '',
+        username: email,
+        fullName: email.split('@')[0],
         roleCode: mappedRole,
-        cpseId: authRes.cpse_id,
-        cpseCode: authRes.cpse_code,
-        email: `${authRes.username}@cpse.gov.in`,
+        cpseId: appMetadata.cpse_id,
+        cpseCode: null,
+        email: email,
       });
 
       onSuccessLogin(mappedRole);
     } catch (err: any) {
-      setError('Invalid credentials or backend unreachable');
+      setError(err.message || 'Invalid credentials or backend unreachable');
     } finally {
       setLoading(false);
     }

@@ -37,7 +37,7 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
     setHierarchyLoading(true);
     try {
       const res = await api.getHierarchy(cpseCode);
-      setSelectedHierarchy(res.data);
+      setSelectedHierarchy(res);
     } catch (err) {
       alert(`Could not load hierarchy: ${getApiErrorMessage(err)}`);
     } finally {
