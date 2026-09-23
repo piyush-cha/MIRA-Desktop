@@ -4,7 +4,7 @@ import { LoginPage } from './pages/LoginPage';
 import { NationalGovernancePage } from './pages/NationalGovernancePage';
 import { CpseDirectoryPage } from './pages/CpseDirectoryPage';
 import { CpseOnboardingPage } from './pages/CpseOnboardingPage';
-import { CpseAdminPage } from './pages/CpseAdminPage';
+import { CpseAdminPortalPage } from './pages/CpseAdminPortalPage';
 import { CnmcMaterialPage } from './pages/CnmcMaterialPage';
 import { CrossCpseIntelPage } from './pages/CrossCpseIntelPage';
 import { ExpertReviewsPage } from './pages/ExpertReviewsPage';
@@ -40,7 +40,8 @@ export default function App() {
       case 'onboard-new':
         return <CpseOnboardingPage onNavigate={handleNavigate} />;
       case 'admin':
-        return <CpseAdminPage onNavigate={handleNavigate} />;
+      case 'cpse-portal':
+        return <CpseAdminPortalPage onNavigate={handleNavigate} />;
       case 'cnmc':
         return <CnmcMaterialPage onNavigate={handleNavigate} />;
       case 'cross-cpse':

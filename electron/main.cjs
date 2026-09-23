@@ -2,6 +2,10 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+// Suppress GPU disk cache lock errors in Windows environment
+app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
+app.commandLine.appendSwitch('disable-http-cache');
+
 let mainWindow;
 
 function createWindow() {
@@ -25,8 +29,9 @@ function createWindow() {
 
   const devUrl = 'http://localhost:5173';
   const distPath = path.join(__dirname, '../dist/index.html');
+  const isDev = !app.isPackaged || process.env.NODE_ENV === 'development';
 
-  if (process.env.NODE_ENV === 'development') {
+  if (isDev) {
     mainWindow.loadURL(devUrl);
   } else if (fs.existsSync(distPath)) {
     mainWindow.loadFile(distPath);
@@ -34,9 +39,14 @@ function createWindow() {
     mainWindow.loadURL(devUrl);
   }
 
-  // Fallback to built dist files if dev server is not running
+  // In dev, retry dev server if not yet ready instead of falling back to stale dist files
   mainWindow.webContents.on('did-fail-load', (event, errorCode) => {
-    if (errorCode !== -3 && fs.existsSync(distPath)) { // -3 is ABORTED
+    if (errorCode === -3) return; // ABORTED
+    if (isDev) {
+      setTimeout(() => {
+        if (mainWindow) mainWindow.loadURL(devUrl);
+      }, 500);
+    } else if (fs.existsSync(distPath)) {
       mainWindow.loadFile(distPath);
     }
   });
