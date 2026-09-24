@@ -1,0 +1,3 @@
+@echo off
+echo Starting MIRA Enterprise Desktop...
+npm run electron:dev

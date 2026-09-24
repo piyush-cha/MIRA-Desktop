@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Copy, Check, Lock, ArrowRight, X } from 'lucide-react';
+import { ShieldCheck, Copy, Check, Lock, ArrowRight, X, Mail, Loader2, Key } from 'lucide-react';
+import { api, getApiErrorMessage } from '../../api/client';
 
 interface CredentialDispatchModalProps {
   credentials: {
@@ -20,6 +21,10 @@ export const CredentialDispatchModal: React.FC<CredentialDispatchModalProps> = (
   onLoginAsCpseAdmin,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<'IDLE' | 'SUCCESS' | 'ERROR'>('IDLE');
+  const [generatedPin, setGeneratedPin] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleCopy = () => {
     const credText = `CPSE: ${credentials.cpseName} (${credentials.cpseCode})\nUsername: ${credentials.username}\nTemporary Password: ${credentials.temporaryPassword}\nAssigned License: ${credentials.licenseTier}\nAdmin Email: ${credentials.adminEmail}`;
@@ -27,6 +32,34 @@ export const CredentialDispatchModal: React.FC<CredentialDispatchModalProps> = (
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const handleSendEmail = async () => {
+    setIsSending(true);
+    setEmailStatus('IDLE');
+    setErrorMessage('');
+    try {
+      const pdf_content = `SECURE CREDENTIALS\n\nCPSE: ${credentials.cpseName} (${credentials.cpseCode})\nUsername: ${credentials.username}\nTemporary Password: ${credentials.temporaryPassword}\nAssigned License: ${credentials.licenseTier}\n\nIMPORTANT: Please reset your password upon first login.`;
+      
+      const res = await api.sendSecureEmail({
+        recipient_email: credentials.adminEmail,
+        recipient_name: 'Nodal Officer',
+        email_subject: 'Secure Credentials: MIRA System Access',
+        email_body: 'Hello,\n\nPlease find your securely encrypted credentials attached. You will need the 6-digit PIN to open the PDF.\n\nBest Regards,\nMIRA System Admin',
+        pdf_content: pdf_content
+      });
+
+      if (res.status === 'SUCCESS') {
+        setEmailStatus('SUCCESS');
+        setGeneratedPin(res.generated_pin);
+      }
+    } catch (e: any) {
+      setEmailStatus('ERROR');
+      setErrorMessage(getApiErrorMessage(e));
+    } finally {
+      setIsSending(false);
+    }
+  };
+
 
   return (
     <div className="modal-overlay">
@@ -51,12 +84,27 @@ export const CredentialDispatchModal: React.FC<CredentialDispatchModalProps> = (
         </div>
 
         {/* Security Alert */}
-        <div style={{ padding: '10px 14px', borderRadius: 'var(--radius-md)', background: 'rgba(245,200,66,0.15)', border: '1px solid rgba(245,200,66,0.3)', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '11.5px', color: '#92700a' }}>
-          <Lock size={16} style={{ flexShrink: 0 }} />
-          <div>
-            <strong>ONE-TIME CREDENTIAL DISPATCH:</strong> Forward securely to <span style={{ textDecoration: 'underline' }}>{credentials.adminEmail}</span>.
+        {emailStatus === 'SUCCESS' ? (
+          <div style={{ padding: '10px 14px', borderRadius: 'var(--radius-md)', background: 'rgba(46,204,113,0.15)', border: '1px solid rgba(46,204,113,0.3)', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '11.5px', color: 'var(--accent-green)' }}>
+            <Key size={16} style={{ flexShrink: 0 }} />
+            <div>
+              <strong>EMAIL SENT SUCCESSFULLY.</strong> Share this 6-digit PIN securely with the user: <strong style={{fontSize: '14px', letterSpacing: '0.1em'}}>{generatedPin}</strong>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div style={{ padding: '10px 14px', borderRadius: 'var(--radius-md)', background: 'rgba(245,200,66,0.15)', border: '1px solid rgba(245,200,66,0.3)', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '11.5px', color: '#92700a' }}>
+            <Lock size={16} style={{ flexShrink: 0 }} />
+            <div>
+              <strong>ONE-TIME CREDENTIAL DISPATCH:</strong> Forward securely to <span style={{ textDecoration: 'underline' }}>{credentials.adminEmail}</span>.
+            </div>
+          </div>
+        )}
+        
+        {emailStatus === 'ERROR' && (
+           <div style={{ padding: '10px 14px', borderRadius: 'var(--radius-md)', background: 'rgba(255,59,48,0.15)', border: '1px solid rgba(255,59,48,0.3)', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '11.5px', color: 'var(--accent-red)', marginTop: '-2px' }}>
+              <strong>Error:</strong> {errorMessage}
+           </div>
+        )}
 
         {/* Credentials Grid */}
         <div style={{ background: 'var(--bg-card-alt)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px', fontFamily: 'monospace' }}>
@@ -83,12 +131,27 @@ export const CredentialDispatchModal: React.FC<CredentialDispatchModalProps> = (
           <button className="btn-secondary" onClick={handleCopy} style={{ flex: 1, justifyContent: 'center' }}>
             {copied ? (
               <>
-                <Check size={14} color="var(--accent-green)" /> Copied to Clipboard
+                <Check size={14} color="var(--accent-green)" /> Copied
               </>
             ) : (
               <>
-                <Copy size={14} /> Copy Credentials
+                <Copy size={14} /> Copy
               </>
+            )}
+          </button>
+          
+          <button 
+            className="btn-primary" 
+            onClick={handleSendEmail} 
+            disabled={isSending || emailStatus === 'SUCCESS'}
+            style={{ flex: 2, justifyContent: 'center' }}
+          >
+            {isSending ? (
+              <><Loader2 size={14} className="spin" /> Sending Secure Email...</>
+            ) : emailStatus === 'SUCCESS' ? (
+              <><Check size={14} /> Sent</>
+            ) : (
+              <><Mail size={14} /> Send Secure Email</>
             )}
           </button>
 

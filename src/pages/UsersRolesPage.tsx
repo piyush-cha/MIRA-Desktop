@@ -5,12 +5,18 @@ import {
 } from 'lucide-react';
 import { AppShell } from '../components/layout/AppShell';
 import { api, getApiErrorMessage } from '../api/client';
+import { useAuthStore } from '../store/authStore';
 
 export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavigate }) => {
+  const { user } = useAuthStore();
+  const isNationalAdmin = user?.roleCode === 'NATIONAL_GOVERNANCE';
+  
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [availableCpses, setAvailableCpses] = useState<any[]>([]);
   
   // Create User Modal
   const [createModalOpen, setCreateModalOpen] = useState<boolean>(false);
@@ -20,7 +26,7 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
     full_name: '',
     role_code: 'AREA_ADMIN',
     scope_type: 'CPSE',
-    cpse_id: 'cpse-ongc'
+    cpse_id: isNationalAdmin ? 'NATIONAL' : (user?.cpseId || 'NATIONAL')
   });
   const [createSubmitting, setCreateSubmitting] = useState<boolean>(false);
 
@@ -30,6 +36,10 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
     try {
       const res = await api.getUsers();
       setUsers(res.data || []);
+      
+      const cpseRes = await api.getCpses();
+      setAvailableCpses(cpseRes.data || []);
+      
     } catch (err) {
       setError(getApiErrorMessage(err));
     } finally {
@@ -44,24 +54,37 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
     setCreateSubmitting(true);
+    setError(null);
+    setSuccessMsg(null);
     try {
       await api.createUser(formData);
-      alert(`User ${formData.full_name} created successfully!`);
       setCreateModalOpen(false);
+      setSuccessMsg(`Officer ${formData.full_name} provisioned successfully!`);
       fetchUsers();
+      // Clear form data for next time
+      setFormData({
+        ...formData,
+        username: '',
+        email: '',
+        full_name: ''
+      });
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => setSuccessMsg(null), 5000);
     } catch (err) {
-      alert(`Failed to create user: ${getApiErrorMessage(err)}`);
+      setError(`Failed to provision officer: ${getApiErrorMessage(err)}`);
     } finally {
       setCreateSubmitting(false);
     }
   };
 
-  const filteredUsers = users.filter((u) => 
-    u.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    u.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    u.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    u.primary_role_code.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredUsers = users.filter((u) => {
+    const search = searchQuery.toLowerCase();
+    const fullName = (u.full_name || '').toLowerCase();
+    const email = (u.email || '').toLowerCase();
+    const username = (u.username || '').toLowerCase();
+    const roleCode = (u.primary_role_code || '').toLowerCase();
+    return fullName.includes(search) || email.includes(search) || username.includes(search) || roleCode.includes(search);
+  });
 
   return (
     <AppShell
@@ -71,6 +94,23 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
       subtitle="Zero-Trust Identity Federation, Organizational Hierarchy Scopes & Privilege Grants"
     >
       <div className="gov-page-container">
+        
+        {successMsg && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 flex items-center gap-2">
+            <CheckCircle2 size={16} />
+            <span className="block sm:inline">{successMsg}</span>
+            <button className="absolute top-0 bottom-0 right-0 px-4 py-3" onClick={() => setSuccessMsg(null)}>×</button>
+          </div>
+        )}
+        
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            <strong className="font-bold">Error: </strong>
+            <span className="block sm:inline">{error}</span>
+            <button className="absolute top-0 bottom-0 right-0 px-4 py-3" onClick={() => setError(null)}>×</button>
+          </div>
+        )}
+
         {/* Top Control Bar */}
         <div className="intel-top-bar">
           <div className="search-box-wrapper">
@@ -114,7 +154,7 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="profile-avatar-small">
-                        {user.full_name[0]}
+                        {user.full_name ? user.full_name[0].toUpperCase() : '?'}
                       </div>
                       <div>
                         <div className="font-bold text-sm text-primary">{user.full_name}</div>
@@ -194,27 +234,30 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
                       value={formData.role_code}
                       onChange={(e) => setFormData({ ...formData, role_code: e.target.value })}
                     >
-                      <option value="NATIONAL_GOVERNANCE">National Governance Admin</option>
-                      <option value="CPSE_ADMIN">CPSE Nodal Administrator</option>
+                      {isNationalAdmin && <option value="NATIONAL_GOVERNANCE">National Governance Admin</option>}
+                      {isNationalAdmin && <option value="CPSE_ADMIN">CPSE Nodal Administrator</option>}
                       <option value="AREA_ADMIN">Area / Subsidiary Officer</option>
                       <option value="PLANT_USER">Plant Materials Specialist</option>
                     </select>
                   </div>
-                  <div className="form-group">
-                    <label>Target CPSE Silo</label>
-                    <select 
-                      className="gov-select w-full"
-                      value={formData.cpse_id}
-                      onChange={(e) => setFormData({ ...formData, cpse_id: e.target.value })}
-                    >
-                      <option value="cpse-ongc">ONGC (Oil & Natural Gas Corp)</option>
-                      <option value="cpse-iocl">IOCL (Indian Oil Corp)</option>
-                      <option value="cpse-sail">SAIL (Steel Authority of India)</option>
-                      <option value="cpse-ntpc">NTPC Limited</option>
-                      <option value="cpse-bhel">BHEL</option>
-                      <option value="cpse-cil">Coal India Limited</option>
-                    </select>
-                  </div>
+                  
+                  {isNationalAdmin && (
+                    <div className="form-group">
+                      <label>Target CPSE Silo</label>
+                      <select 
+                        className="gov-select w-full"
+                        value={formData.cpse_id}
+                        onChange={(e) => setFormData({ ...formData, cpse_id: e.target.value })}
+                      >
+                        <option value="NATIONAL">National Governance (Cross-CPSE)</option>
+                        {availableCpses.map(cpse => (
+                          <option key={cpse.code} value={cpse.code}>
+                            {cpse.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>

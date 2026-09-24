@@ -24,7 +24,7 @@ export const AppShell: React.FC<AppShellProps> = ({
 
       {/* Main Content Area */}
       <div className="main-content">
-        <TopBar title={title} subtitle={subtitle} />
+        <TopBar title={title} subtitle={subtitle} onNavigate={onNavigate} />
         <div className="content-scroll">
           {children}
         </div>

@@ -171,6 +171,11 @@ export const api = {
     return response.data;
   },
 
+  sendSecureEmail: async (payload: { recipient_email: string; recipient_name: string; email_subject: string; email_body: string; pdf_content: string }) => {
+    const response = await apiClient.post('/governance/secure-email', payload);
+    return response.data;
+  },
+
   // ===========================================================================
   // Cross-CPSE Intelligence & Node Graph Visualizer
   // ===========================================================================

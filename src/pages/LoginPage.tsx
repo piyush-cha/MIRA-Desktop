@@ -11,7 +11,7 @@ interface LoginPageProps {
 export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
   const { login } = useAuthStore();
   const [username, setUsername] = useState('national.admin');
-  const [password, setPassword] = useState('MIRA2026!');
+  const [password, setPassword] = useState('MIRA2026!super');
   const [role, setRole] = useState<UserRole>('NATIONAL_GOVERNANCE');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
