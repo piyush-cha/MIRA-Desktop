@@ -10,7 +10,12 @@ import {
   Activity,
   AlertTriangle,
   FileText,
-  UserCircle
+  UserCircle,
+  FolderTree,
+  Network,
+  Cpu,
+  Lock,
+  LayoutDashboard
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 
@@ -19,22 +24,26 @@ interface SidebarProps {
   onNavigate: (page: string) => void;
 }
 
-export const getOfficerMeta = (fullName?: string, roleCode?: string) => {
+export const getOfficerMeta = (fullName?: string, roleCode?: string, cpseName?: string) => {
   if (!fullName) {
     return {
       displayName: 'Authorized Officer',
-      designation: roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance',
+      designation: roleCode === 'CPSE_ADMIN' ? (cpseName || 'CPSE Admin') : (roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance'),
       initials: 'AO',
-      roleLabel: 'Governance'
+      roleLabel: roleCode === 'CPSE_ADMIN' ? 'Enterprise' : 'Governance'
     };
   }
 
   // Handle compound titles like "Dr. A. P. Sharma — DG, DPE"
   const parts = fullName.split(/\s*[—–-]\s*/);
   const displayName = parts[0].trim();
-  const designation = parts[1]?.trim() || (roleCode === 'NATIONAL_GOVERNANCE' ? 'DG, DPE' : roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance');
+  const designation = parts[1]?.trim() || (
+    roleCode === 'CPSE_ADMIN'
+      ? (cpseName || 'CPSE Enterprise Nodal')
+      : (roleCode === 'NATIONAL_GOVERNANCE' ? 'DG, DPE' : roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance')
+  );
 
-  // Compute smart monogram initials: "Dr. A. P. Sharma" -> "AS"
+  // Compute smart monogram initials: "Dr. A. P. Sharma" -> "AS", "COALINDIA Nodal Administrator" -> "CA"
   const nameWithoutHonorific = displayName.replace(/^(Dr\.|Prof\.|Shri\.|Smt\.|Mr\.|Mrs\.|Ms\.)\s+/i, '').trim();
   const tokens = nameWithoutHonorific.split(/\s+/).filter(Boolean);
 
@@ -49,38 +58,76 @@ export const getOfficerMeta = (fullName?: string, roleCode?: string) => {
     initials = displayName.slice(0, 2).toUpperCase();
   }
 
-  const roleLabel = roleCode === 'NATIONAL_GOVERNANCE' ? 'National Governance' : roleCode ? roleCode.replace(/_/g, ' ') : 'Sovereign';
+  const roleLabel = roleCode === 'CPSE_ADMIN' ? 'CPSE Admin' : (roleCode === 'NATIONAL_GOVERNANCE' ? 'National Governance' : roleCode ? roleCode.replace(/_/g, ' ') : 'Sovereign');
 
   return { displayName, designation, initials, roleLabel };
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
   const { user, logout } = useAuthStore();
-  const officer = getOfficerMeta(user?.fullName, user?.roleCode);
+  const isCpseAdmin = user?.roleCode === 'CPSE_ADMIN';
+  const officer = getOfficerMeta(user?.fullName, user?.roleCode, user?.cpseName || user?.cpseCode || undefined);
 
   return (
     <div className="sidebar">
-      {/* Official MIRA Logo Header */}
-      <div className="sidebar-logo">
-        <img 
-          src="/mira-logo.png" 
-          alt="MIRA Logo" 
-          style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'contain' }} 
-        />
-        <div>
-          <div className="sidebar-logo-text">MIRA SOVEREIGN</div>
-          <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 500 }}>
-            National Governance
+      {/* Brand Header: Bifurcated for CPSE Enterprise vs Sovereign Governance */}
+      {isCpseAdmin ? (
+        <div className="sidebar-logo" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px', padding: '16px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+            <img 
+              src="/mira-logo.png" 
+              alt="MIRA Logo" 
+              style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'contain' }} 
+            />
+            <div style={{ overflow: 'hidden', flex: 1 }}>
+              <div className="sidebar-logo-text" style={{ fontSize: '13px', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span>MIRA ENTERPRISE</span>
+              </div>
+              <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 700, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                {user?.cpseName || 'Coal India Limited'}
+              </div>
+            </div>
+          </div>
+          <div style={{ 
+            fontSize: '9.5px', 
+            fontWeight: 700, 
+            padding: '3px 8px', 
+            background: 'rgba(37,99,235,0.08)', 
+            color: '#2563eb', 
+            borderRadius: '12px', 
+            border: '1px solid rgba(37,99,235,0.22)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            width: '100%',
+            boxSizing: 'border-box'
+          }}>
+            <Lock size={10} color="#2563eb" />
+            <span>ENTERPRISE SILO: <b>{user?.cpseCode || 'COALINDIA'}</b></span>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="sidebar-logo">
+          <img 
+            src="/mira-logo.png" 
+            alt="MIRA Logo" 
+            style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'contain' }} 
+          />
+          <div>
+            <div className="sidebar-logo-text">MIRA SOVEREIGN</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 500 }}>
+              National Governance
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Global Search Placeholder */}
+      {/* Global or Local Search */}
       <div className="sidebar-search">
         <Search size={14} />
         <input 
           type="text" 
-          placeholder="Search materials, CNMC, CPSEs..." 
+          placeholder={isCpseAdmin ? "Search local catalog, plants, PRs..." : "Search materials, CNMC, CPSEs..."}
           style={{ 
             background: 'transparent', 
             border: 'none', 
@@ -94,97 +141,160 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
       {/* Navigation */}
       <div className="sidebar-nav">
-        <div className="nav-section-title">National Governance</div>
-        <div className="nav-grid">
-          <button
-            className={`nav-item ${currentPage === 'national' ? 'active' : ''}`}
-            onClick={() => onNavigate('national')}
-          >
-            <Globe2 size={16} />
-            <span>Overview</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'onboarding' ? 'active' : ''}`}
-            onClick={() => onNavigate('onboarding')}
-          >
-            <Building2 size={16} />
-            <span>CPSEs Directory</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'admin' || currentPage === 'cpse-portal' ? 'active' : ''}`}
-            onClick={() => onNavigate('admin')}
-          >
-            <Building2 size={16} color="#2563eb" />
-            <span style={{ fontWeight: 700, color: '#2563eb' }}>CPSE Admin Portal</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'cnmc' ? 'active' : ''}`}
-            onClick={() => onNavigate('cnmc')}
-          >
-            <Layers size={16} />
-            <span>CNMC Governance</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'expert-reviews' ? 'active' : ''}`}
-            onClick={() => onNavigate('expert-reviews')}
-          >
-            <ShieldCheck size={16} />
-            <span>Expert Reviews</span>
-          </button>
-           <button
-            className={`nav-item ${currentPage === 'data-quality' ? 'active' : ''}`}
-            onClick={() => onNavigate('data-quality')}
-          >
-            <AlertTriangle size={16} />
-            <span>Data Quality</span>
-          </button>
-           <button
-            className={`nav-item ${currentPage === 'cross-cpse' ? 'active' : ''}`}
-            onClick={() => onNavigate('cross-cpse')}
-          >
-            <Activity size={16} />
-            <span>Cross-CPSE Intel</span>
-          </button>
-        </div>
+        {isCpseAdmin ? (
+          <>
+            <div className="nav-section-title">Enterprise Operations</div>
+            <div className="nav-grid">
+              <button
+                className={`nav-item ${currentPage === 'admin' || currentPage === 'cpse-overview' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-overview')}
+              >
+                <LayoutDashboard size={16} />
+                <span>Executive Dashboard</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cpse-catalog' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-catalog')}
+              >
+                <Layers size={16} />
+                <span>Material Catalog Studio</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cpse-hierarchy' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-hierarchy')}
+              >
+                <FolderTree size={16} />
+                <span>Plant Hierarchy & Nodes</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cpse-collaboration' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-collaboration')}
+              >
+                <Network size={16} />
+                <span>Inter-Plant Collaboration</span>
+              </button>
+            </div>
 
-        <div className="nav-section-title">System & Governance</div>
-        <div className="nav-grid">
-          <button
-            className={`nav-item ${currentPage === 'legacy-codes' ? 'active' : ''}`}
-            onClick={() => onNavigate('legacy-codes')}
-          >
-            <Layers size={16} />
-            <span>Legacy Codes</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'policies' ? 'active' : ''}`}
-            onClick={() => onNavigate('policies')}
-          >
-            <FileText size={16} />
-            <span>Policies</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
-            onClick={() => onNavigate('audit')}
-          >
-            <FileCheck size={16} />
-            <span>Audit & Compliance</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'users-roles' ? 'active' : ''}`}
-            onClick={() => onNavigate('users-roles')}
-          >
-            <UserCircle size={16} />
-            <span>Users & Roles</span>
-          </button>
-          <button
-            className={`nav-item ${currentPage === 'sap-settings' ? 'active' : ''}`}
-            onClick={() => onNavigate('sap-settings')}
-          >
-            <Activity size={16} />
-            <span>SAP S/4HANA Gateway</span>
-          </button>
-        </div>
+            <div className="nav-section-title">ERP & Compliance</div>
+            <div className="nav-grid">
+              <button
+                className={`nav-item ${currentPage === 'cpse-sap' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-sap')}
+              >
+                <Cpu size={16} />
+                <span>SAP S/4HANA & PRs</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
+                onClick={() => onNavigate('audit')}
+              >
+                <FileCheck size={16} />
+                <span>Enterprise Audit Trail</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'sap-settings' ? 'active' : ''}`}
+                onClick={() => onNavigate('sap-settings')}
+              >
+                <Activity size={16} />
+                <span>SAP Gateway Settings</span>
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="nav-section-title">National Governance</div>
+            <div className="nav-grid">
+              <button
+                className={`nav-item ${currentPage === 'national' ? 'active' : ''}`}
+                onClick={() => onNavigate('national')}
+              >
+                <Globe2 size={16} />
+                <span>Overview</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'onboarding' ? 'active' : ''}`}
+                onClick={() => onNavigate('onboarding')}
+              >
+                <Building2 size={16} />
+                <span>CPSEs Directory</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cnmc' ? 'active' : ''}`}
+                onClick={() => onNavigate('cnmc')}
+              >
+                <Layers size={16} />
+                <span>CNMC Governance</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'expert-reviews' ? 'active' : ''}`}
+                onClick={() => onNavigate('expert-reviews')}
+              >
+                <ShieldCheck size={16} />
+                <span>Expert Reviews</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'data-quality' ? 'active' : ''}`}
+                onClick={() => onNavigate('data-quality')}
+              >
+                <AlertTriangle size={16} />
+                <span>Data Quality</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cross-cpse' ? 'active' : ''}`}
+                onClick={() => onNavigate('cross-cpse')}
+              >
+                <Activity size={16} />
+                <span>Cross-CPSE Intel</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'admin' ? 'active' : ''}`}
+                onClick={() => onNavigate('admin')}
+              >
+                <Building2 size={16} color="#2563eb" />
+                <span style={{ fontWeight: 600, color: '#2563eb' }}>CPSE Silo Inspector</span>
+              </button>
+            </div>
+
+            <div className="nav-section-title">System & Governance</div>
+            <div className="nav-grid">
+              <button
+                className={`nav-item ${currentPage === 'legacy-codes' ? 'active' : ''}`}
+                onClick={() => onNavigate('legacy-codes')}
+              >
+                <Layers size={16} />
+                <span>Legacy Codes</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'policies' ? 'active' : ''}`}
+                onClick={() => onNavigate('policies')}
+              >
+                <FileText size={16} />
+                <span>Policies</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
+                onClick={() => onNavigate('audit')}
+              >
+                <FileCheck size={16} />
+                <span>Audit & Compliance</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'users-roles' ? 'active' : ''}`}
+                onClick={() => onNavigate('users-roles')}
+              >
+                <UserCircle size={16} />
+                <span>Users & Roles</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'sap-settings' ? 'active' : ''}`}
+                onClick={() => onNavigate('sap-settings')}
+              >
+                <Activity size={16} />
+                <span>SAP S/4HANA Gateway</span>
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
       <div style={{ flex: 1 }} />

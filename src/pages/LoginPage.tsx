@@ -40,13 +40,26 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
       const appMetadata = data.user?.app_metadata || {};
       const mappedRole: UserRole = appMetadata.tier_level || (role === 'NATIONAL_GOVERNANCE' ? 'NATIONAL_GOVERNANCE' : 'CPSE_ADMIN');
       
+      const cpseNameMap: Record<string, string> = {
+        COALINDIA: 'Coal India Limited',
+        BHEL: 'Bharat Heavy Electricals Limited',
+        ONGC: 'Oil & Natural Gas Corporation',
+        SAIL: 'Steel Authority of India Limited',
+        NTPC: 'NTPC Limited',
+        IOCL: 'Indian Oil Corporation',
+      };
+      
+      const resolvedCpseCode = appMetadata.cpse_id;
+      const resolvedCpseName = resolvedCpseCode ? cpseNameMap[resolvedCpseCode] || resolvedCpseCode : null;
+
       login(data.session?.access_token || '', {
         id: data.user?.id || '',
         username: email,
         fullName: email.split('@')[0],
         roleCode: mappedRole,
         cpseId: appMetadata.cpse_id,
-        cpseCode: null,
+        cpseCode: resolvedCpseCode,
+        cpseName: resolvedCpseName,
         email: email,
       });
 
