@@ -255,9 +255,20 @@ html, body, #root {
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 0 24px; flex-shrink: 0;
+  gap: 20px;
 }
-.breadcrumb { font-size: 13px; color: var(--text-secondary); }
-.top-bar-actions { display: flex; align-items: center; gap: 12px; }
+.breadcrumb { 
+  font-size: 13px; 
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+.top-bar-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .icon-btn {
   width: 32px; height: 32px; border-radius: var(--radius-sm);
   border: 1px solid transparent; background: transparent;

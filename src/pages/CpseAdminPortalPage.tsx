@@ -158,8 +158,8 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
     <AppShell
       currentPage={isCpseAdmin ? `cpse-${activeTab}` : 'admin'}
       onNavigate={onNavigate}
-      title={isCpseAdmin ? `${selectedCpseName} — Enterprise Portal` : `${selectedCpseName} — Enterprise Sovereign Inspection`}
-      subtitle={isCpseAdmin ? "Plant Hierarchy Management, SAP ERP Synchronizers & Inter-Plant Collaboration Hub" : "Supervisory Plant Hierarchy Management, ERP Synchronizers & Inter-Plant Audit"}
+      title={selectedCpseName}
+      subtitle={isCpseAdmin ? "Enterprise Portal & SAP ERP Gateway" : "Supervisory Plant Hierarchy & ERP Audit"}
     >
       <div className="gov-page-container">
         {/* Supervisory notice if viewed by National Governance */}
