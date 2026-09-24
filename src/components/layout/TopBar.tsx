@@ -10,7 +10,7 @@ interface TopBarProps {
 
 export const TopBar: React.FC<TopBarProps> = ({ title, subtitle }) => {
   const { user } = useAuthStore();
-  const officer = getOfficerMeta(user?.fullName, user?.roleCode);
+  const officer = getOfficerMeta(user?.fullName, user?.roleCode, user?.cpseName || user?.cpseCode || undefined);
 
   return (
     <div className="top-bar">
@@ -20,6 +20,24 @@ export const TopBar: React.FC<TopBarProps> = ({ title, subtitle }) => {
       </div>
 
       <div className="top-bar-actions">
+        {user?.roleCode === 'CPSE_ADMIN' && (
+          <div style={{ 
+            fontSize: '11px', 
+            fontWeight: 700, 
+            color: '#059669', 
+            background: 'rgba(16, 185, 129, 0.1)', 
+            padding: '3px 9px', 
+            borderRadius: '6px', 
+            border: '1px solid rgba(16, 185, 129, 0.25)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            marginRight: '8px'
+          }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', display: 'inline-block' }} />
+            <span>ENTERPRISE SILO</span>
+          </div>
+        )}
         {user?.scope && (
           <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginRight: '16px' }}>
             Scope: <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{user.scope}</span>
