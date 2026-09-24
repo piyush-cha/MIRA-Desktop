@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { 
   FileText, Shield, Sliders, CheckCircle2, RefreshCw, Save, 
-  HelpCircle, AlertCircle, ToggleLeft, ToggleRight, Sparkles
+  HelpCircle, AlertCircle, ToggleLeft, ToggleRight, Sparkles, Clock, User
 } from 'lucide-react';
 import { AppShell } from '../components/layout/AppShell';
 import { api, getApiErrorMessage } from '../api/client';
+
+const formatTimestamp = (ts?: string) => {
+  if (!ts) return 'Never';
+  try {
+    const cleanTs = ts.includes('T') ? ts : ts.replace(' ', 'T');
+    const d = new Date(cleanTs);
+    if (isNaN(d.getTime())) return ts;
+    const day = d.getDate().toString().padStart(2, '0');
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = months[d.getMonth()];
+    const year = d.getFullYear();
+    const time = d.toTimeString().split(' ')[0];
+    return `${day} ${month} ${year}, ${time}`;
+  } catch {
+    return ts;
+  }
+};
 
 export const SystemPoliciesPage: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavigate }) => {
   const [policies, setPolicies] = useState<any[]>([]);
@@ -86,12 +103,13 @@ export const SystemPoliciesPage: React.FC<{ onNavigate: (page: string) => void }
             return (
               <div key={p.policy_key} className="policy-card">
                 <div className="policy-card-top">
-                  <div>
-                    <span className="policy-category-badge">{p.category}</span>
-                    <h3 className="policy-title">{p.policy_name}</h3>
-                  </div>
+                  <span className={`policy-category-badge ${(p.category || '').toLowerCase().replace(/_/g, '-')}`}>
+                    {p.category}
+                  </span>
                   <code className="policy-key-text">{p.policy_key}</code>
                 </div>
+
+                <h3 className="policy-title">{p.policy_name}</h3>
 
                 <p className="policy-desc">{p.description}</p>
 
@@ -100,6 +118,7 @@ export const SystemPoliciesPage: React.FC<{ onNavigate: (page: string) => void }
                     <button 
                       className={`policy-toggle-btn ${currentVal.toLowerCase() === 'true' ? 'enabled' : 'disabled'}`}
                       onClick={() => handleToggle(p.policy_key, currentVal)}
+                      type="button"
                     >
                       {currentVal.toLowerCase() === 'true' ? <ToggleRight size={22} /> : <ToggleLeft size={22} />}
                       <span>{currentVal.toLowerCase() === 'true' ? 'ENFORCED' : 'DISABLED'}</span>
@@ -108,7 +127,7 @@ export const SystemPoliciesPage: React.FC<{ onNavigate: (page: string) => void }
                     <div className="policy-input-wrapper">
                       <input 
                         type="text" 
-                        className="gov-input font-mono font-bold"
+                        className="policy-numeric-input"
                         value={currentVal}
                         onChange={(e) => setEditedValues({ ...editedValues, [p.policy_key]: e.target.value })}
                       />
@@ -116,9 +135,10 @@ export const SystemPoliciesPage: React.FC<{ onNavigate: (page: string) => void }
                   )}
 
                   <button 
-                    className={`gov-btn primary small ${!isChanged ? 'opacity-50' : ''}`}
+                    className={`policy-save-btn ${isChanged ? 'active' : 'idle'}`}
                     disabled={!isChanged || status === 'saving'}
                     onClick={() => handleUpdate(p.policy_key)}
+                    type="button"
                   >
                     {status === 'saving' ? (
                       <RefreshCw size={13} className="spinning" />
@@ -132,8 +152,25 @@ export const SystemPoliciesPage: React.FC<{ onNavigate: (page: string) => void }
                 </div>
 
                 <div className="policy-meta-footer">
-                  <span>Last updated by: <b>{p.updated_by}</b></span>
-                  <span>{p.updated_at}</span>
+                  <div className="policy-meta-row">
+                    <span className="meta-label">
+                      <User size={11} className="meta-icon" />
+                      <span>Updated by</span>
+                    </span>
+                    <span className="meta-val author" title={p.updated_by}>
+                      <b>{p.updated_by || 'System Admin'}</b>
+                    </span>
+                  </div>
+
+                  <div className="policy-meta-row">
+                    <span className="meta-label">
+                      <Clock size={11} className="meta-icon" />
+                      <span>Last modified</span>
+                    </span>
+                    <span className="meta-val timestamp" title={p.updated_at}>
+                      {formatTimestamp(p.updated_at)}
+                    </span>
+                  </div>
                 </div>
               </div>
             );

@@ -35,6 +35,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
         authRes.role_code === 'PLANT_USER' ? 'PLANT_USER' :
         authRes.role_code === 'AREA_ADMIN' ? 'AREA_ADMIN' :
         'NATIONAL_GOVERNANCE';
+      
+      const cpseNameMap: Record<string, string> = {
+        COALINDIA: 'Coal India Limited',
+        BHEL: 'Bharat Heavy Electricals Limited',
+        ONGC: 'Oil & Natural Gas Corporation',
+        SAIL: 'Steel Authority of India Limited',
+        NTPC: 'NTPC Limited',
+        IOCL: 'Indian Oil Corporation',
+      };
+      const resolvedCpseCode = authRes.cpse_code || (mappedRole === 'CPSE_ADMIN' ? 'COALINDIA' : null);
+      const resolvedCpseName = resolvedCpseCode ? (cpseNameMap[resolvedCpseCode] || authRes.cpse_name || resolvedCpseCode) : null;
 
       login(authRes.access_token, {
         id: authRes.user_id,
@@ -42,7 +53,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
         fullName: authRes.full_name,
         roleCode: mappedRole,
         cpseId: authRes.cpse_id,
-        cpseCode: authRes.cpse_code,
+        cpseCode: resolvedCpseCode,
+        cpseName: resolvedCpseName,
         plantUnitId: authRes.plant_unit_id,
         email: `${authRes.username}@cpse.gov.in`,
       });

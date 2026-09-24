@@ -11,52 +11,139 @@ import {
   AlertTriangle,
   FileText,
   UserCircle,
-  Network,
   FolderTree,
+  Network,
   Cpu,
+  Lock,
+  LayoutDashboard,
   Factory,
   Package,
   ArrowRightLeft,
   FilePlus
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
-import { MiraLogoBadge } from '../common/MiraLogoBadge';
 
 interface SidebarProps {
   currentPage: string;
   onNavigate: (page: string) => void;
 }
 
+export const getOfficerMeta = (fullName?: string, roleCode?: string, cpseName?: string) => {
+  if (!fullName) {
+    return {
+      displayName: 'Authorized Officer',
+      designation: roleCode === 'CPSE_ADMIN' ? (cpseName || 'CPSE Admin') : (roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance'),
+      initials: 'AO',
+      roleLabel: roleCode === 'CPSE_ADMIN' ? 'Enterprise' : 'Governance'
+    };
+  }
+
+  // Handle compound titles like "Dr. A. P. Sharma — DG, DPE"
+  const parts = fullName.split(/\s*[—–-]\s*/);
+  const displayName = parts[0].trim();
+  const designation = parts[1]?.trim() || (
+    roleCode === 'CPSE_ADMIN'
+      ? (cpseName || 'CPSE Enterprise Nodal')
+      : (roleCode === 'NATIONAL_GOVERNANCE' ? 'DG, DPE' : roleCode ? roleCode.replace(/_/g, ' ') : 'National Governance')
+  );
+
+  // Compute smart monogram initials: "Dr. A. P. Sharma" -> "AS", "COALINDIA Nodal Administrator" -> "CA"
+  const nameWithoutHonorific = displayName.replace(/^(Dr\.|Prof\.|Shri\.|Smt\.|Mr\.|Mrs\.|Ms\.)\s+/i, '').trim();
+  const tokens = nameWithoutHonorific.split(/\s+/).filter(Boolean);
+
+  let initials = 'AO';
+  if (tokens.length === 1) {
+    initials = tokens[0].slice(0, 2).toUpperCase();
+  } else if (tokens.length >= 2) {
+    const firstChar = tokens[0].replace(/[^a-zA-Z]/g, '')[0] || tokens[0][0];
+    const lastChar = tokens[tokens.length - 1].replace(/[^a-zA-Z]/g, '')[0] || tokens[tokens.length - 1][0];
+    initials = (firstChar + lastChar).toUpperCase();
+  } else {
+    initials = displayName.slice(0, 2).toUpperCase();
+  }
+
+  const roleLabel = roleCode === 'CPSE_ADMIN' ? 'CPSE Admin' : (roleCode === 'NATIONAL_GOVERNANCE' ? 'National Governance' : roleCode ? roleCode.replace(/_/g, ' ') : 'Sovereign');
+
+  return { displayName, designation, initials, roleLabel };
+};
+
 export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
   const { user, logout } = useAuthStore();
-
   const isPlantUser = user?.roleCode === 'PLANT_USER' || user?.roleCode === 'AREA_ADMIN';
   const isCpseAdmin = user?.roleCode === 'CPSE_ADMIN';
+  const officer = getOfficerMeta(user?.fullName, user?.roleCode, user?.cpseName || user?.cpseCode || undefined);
 
   return (
     <div className="sidebar">
-      {/* Official MIRA Logo Header */}
-      <div className="sidebar-logo">
-        <MiraLogoBadge size={34} />
-        <div style={{ minWidth: 0, flex: 1 }}>
-          <div className="sidebar-logo-text" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {isPlantUser 
-              ? `${user?.cpseCode || 'PLANT'} OPERATIONS` 
-              : isCpseAdmin 
-                ? `${user?.cpseCode || 'CPSE'} ENTERPRISE` 
-                : 'MIRA SOVEREIGN'}
-          </div>
-          <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.02em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {isPlantUser 
-              ? (user?.roleCode === 'AREA_ADMIN' ? 'Area Materials HQ' : 'Plant Operations') 
-              : isCpseAdmin 
-                ? 'Nodal Enterprise Admin' 
-                : 'National Governance'}
+      {/* Brand Header: Bifurcated for Plant Operations, CPSE Enterprise, or Sovereign Governance */}
+      {isPlantUser ? (
+        <div className="sidebar-logo">
+          <img 
+            src="/mira-logo.png" 
+            alt="MIRA Logo" 
+            style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'contain' }} 
+          />
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div className="sidebar-logo-text" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {user?.cpseCode || 'PLANT'} OPERATIONS
+            </div>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.02em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {user?.roleCode === 'AREA_ADMIN' ? 'Area Materials HQ' : 'Plant Operations'}
+            </div>
           </div>
         </div>
-      </div>
+      ) : isCpseAdmin ? (
+        <div className="sidebar-logo" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px', padding: '16px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+            <img 
+              src="/mira-logo.png" 
+              alt="MIRA Logo" 
+              style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'contain' }} 
+            />
+            <div style={{ overflow: 'hidden', flex: 1 }}>
+              <div className="sidebar-logo-text" style={{ fontSize: '13px', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span>MIRA ENTERPRISE</span>
+              </div>
+              <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 700, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                {user?.cpseName || 'Coal India Limited'}
+              </div>
+            </div>
+          </div>
+          <div style={{ 
+            fontSize: '9.5px', 
+            fontWeight: 700, 
+            padding: '3px 8px', 
+            background: 'rgba(37,99,235,0.08)', 
+            color: '#2563eb', 
+            borderRadius: '12px', 
+            border: '1px solid rgba(37,99,235,0.22)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            width: '100%',
+            boxSizing: 'border-box'
+          }}>
+            <Lock size={10} color="#2563eb" />
+            <span>ENTERPRISE SILO: <b>{user?.cpseCode || 'COALINDIA'}</b></span>
+          </div>
+        </div>
+      ) : (
+        <div className="sidebar-logo">
+          <img 
+            src="/mira-logo.png" 
+            alt="MIRA Logo" 
+            style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'contain' }} 
+          />
+          <div>
+            <div className="sidebar-logo-text">MIRA SOVEREIGN</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 500 }}>
+              National Governance
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Global Search Placeholder */}
+      {/* Global or Local Search */}
       <div className="sidebar-search">
         <Search size={14} />
         <input 
@@ -119,30 +206,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
                 <span>SAP S/4HANA Gateway</span>
               </button>
               <button
+                className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
+                onClick={() => onNavigate('audit')}
+              >
+                <FileCheck size={16} />
+                <span>Enterprise Audit Trail</span>
+              </button>
+              <button
                 className={`nav-item ${currentPage === 'cnmc' ? 'active' : ''}`}
                 onClick={() => onNavigate('cnmc')}
               >
                 <Globe2 size={16} />
                 <span>CNMC Golden Master</span>
               </button>
-              <button
-                className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
-                onClick={() => onNavigate('audit')}
-              >
-                <FileCheck size={16} />
-                <span>Audit & Compliance</span>
-              </button>
             </div>
           </>
         ) : isCpseAdmin ? (
           <>
-            <div className="nav-section-title">{user?.cpseCode || 'CPSE'} Operations</div>
+            <div className="nav-section-title">Enterprise Operations</div>
             <div className="nav-grid">
               <button
-                className={`nav-item ${currentPage === 'admin' || currentPage === 'cpse-portal' ? 'active' : ''}`}
-                onClick={() => onNavigate('admin')}
+                className={`nav-item ${currentPage === 'admin' || currentPage === 'cpse-portal' || currentPage === 'cpse-overview' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-overview')}
               >
-                <Activity size={16} />
+                <LayoutDashboard size={16} />
                 <span>Executive Dashboard</span>
               </button>
               <button
@@ -153,50 +240,50 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
                 <span style={{ fontWeight: 700, color: '#2563EB' }}>Plant & Area Portal</span>
               </button>
               <button
-                className={`nav-item ${currentPage === 'admin-collab' ? 'active' : ''}`}
-                onClick={() => onNavigate('admin-collab')}
-              >
-                <Network size={16} />
-                <span>Inter-Plant Network</span>
-              </button>
-              <button
-                className={`nav-item ${currentPage === 'admin-hierarchy' ? 'active' : ''}`}
-                onClick={() => onNavigate('admin-hierarchy')}
-              >
-                <FolderTree size={16} />
-                <span>Plant Hierarchy</span>
-              </button>
-              <button
-                className={`nav-item ${currentPage === 'admin-catalog' ? 'active' : ''}`}
-                onClick={() => onNavigate('admin-catalog')}
+                className={`nav-item ${currentPage === 'cpse-catalog' || currentPage === 'admin-catalog' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-catalog')}
               >
                 <Layers size={16} />
-                <span>Catalog Studio</span>
+                <span>Material Catalog Studio</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cpse-hierarchy' || currentPage === 'admin-hierarchy' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-hierarchy')}
+              >
+                <FolderTree size={16} />
+                <span>Plant Hierarchy & Nodes</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'cpse-collaboration' || currentPage === 'admin-collab' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-collaboration')}
+              >
+                <Network size={16} />
+                <span>Inter-Plant Collaboration</span>
               </button>
             </div>
 
-            <div className="nav-section-title">Enterprise Systems</div>
+            <div className="nav-section-title">ERP & Compliance</div>
             <div className="nav-grid">
               <button
-                className={`nav-item ${currentPage === 'sap-settings' ? 'active' : ''}`}
-                onClick={() => onNavigate('sap-settings')}
+                className={`nav-item ${currentPage === 'cpse-sap' ? 'active' : ''}`}
+                onClick={() => onNavigate('cpse-sap')}
               >
                 <Cpu size={16} />
-                <span>SAP S/4HANA Gateway</span>
+                <span>SAP S/4HANA & PRs</span>
               </button>
               <button
                 className={`nav-item ${currentPage === 'audit' ? 'active' : ''}`}
                 onClick={() => onNavigate('audit')}
               >
                 <FileCheck size={16} />
-                <span>Audit & Compliance</span>
+                <span>Enterprise Audit Trail</span>
               </button>
               <button
-                className={`nav-item ${currentPage === 'cnmc' ? 'active' : ''}`}
-                onClick={() => onNavigate('cnmc')}
+                className={`nav-item ${currentPage === 'sap-settings' ? 'active' : ''}`}
+                onClick={() => onNavigate('sap-settings')}
               >
-                <Globe2 size={16} />
-                <span>CNMC Golden Master</span>
+                <Activity size={16} />
+                <span>SAP Gateway Settings</span>
               </button>
             </div>
           </>
@@ -212,7 +299,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
                 <span>Overview</span>
               </button>
               <button
-                className={`nav-item ${currentPage === 'onboarding' ? 'active' : ''}`}
+                className={`nav-item ${currentPage === 'onboarding' || currentPage === 'cpses' ? 'active' : ''}`}
                 onClick={() => onNavigate('onboarding')}
               >
                 <Building2 size={16} />
@@ -245,6 +332,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
               >
                 <Activity size={16} />
                 <span>Cross-CPSE Intel</span>
+              </button>
+              <button
+                className={`nav-item ${currentPage === 'admin' ? 'active' : ''}`}
+                onClick={() => onNavigate('admin')}
+              >
+                <Building2 size={16} color="#2563eb" />
+                <span style={{ fontWeight: 600, color: '#2563eb' }}>CPSE Silo Inspector</span>
               </button>
             </div>
 
@@ -292,23 +386,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
       <div style={{ flex: 1 }} />
 
-      {/* Profile Bar */}
+      {/* Sovereign Officer Profile Bar (SAP S/4HANA Enterprise Layout) */}
       <div className="sidebar-profile-row">
         <div 
           className="sidebar-profile" 
-          style={{ cursor: 'pointer', flex: 1 }} 
           onClick={() => onNavigate('profile')} 
-          title="View Sovereign Profile"
+          title="Open Sovereign Officer Profile & Security MFA"
         >
-          <div className="profile-avatar">
-            {user?.fullName ? user.fullName[0] : 'U'}
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div className="profile-name" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {user?.fullName || 'User'}
+          <div className="sidebar-avatar-wrapper">
+            <div className="profile-avatar">
+              {officer.initials}
             </div>
-            <div className="profile-role" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {user?.roleCode ? user.roleCode.replace(/_/g, ' ') : ''}
+            <span className="sidebar-avatar-status" title="Active Sovereign Session" />
+          </div>
+
+          <div className="sidebar-profile-info">
+            <div className="profile-name" title={officer.displayName}>
+              {officer.displayName}
+            </div>
+            <div className="profile-role-meta">
+              <span className="profile-designation-badge">{officer.designation}</span>
+              <span className="profile-role-text">{officer.roleLabel}</span>
             </div>
           </div>
         </div>
@@ -316,9 +414,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
         <button 
           className="sidebar-logout-btn"
           onClick={logout}
-          title="Sign Out"
+          title="Sign Out (Sovereign Session)"
         >
-          <LogOut size={14} />
+          <LogOut size={15} />
         </button>
       </div>
     </div>

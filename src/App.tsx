@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuthStore } from './store/authStore';
 import { LoginPage } from './pages/LoginPage';
 import { NationalGovernancePage } from './pages/NationalGovernancePage';
@@ -21,7 +21,22 @@ import { MiraFloatingBot } from './components/ai/MiraFloatingBot';
 
 export default function App() {
   const { isAuthenticated, user } = useAuthStore();
-  const [currentPage, setCurrentPage] = useState<string>('national');
+  const isCpseAdmin = user?.roleCode === 'CPSE_ADMIN';
+  const [currentPage, setCurrentPage] = useState<string>(isCpseAdmin ? 'cpse-overview' : 'national');
+
+  // Guard routes if role is CPSE Admin
+  useEffect(() => {
+    if (isAuthenticated && isCpseAdmin) {
+      const nationalOnly = [
+        'national', 'onboarding', 'cpses', 'onboard-new', 
+        'cnmc', 'cross-cpse', 'expert-reviews', 'data-quality', 
+        'legacy-codes', 'policies', 'users-roles'
+      ];
+      if (nationalOnly.includes(currentPage)) {
+        setCurrentPage('cpse-overview');
+      }
+    }
+  }, [isAuthenticated, isCpseAdmin, currentPage]);
 
   if (!isAuthenticated) {
     return (
@@ -31,8 +46,10 @@ export default function App() {
             setCurrentPage('national');
           } else if (role === 'PLANT_USER' || role === 'AREA_ADMIN') {
             setCurrentPage('plant-dashboard');
+          } else if (role === 'CPSE_ADMIN') {
+            setCurrentPage('cpse-overview');
           } else {
-            setCurrentPage('admin');
+            setCurrentPage('national');
           }
         }} 
       />
@@ -46,21 +63,31 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'national':
-        return <NationalGovernancePage onNavigate={handleNavigate} />;
+        return isCpseAdmin 
+          ? <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="overview" /> 
+          : <NationalGovernancePage onNavigate={handleNavigate} />;
       case 'onboarding':
       case 'cpses':
-        return <CpseDirectoryPage onNavigate={handleNavigate} />;
+        return isCpseAdmin 
+          ? <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="overview" /> 
+          : <CpseDirectoryPage onNavigate={handleNavigate} />;
       case 'onboard-new':
         return <CpseOnboardingPage onNavigate={handleNavigate} />;
       case 'admin':
       case 'cpse-portal':
+      case 'cpse-overview':
         return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="overview" />;
       case 'admin-collab':
+      case 'cpse-collaboration':
         return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="collaboration" />;
       case 'admin-hierarchy':
+      case 'cpse-hierarchy':
         return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="hierarchy" />;
       case 'admin-catalog':
+      case 'cpse-catalog':
         return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="catalog" />;
+      case 'cpse-sap':
+        return <CpseAdminPortalPage onNavigate={handleNavigate} initialTab="sap" />;
       case 'plant-dashboard':
       case 'plant-inv':
         return <PlantAreaDashboardPage onNavigate={handleNavigate} initialTab="inventory" />;

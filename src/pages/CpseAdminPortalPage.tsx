@@ -6,7 +6,7 @@ import { InterPlantCollaborationGraph } from '../components/admin/InterPlantColl
 import { 
   Building2, Cpu, CheckCircle2, AlertTriangle, RefreshCw, 
   FolderTree, Plus, Users, UserPlus, Network, Layers, 
-  Search, ShieldCheck, Zap, ArrowRight, DollarSign, FileText, Send
+  Search, ShieldCheck, Zap, ArrowRight, DollarSign, FileText, Send, Lock
 } from 'lucide-react';
 
 interface CpseAdminPortalPageProps {
@@ -14,8 +14,9 @@ interface CpseAdminPortalPageProps {
   initialTab?: 'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap';
 }
 
-export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavigate, initialTab }) => {
+export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavigate, initialTab = 'overview' }) => {
   const { user } = useAuthStore();
+  const isCpseAdmin = user?.roleCode === 'CPSE_ADMIN';
   
   const cpseNameMap: Record<string, string> = {
     COALINDIA: 'Coal India Limited',
@@ -30,20 +31,25 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
   const [selectedCpseCode, setSelectedCpseCode] = useState<string>(initialCode);
   const [selectedCpseName, setSelectedCpseName] = useState<string>(cpseNameMap[initialCode] || user?.cpseName || 'Coal India Limited');
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap'>(initialTab || 'overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap'>(initialTab);
 
   useEffect(() => {
-    if (initialTab) {
+    if (initialTab && initialTab !== activeTab) {
       setActiveTab(initialTab);
     }
-  }, [initialTab]);
+  }, [initialTab, activeTab]);
 
   useEffect(() => {
     if (user?.cpseCode && user.cpseCode !== 'GOV') {
-      setSelectedCpseCode(user.cpseCode);
-      setSelectedCpseName(cpseNameMap[user.cpseCode] || user.cpseName || user.cpseCode);
+      if (user.cpseCode !== selectedCpseCode) {
+        setSelectedCpseCode(user.cpseCode);
+      }
+      const resolvedName = cpseNameMap[user.cpseCode] || user.cpseName || user.cpseCode;
+      if (resolvedName !== selectedCpseName) {
+        setSelectedCpseName(resolvedName);
+      }
     }
-  }, [user]);
+  }, [user, selectedCpseCode, selectedCpseName]);
   
   // Data States
   const [overviewData, setOverviewData] = useState<any | null>(null);
@@ -152,14 +158,42 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
     }
   };
 
+  const handleTabClick = (tab: 'overview' | 'collaboration' | 'hierarchy' | 'catalog' | 'sap') => {
+    setActiveTab(tab);
+    if (isCpseAdmin) {
+      onNavigate(`cpse-${tab}`);
+    }
+  };
+
   return (
     <AppShell
-      currentPage="cpse-admin"
+      currentPage={isCpseAdmin ? `cpse-${activeTab}` : 'admin'}
       onNavigate={onNavigate}
-      title={`${selectedCpseName} — Enterprise Sovereign Admin Portal`}
-      subtitle="Plant Hierarchy Management, SAP ERP Synchronizers & Inter-Plant Collaboration Hub"
+      title={selectedCpseName}
+      subtitle={isCpseAdmin ? "Enterprise Portal & SAP ERP Gateway" : "Supervisory Plant Hierarchy & ERP Audit"}
     >
       <div className="gov-page-container">
+        {/* Supervisory notice if viewed by National Governance */}
+        {!isCpseAdmin && (
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '10px', 
+            background: 'rgba(37, 99, 235, 0.08)', 
+            border: '1px solid rgba(37, 99, 235, 0.25)', 
+            padding: '10px 16px', 
+            borderRadius: '8px', 
+            marginBottom: '16px', 
+            color: '#1E40AF', 
+            fontSize: '12.5px' 
+          }}>
+            <ShieldCheck size={18} color="#2563EB" />
+            <div>
+              <b>National Governance Supervisory Mode:</b> Auditing autonomous CPSE enterprise operations and ERP synchronization status in supervisory inspection view.
+            </div>
+          </div>
+        )}
+
         {/* CPSE Context Selector & Top Navigation */}
         <div className="intel-top-bar" style={{ background: '#FFFFFF', padding: '16px 20px', borderRadius: '10px', border: '1px solid var(--border-medium)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -169,7 +203,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>{selectedCpseName}</h2>
-                <span className="status-pill active">Sovereign Entity</span>
+                <span className="status-pill active">{isCpseAdmin ? 'Enterprise Node' : 'Sovereign Entity'}</span>
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginTop: '2px' }}>
                 Code: <code style={{ color: '#2563EB', fontWeight: 700 }}>{selectedCpseCode}</code> | SAP Host: <code style={{ color: 'var(--text-muted)' }}>sap-gateway.{selectedCpseCode.toLowerCase()}.in</code>
@@ -179,30 +213,51 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
           {/* Switcher & Tab Pills */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <select 
-              className="gov-select"
-              value={selectedCpseCode}
-              onChange={(e) => {
-                const code = e.target.value;
-                setSelectedCpseCode(code);
-                const nameMap: Record<string, string> = {
-                  COALINDIA: 'Coal India Limited',
-                  BHEL: 'Bharat Heavy Electricals Limited',
-                  ONGC: 'Oil & Natural Gas Corp',
-                  SAIL: 'Steel Authority of India',
-                  NTPC: 'NTPC Limited',
-                  IOCL: 'Indian Oil Corp'
-                };
-                setSelectedCpseName(nameMap[code] || code);
-              }}
-            >
-              <option value="COALINDIA">Coal India (CIL)</option>
-              <option value="BHEL">BHEL</option>
-              <option value="ONGC">ONGC</option>
-              <option value="SAIL">SAIL</option>
-              <option value="NTPC">NTPC</option>
-              <option value="IOCL">IOCL</option>
-            </select>
+            {isCpseAdmin ? (
+              <div style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                background: 'rgba(16, 185, 129, 0.08)', 
+                border: '1px solid rgba(16, 185, 129, 0.25)', 
+                padding: '6px 14px', 
+                borderRadius: '20px',
+                color: '#065F46',
+                fontSize: '12px',
+                fontWeight: 700
+              }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981', display: 'inline-block', boxShadow: '0 0 8px rgba(16, 185, 129, 0.6)' }} />
+                <span>Isolated Enterprise Silo: <b>{selectedCpseCode}</b></span>
+                <span style={{ fontSize: '10px', background: '#D1FAE5', color: '#047857', padding: '1px 6px', borderRadius: '10px', fontWeight: 700 }}>
+                  LOCKED
+                </span>
+              </div>
+            ) : (
+              <select 
+                className="gov-select"
+                value={selectedCpseCode}
+                onChange={(e) => {
+                  const code = e.target.value;
+                  setSelectedCpseCode(code);
+                  const nameMap: Record<string, string> = {
+                    COALINDIA: 'Coal India Limited',
+                    BHEL: 'Bharat Heavy Electricals Limited',
+                    ONGC: 'Oil & Natural Gas Corp',
+                    SAIL: 'Steel Authority of India',
+                    NTPC: 'NTPC Limited',
+                    IOCL: 'Indian Oil Corp'
+                  };
+                  setSelectedCpseName(nameMap[code] || code);
+                }}
+              >
+                <option value="COALINDIA">Coal India (CIL)</option>
+                <option value="BHEL">BHEL</option>
+                <option value="ONGC">ONGC</option>
+                <option value="SAIL">SAIL</option>
+                <option value="NTPC">NTPC</option>
+                <option value="IOCL">IOCL</option>
+              </select>
+            )}
 
             <button className="gov-refresh-btn" onClick={fetchPortalData} title="Refresh Portal Data">
               <RefreshCw size={14} className={loading ? 'spinning' : ''} />
@@ -212,27 +267,27 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
         {/* Tab Pills */}
         <div className="tab-pill-group">
-          <button className={`tab-pill ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+          <button className={`tab-pill ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => handleTabClick('overview')}>
             <Building2 size={14} />
             <span>Executive Dashboard</span>
           </button>
 
-          <button className={`tab-pill ${activeTab === 'collaboration' ? 'active' : ''}`} onClick={() => setActiveTab('collaboration')}>
+          <button className={`tab-pill ${activeTab === 'collaboration' ? 'active' : ''}`} onClick={() => handleTabClick('collaboration')}>
             <Network size={14} color="#2563eb" />
             <span>Inter-Plant Collaboration</span>
           </button>
 
-          <button className={`tab-pill ${activeTab === 'hierarchy' ? 'active' : ''}`} onClick={() => setActiveTab('hierarchy')}>
+          <button className={`tab-pill ${activeTab === 'hierarchy' ? 'active' : ''}`} onClick={() => handleTabClick('hierarchy')}>
             <FolderTree size={14} />
             <span>Plant Hierarchy & Roles</span>
           </button>
 
-          <button className={`tab-pill ${activeTab === 'catalog' ? 'active' : ''}`} onClick={() => setActiveTab('catalog')}>
+          <button className={`tab-pill ${activeTab === 'catalog' ? 'active' : ''}`} onClick={() => handleTabClick('catalog')}>
             <Layers size={14} />
             <span>Material Catalog Studio</span>
           </button>
 
-          <button className={`tab-pill ${activeTab === 'sap' ? 'active' : ''}`} onClick={() => setActiveTab('sap')}>
+          <button className={`tab-pill ${activeTab === 'sap' ? 'active' : ''}`} onClick={() => handleTabClick('sap')}>
             <Cpu size={14} />
             <span>SAP PR & Inventory Gateway</span>
           </button>
@@ -299,7 +354,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
                   </div>
 
                   <div style={{ marginTop: '10px', paddingTop: '12px', borderTop: '1px solid var(--border-light)', display: 'flex', gap: '10px' }}>
-                    <button className="gov-btn secondary small" onClick={() => setActiveTab('sap')}>
+                    <button className="gov-btn secondary small" onClick={() => handleTabClick('sap')}>
                       <span>Configure SAP Credentials</span>
                       <ArrowRight size={12} />
                     </button>
