@@ -24,13 +24,26 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
       const authRes = await api.login(username, password, role === 'NATIONAL_GOVERNANCE' ? 'GOV' : undefined);
       
       const mappedRole: UserRole = authRes.role_code === 'CPSE_ADMIN' ? 'CPSE_ADMIN' : 'NATIONAL_GOVERNANCE';
+      
+      const cpseNameMap: Record<string, string> = {
+        COALINDIA: 'Coal India Limited',
+        BHEL: 'Bharat Heavy Electricals Limited',
+        ONGC: 'Oil & Natural Gas Corporation',
+        SAIL: 'Steel Authority of India Limited',
+        NTPC: 'NTPC Limited',
+        IOCL: 'Indian Oil Corporation',
+      };
+      const resolvedCpseCode = authRes.cpse_code || (mappedRole === 'CPSE_ADMIN' ? 'COALINDIA' : null);
+      const resolvedCpseName = resolvedCpseCode ? (cpseNameMap[resolvedCpseCode] || authRes.cpse_name || resolvedCpseCode) : null;
+
       login(authRes.access_token, {
         id: authRes.user_id,
         username: authRes.username,
         fullName: authRes.full_name,
         roleCode: mappedRole,
         cpseId: authRes.cpse_id,
-        cpseCode: authRes.cpse_code,
+        cpseCode: resolvedCpseCode,
+        cpseName: resolvedCpseName,
         email: `${authRes.username}@cpse.gov.in`,
       });
 
