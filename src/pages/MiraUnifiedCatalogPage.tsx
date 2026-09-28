@@ -494,256 +494,66 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   key={mat.id}
                   style={{
                     background: 'var(--bg-card)',
-                    borderRadius: '14px',
+                    borderRadius: '8px',
                     border: '1px solid var(--border-light)',
-                    boxShadow: 'var(--shadow-card)',
                     display: 'flex',
                     flexDirection: 'column',
-                    overflow: 'hidden',
-                    transition: 'all 0.2s ease',
-                    position: 'relative'
+                    overflow: 'hidden'
                   }}
                 >
-                  {/* Government Approval Header Banner */}
-                  <div style={{
-                    padding: '8px 12px',
-                    background: 'linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%)',
-                    borderBottom: '1px solid #bbf7d0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                      <ShieldCheck size={16} color="#059669" />
-                      <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#065f46', letterSpacing: '0.02em' }}>
-                        GOV APPROVED
-                      </span>
+                  {/* Header Row */}
+                  <div style={{ display: 'flex', alignItems: 'center', padding: '12px', gap: '8px', borderBottom: '1px solid var(--border-light)' }}>
+                    <div
+                      onClick={() => handleCopy(mat.human_code)}
+                      style={{ background: '#4f46e5', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}
+                    >
+                      # {mat.human_code} {copiedText === mat.human_code ? <Check size={10} /> : <Copy size={10} />}
                     </div>
-
-                    <span style={{
-                      fontSize: '10.5px',
-                      fontWeight: 700,
-                      padding: '2px 8px',
-                      borderRadius: '12px',
-                      background: critColor.bg,
-                      color: critColor.text,
-                      border: `1px solid ${critColor.border}`
-                    }}>
+                    <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669', background: '#dcfce7', padding: '2px 6px', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                      <CheckCircle2 size={10} /> RATIFIED
+                    </span>
+                    <span style={{ fontSize: '10px', color: '#94a3b8' }}>{mat.ratification_order || 'GOV-RAT-2026-STD'}</span>
+                    <div style={{ flex: 1 }} />
+                    <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '12px', border: `1px solid ${critColor.border}`, color: critColor.text, background: critColor.bg, fontWeight: 700 }}>
                       {mat.criticality}
                     </span>
                   </div>
 
-                  {/* Card Main Body */}
-                  <div style={{ padding: '10px', display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
-                    
-                    {/* SECTION 1: Our MIRA Sovereign Material Code */}
-                    <div style={{ background: 'var(--bg-card-alt)', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <Tag size={12} />
-                          MIRA CODE
-                        </span>
-                        <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>
-                          Order: {mat.ratification_order || 'GOV-RAT-2026-STD'}
-                        </span>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
-                        <div
-                          onClick={() => handleCopy(mat.human_code)}
-                          title="Click to copy 7-digit MIRA Code"
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            background: '#2563eb',
-                            color: '#ffffff',
-                            padding: '5px 12px',
-                            borderRadius: '6px',
-                            fontSize: '13.5px',
-                            fontWeight: 800,
-                            cursor: 'pointer',
-                            boxShadow: '0 2px 6px rgba(37, 99, 235, 0.25)',
-                            letterSpacing: '0.03em'
-                          }}
-                        >
-                          <Hash size={13} />
-                          <code>{mat.human_code}</code>
-                          {copiedText === mat.human_code ? <Check size={12} color="#ffffff" /> : <Copy size={12} style={{ opacity: 0.8 }} />}
-                        </div>
-
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#059669', background: '#dcfce7', padding: '2px 8px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                          <CheckCircle2 size={11} /> RATIFIED
-                        </span>
-                      </div>
-
-                      {/* Explicit Connection to Machine Code */}
-                      <div style={{
-                        marginTop: '4px',
-                        padding: '4px 6px',
-                        borderRadius: '6px',
-                        background: 'rgba(37, 99, 235, 0.05)',
-                        border: '1px solid rgba(37, 99, 235, 0.15)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '3px'
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', fontWeight: 700, color: '#2563eb' }}>
-                          <Cpu size={11} />
-                          <span>MACHINE CODE:</span>
-                        </div>
-                        <div
-                          onClick={() => handleCopy(mat.machine_urn)}
-                          title="Click to copy Connected Machine URN"
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            background: 'var(--bg-card)',
-                            padding: '4px 6px',
-                            borderRadius: '4px',
-                            fontSize: '10.5px',
-                            color: '#475569',
-                            fontFamily: 'monospace',
-                            border: '1px solid var(--border-light)',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {mat.machine_urn}
-                          </span>
-                          {copiedText === mat.machine_urn ? <Check size={11} color="#16a34a" /> : <Copy size={11} style={{ flexShrink: 0, marginLeft: '6px' }} />}
-                        </div>
-                      </div>
+                  {/* Body */}
+                  <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)' }}>{mat.extracted_noun}</div>
+                      <div style={{ fontSize: '11px', color: '#94a3b8' }}>{mat.category_name}</div>
                     </div>
-
-                    {/* SECTION 2: What is it? (Standard Description & Physics) */}
-                    <div>
-                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0px' }}>
-                        SPECIFICATION
-                      </div>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3 }}>
-                        {mat.extracted_noun}
-                      </div>
-                      <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px', lineHeight: 1.3 }}>
-                        {mat.core_physics}
-                      </div>
-
-                      {/* Technical Specs Tags */}
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginTop: '8px' }}>
-                        <span style={{ fontSize: '11px', background: 'var(--bg-app)', padding: '2px 8px', borderRadius: '4px', color: 'var(--text-secondary)', border: '1px solid var(--border-light)' }}>
-                          <b>Spec:</b> {mat.raw_material_composition}
-                        </span>
+                    <div style={{ fontSize: '12px', color: '#475569', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {mat.core_physics}
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
+                      <div style={{ display: 'flex', gap: '4px' }}>
+                        <span style={{ fontSize: '10px', background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px', color: '#475569', border: '1px solid #e2e8f0' }}>{mat.raw_material_composition}</span>
                         {mat.variant && (
-                          <span style={{ fontSize: '11px', background: 'var(--bg-app)', padding: '2px 8px', borderRadius: '4px', color: 'var(--text-secondary)', border: '1px solid var(--border-light)' }}>
-                            <b>Variant:</b> {mat.variant}
-                          </span>
+                          <span style={{ fontSize: '10px', background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px', color: '#475569', border: '1px solid #e2e8f0' }}>{mat.variant}</span>
                         )}
-                        <span style={{ fontSize: '11px', background: 'var(--bg-app)', padding: '2px 8px', borderRadius: '4px', color: 'var(--text-secondary)', border: '1px solid var(--border-light)' }}>
-                          <b>Domain:</b> {mat.category_name} ({mat.category_code})
-                        </span>
+                      </div>
+                      <div style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 600 }}>
+                        CPSEs:
                       </div>
                     </div>
+                  </div>
 
-                    {/* SECTION 3: Government Approval Reason & Ratification Basis */}
-                    <div style={{
-                      background: '#fffbeb',
-                      borderRadius: '10px',
-                      padding: '8px 10px',
-                      border: '1px solid #fde68a',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '5px'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: '#92400e' }}>
-                        <Award size={13} color="#d97706" />
-                        RATIFICATION BASIS:
-                      </div>
-                      
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px', paddingTop: '4px', borderTop: '1px solid #fef3c7', fontSize: '10.5px', color: '#b45309' }}>
-                        <span>Approving Body: <b>{mat.approval_authority || mat.approved_by}</b></span>
-                        <span>Ref: {mat.ratification_order || 'GOV-RAT-2026-STD'}</span>
-                      </div>
+                  {/* Footer */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: '#f8fafc', borderTop: '1px solid var(--border-light)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#64748b', fontFamily: 'monospace' }}>
+                      <Cpu size={10} color="#94a3b8" />
+                      {mat.machine_urn} <Copy size={10} style={{ cursor: 'pointer' }} onClick={() => handleCopy(mat.machine_urn)} />
                     </div>
-
-                    {/* SECTION 4: Same Material Code Linked from Different CPSEs */}
-                    <div style={{
-                      background: 'var(--bg-app)',
-                      borderRadius: '10px',
-                      padding: '8px 10px',
-                      border: '1px solid var(--border-light)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '4px'
-                    }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                          <LinkIcon size={12} color="#2563eb" />
-                          LINKED CPSEs:
-                        </div>
-                        <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#2563eb', background: 'rgba(37,99,235,0.08)', padding: '2px 6px', borderRadius: '4px' }}>
-                          {mat.mapped_cpses?.length || 0} CPSEs Pooling
-                        </span>
-                      </div>
-
-                      {/* CPSE Rows */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                        {visibleCpses.map((c, idx) => {
-                          const badge = getCpseBadgeColor(c.cpse);
-                          return (
-                            <div
-                              key={idx}
-                              style={{
-                                background: 'var(--bg-card)',
-                                padding: '8px 10px',
-                                borderRadius: '6px',
-                                border: '1px solid var(--border-light)',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '3px'
-                              }}
-                            >
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                  <span style={{
-                                    fontSize: '10.5px',
-                                    fontWeight: 800,
-                                    padding: '1px 6px',
-                                    borderRadius: '4px',
-                                    background: badge.bg,
-                                    color: badge.text,
-                                    border: `1px solid ${badge.border}`
-                                  }}>
-                                    {c.cpse}
-                                  </span>
-                                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-secondary)' }}>
-                                    {c.plant || 'Main Operating Plant'}
-                                  </span>
-                                </div>
-                                {c.unit_price && (
-                                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#059669', fontFamily: 'monospace' }}>
-                                    {c.unit_price}
-                                  </span>
-                                )}
-                              </div>
-
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px' }}>
-                                <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#1d4ed8' }}>
-                                  {c.local_code || 'Mapped'}
-                                </span>
-                                <span style={{ fontSize: '10px', color: '#16a34a', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
-                                  <CheckSquare size={10} /> 100% Identical Material
-                                </span>
-                              </div>
-
-                              {c.local_description && (
-                                <div style={{ fontSize: '11px', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                  {c.local_description}
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
+                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#4f46e5', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                      Inspect Specs <ChevronRight size={12} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}}
                       </div>
 
                       {/* Expand / Collapse Button if more than 2 CPSEs */}
