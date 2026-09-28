@@ -475,7 +475,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-              alt="MIRA Logo" 
+              alt="CNMC Logo" 
 
 
 
@@ -489,7 +489,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
             <div style={{ overflow: 'hidden', flex: 1 }}>
               <div className="sidebar-logo-text" style={{ fontSize: '13px', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span>MIRA ENTERPRISE</span>
+                <span>CNMC ENTERPRISE</span>
               </div>
               <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 600, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', marginTop: '2px' }}>
                 {user?.cpseName || 'Bharat Heavy Electricals Limited'}
@@ -609,7 +609,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            alt="MIRA Logo" 
+            alt="CNMC Logo" 
 
 
 
@@ -625,7 +625,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            <div className="sidebar-logo-text">MIRA SOVEREIGN</div>
+            <div className="sidebar-logo-text">CNMC SOVEREIGN</div>
 
 
 
@@ -1029,7 +1029,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-                  <span>MIRA Unified Master</span>
+                  <span>CNMC Unified Master</span>
 
 
 
@@ -1505,7 +1505,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-                  <span>MIRA Unified Master</span>
+                  <span>CNMC Unified Master</span>
 
 
 
@@ -2125,7 +2125,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-                  target: user.cpseName || 'MIRA National Grid',
+                  target: user.cpseName || 'CNMC National Grid',
 
 
 

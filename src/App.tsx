@@ -199,7 +199,7 @@ export default function App() {
 
       {renderPage()}
 
-      {/* Global Multilingual 3D MIRA Copilot & SAP MM MCP */}
+      {/* Global Multilingual 3D CNMC Copilot & SAP MM MCP */}
 
       <MiraFloatingBot />
 

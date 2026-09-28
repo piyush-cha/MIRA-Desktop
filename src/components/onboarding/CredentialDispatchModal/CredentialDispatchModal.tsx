@@ -175,7 +175,7 @@ export const CredentialDispatchModal: React.FC<CredentialDispatchModalProps> = (
 
 
 
-        email_subject: 'Secure Credentials: MIRA System Access',
+        email_subject: 'Secure Credentials: CNMC System Access',
 
 
 

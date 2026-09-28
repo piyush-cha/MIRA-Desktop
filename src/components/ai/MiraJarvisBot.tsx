@@ -9,7 +9,7 @@ export const MiraJarvisBot: React.FC = () => {
     <button
       onClick={toggleChat}
       className={`jarvis-float-btn ${isListening ? 'listening' : isSpeaking ? 'speaking' : ''}`}
-      title="Open MIRA Jarvis Voice & System Chat (or press @)"
+      title="Open CNMC Jarvis Voice & System Chat (or press @)"
     >
       {isListening ? (
         <Mic size={18} />
@@ -18,7 +18,7 @@ export const MiraJarvisBot: React.FC = () => {
       ) : (
         <Bot size={18} color="var(--accent-gold)" />
       )}
-      <span>{isListening ? 'Listening' : isSpeaking ? 'Speaking' : 'MIRA Jarvis (@)'}</span>
+      <span>{isListening ? 'Listening' : isSpeaking ? 'Speaking' : 'CNMC Jarvis (@)'}</span>
     </button>
   );
 };

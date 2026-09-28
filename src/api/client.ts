@@ -110,7 +110,7 @@ export const api = {
 
 
 
-  /** MIRA Sovereign National Unified Material Master Catalog */
+  /** CNMC Sovereign National Unified Material Master Catalog */
 
   getUnifiedCatalog: async (params?: {
 
@@ -144,7 +144,7 @@ export const api = {
 
 
 
-  /** Create/Mint a new MIRA Unified National Standard Code */
+  /** Create/Mint a new CNMC Unified National Standard Code */
 
   createUnifiedCode: async (payload: {
 
@@ -180,7 +180,7 @@ export const api = {
 
 
 
-  /** Suggest authoritative 7-digit MIRA Standard Code (sequential or random) */
+  /** Suggest authoritative 7-digit CNMC Standard Code (sequential or random) */
 
   suggestUnifiedCode: async (params?: { mode?: 'sequential' | 'random'; category?: string }) => {
 
@@ -418,7 +418,7 @@ export const api = {
 
 
 
-  /** Global search across MIRA National Master with CPSE local code enrichment */
+  /** Global search across CNMC National Master with CPSE local code enrichment */
 
   searchMaster: async (query: string, cpseCode?: string) => {
 
@@ -778,7 +778,7 @@ export const api = {
 
   // ===========================================================================
 
-  // SAP Material Management Gateway & MIRA Copilot (MCP)
+  // SAP Material Management Gateway & CNMC Copilot (MCP)
 
   // ===========================================================================
 

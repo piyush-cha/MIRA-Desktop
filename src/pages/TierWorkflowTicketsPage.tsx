@@ -80,10 +80,10 @@ const PRESET_CONFIRMATION_REASONS: Record<number, string[]> = {
   5: [
     'Laya AI deduplication verified 0% collision with existing sovereign master. ISO/ASME attributes normalized.',
     'Physical noun and boundary parameters normalized. Standardized definition approved by Technical Board.',
-    'Cross-CPSE duplicate check cleared. Eligible for 7-digit Sovereign MIRA Code generation.'
+    'Cross-CPSE duplicate check cleared. Eligible for 7-digit Sovereign CNMC Code generation.'
   ],
   6: [
-    'National Technical Council ratifies assigned 7-digit MIRA Standard Code and Machine URN.',
+    'National Technical Council ratifies assigned 7-digit CNMC Standard Code and Machine URN.',
     'Approved unified nomenclature, cross-CPSE equivalence pointer, and technical hierarchy.',
     'Council verified specifications and recommended for Sovereign Cabinet Ratification.'
   ],
@@ -103,7 +103,7 @@ const PRESET_SEND_BACK_REASONS: string[] = [
 ];
 
 const PRESET_REJECTION_REASONS: string[] = [
-  'Duplicate material already exists in MIRA Sovereign Master with an active unified code.',
+  'Duplicate material already exists in CNMC Sovereign Master with an active unified code.',
   'Item obsolete or discontinued under national procurement guidelines.',
   'Does not meet minimum mandatory national technical standard requirements.',
   'Disallowed non-standard specification; standard existing alternative available in national catalog.'
@@ -352,7 +352,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
         priority: createForm.priority,
         domain_code: createForm.domain_code,
         category_code: createForm.category_code,
-        initial_reason: createForm.initial_reason || `New material codification proposed for ${createForm.item_name} to mint MIRA Sovereign Unified Code.`,
+        initial_reason: createForm.initial_reason || `New material codification proposed for ${createForm.item_name} to mint CNMC Sovereign Unified Code.`,
         created_by: createForm.created_by
       });
 
@@ -867,7 +867,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                     </div>
                   </div>
 
-                  {/* Card Body: Item info & MIRA Code if reached Tier 6/7/Ratified */}
+                  {/* Card Body: Item info & CNMC Code if reached Tier 6/7/Ratified */}
                   <div style={{ padding: '18px 20px' }}>
                     {/* Prominent return notice if returned with reason */}
                     {isSentBack && (
@@ -912,7 +912,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                         </div>
                       </div>
 
-                      {/* Authoritative MIRA Code Display Box (When minted at Tier 6 or 7) */}
+                      {/* Authoritative CNMC Code Display Box (When minted at Tier 6 or 7) */}
                       {ticket.suggested_mira_code && (
                         <div style={{
                           backgroundColor: isRatified ? '#ecfdf5' : '#f8fafc',
@@ -923,7 +923,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
                             <span style={{ fontSize: '11px', fontWeight: 700, color: isRatified ? '#047857' : '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                              {isRatified ? '★ Sovereign Ratified MIRA Code' : '⚡ Minted 7-Digit MIRA Code'}
+                              {isRatified ? '★ Sovereign Ratified CNMC Code' : '⚡ Minted 7-Digit CNMC Code'}
                             </span>
                             <button
                               onClick={() => copyToClipboard(ticket.suggested_mira_code!)}
@@ -1419,7 +1419,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                         </span>
                       ) : confirmModalTicket.current_tier === 5 ? (
                         <span>
-                          <b>Standardization Clearance:</b> Approving Tier 5 automatically triggers Laya AI normalization, mints an unused random 7-digit MIRA code (e.g. <code>MIRA-XXXXXXX</code>), and connects the Sovereign Machine URN!
+                          <b>Standardization Clearance:</b> Approving Tier 5 automatically triggers Laya AI normalization, mints an unused random 7-digit CNMC code (e.g. <code>CNMC-XXXXXXX</code>), and connects the Sovereign Machine URN!
                         </span>
                       ) : (
                         <span>
@@ -1729,7 +1729,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                       Propose New Material for Unified Code Induction (Tier 1: Plant Data Entry)
                     </h3>
                     <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '2px' }}>
-                      Exclusive Tier 1 Privilege: Propose uncataloged new material to mint a Sovereign MIRA Unified Code
+                      Exclusive Tier 1 Privilege: Propose uncataloged new material to mint a Sovereign CNMC Unified Code
                     </div>
                   </div>
                 </div>

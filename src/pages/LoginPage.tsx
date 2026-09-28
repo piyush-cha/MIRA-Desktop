@@ -407,7 +407,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-          target: resolvedCpseName || 'MIRA National Grid',
+          target: resolvedCpseName || 'CNMC National Grid',
 
 
 
@@ -483,18 +483,18 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-        {/* Official MIRA Logo */}
+        {/* Official CNMC Logo */}
 
 
 
         <div style={{ background: '#f8f9fa', borderRadius: '18px', padding: '16px', display: 'inline-flex', marginBottom: '16px', alignItems: 'center', justifyContent: 'center' }}>
-          <img src="/mira-logo.png" alt="MIRA Logo" style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
+          <img src="/mira-logo.png" alt="CNMC Logo" style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
         </div>
 
 
 
         <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.8px', color: '#1B2332' }}>
-          MIRA Sovereign <span style={{ color: '#E0983C' }}>Grid</span>
+          CNMC Sovereign <span style={{ color: '#E0983C' }}>Grid</span>
         </h2>
 
         <p style={{ fontSize: '11px', fontWeight: 700, color: '#273449', marginBottom: '32px', textTransform: 'uppercase', lineHeight: '1.6', letterSpacing: '0.5px' }}>

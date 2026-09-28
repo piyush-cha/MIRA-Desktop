@@ -157,7 +157,7 @@ export const CpseAdminPage: React.FC<CpseAdminPageProps> = ({ onNavigate }) => {
             }}
           >
             <Bot size={15} color="var(--accent-gold)" />
-            <span>Ask MIRA Voice</span>
+            <span>Ask CNMC Voice</span>
           </button>
         </div>
       </div>

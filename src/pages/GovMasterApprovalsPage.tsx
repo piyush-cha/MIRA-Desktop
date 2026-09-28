@@ -117,7 +117,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
       
       setSuccessToast({
         code: item.human_code,
-        message: `Code ${item.human_code} officially ratified! Now published to MIRA Sovereign Master.`
+        message: `Code ${item.human_code} officially ratified! Now published to CNMC Sovereign Master.`
       });
       window.dispatchEvent(new CustomEvent('master-nominations-updated'));
       setTimeout(() => setSuccessToast(null), 6000);
@@ -210,7 +210,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
               CPSE Material Master Nominations
             </h1>
             <p style={{ margin: 0, fontSize: '13px', color: '#93c5fd', maxWidth: '720px', lineHeight: 1.5 }}>
-              Review sovereign 7-digit standard codes proposed by CPSE nodal officers. Ratified items are immediately inducted into the <b>MIRA Sovereign Unified Material Master</b> and broadcast across Indian public enterprises.
+              Review sovereign 7-digit standard codes proposed by CPSE nodal officers. Ratified items are immediately inducted into the <b>CNMC Sovereign Unified Material Master</b> and broadcast across Indian public enterprises.
             </p>
           </div>
 
@@ -406,7 +406,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
               <Search size={14} color="#64748b" />
               <input
                 type="text"
-                placeholder="Search MIRA code, CPSE, noun..."
+                placeholder="Search CNMC code, CPSE, noun..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -492,7 +492,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
                 <div style={{ flex: 1 }}>
                   {/* Top Badges */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
-                    {/* Sovereign MIRA Code Pill */}
+                    {/* Sovereign CNMC Code Pill */}
                     <div style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -510,7 +510,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
                       <span># {item.human_code}</span>
                       <button 
                         onClick={() => copyToClipboard(item.human_code)}
-                        title="Copy MIRA Code"
+                        title="Copy CNMC Code"
                         style={{ background: 'transparent', border: 'none', color: '#ffffff', padding: 0, cursor: 'pointer', display: 'flex' }}
                       >
                         {copiedCode === item.human_code ? <Check size={12} color="#86efac" /> : <Copy size={12} />}
@@ -804,7 +804,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
               <textarea
                 value={rejectReason}
                 onChange={(e) => setRejectReason(e.target.value)}
-                placeholder="E.g., Incomplete mechanical tolerance specifications; equivalent standard already exists under MIRA-7842019."
+                placeholder="E.g., Incomplete mechanical tolerance specifications; equivalent standard already exists under CNMC-7842019."
                 rows={3}
                 style={{
                   width: '100%',

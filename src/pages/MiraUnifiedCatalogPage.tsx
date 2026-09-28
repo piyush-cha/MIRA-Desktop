@@ -70,7 +70,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     raw_material_composition: '',
     criticality: 'Category B',
     approval_reason: '',
-    human_code: 'MIRA-7842019',
+    human_code: 'CNMC-7842019',
     custom_attribute_key: '',
     custom_attribute_value: '',
     technical_attributes: {} as Record<string, string>
@@ -108,7 +108,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     } catch (e) {
       console.warn('Failed to fetch suggested code from API:', e);
       const rand = Math.floor(1000000 + Math.random() * 9000000);
-      setCreateForm(prev => ({ ...prev, human_code: `MIRA-${rand}` }));
+      setCreateForm(prev => ({ ...prev, human_code: `CNMC-${rand}` }));
     }
   };
 
@@ -178,7 +178,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
         created_by: user?.email || 'national.admin@gov.in'
       });
 
-      setCreateSuccessMsg(`MIRA Standard ${res.data?.human_code || previewHumanCode} ratified successfully by Government!`);
+      setCreateSuccessMsg(`CNMC Standard ${res.data?.human_code || previewHumanCode} ratified successfully by Government!`);
       setTimeout(() => {
         setCreateSuccessMsg(null);
         setShowCreateModal(false);
@@ -192,7 +192,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           raw_material_composition: '',
           criticality: 'Category B',
           approval_reason: '',
-          human_code: 'MIRA-1000014',
+          human_code: 'CNMC-1000014',
           custom_attribute_key: '',
           custom_attribute_value: '',
           technical_attributes: {}
@@ -210,7 +210,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
   // Preview generated codes for creation modal - 7 digit numeric standard
   const codeNumMatch = (createForm.human_code || '').match(/\d{7}/);
   const previewCodeNum = codeNumMatch ? codeNumMatch[0] : (1000000 + materials.length + 1).toString();
-  const previewHumanCode = `MIRA-${previewCodeNum}`;
+  const previewHumanCode = `CNMC-${previewCodeNum}`;
   const previewSlug = (createForm.core_physics || 'standard-spec')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -264,13 +264,13 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(37, 99, 235, 0.08)', border: '1px solid rgba(37, 99, 235, 0.2)', padding: '2px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, color: '#2563eb', marginBottom: '2px' }}>
               <ShieldCheck size={12} />
-              MIRA NATIONAL MASTER
+              CNMC NATIONAL MASTER
             </div>
             <h3 className="section-title" style={{ margin: '0 0 4px 0', fontSize: '18px', color: 'var(--text-primary)' }}>
-              MIRA Sovereign Unified Material Master
+              CNMC Sovereign Unified Material Master
             </h3>
             <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', maxWidth: '800px' }}>
-              Displaying Government Approved & Ratified MIRA Standard Codes with standardized physical definitions and cross-CPSE ERP links.
+              Displaying Government Approved & Ratified CNMC Standard Codes with standardized physical definitions and cross-CPSE ERP links.
             </p>
           </div>
           
@@ -311,7 +311,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
               <input
                 type="text"
-                placeholder="Search Sovereign Catalog by MIRA Code, URN, Noun, Grade, or CPSE code..."
+                placeholder="Search Sovereign Catalog by CNMC Code, URN, Noun, Grade, or CPSE code..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -442,7 +442,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           <div style={{ padding: '60px', textAlign: 'center', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
             <RefreshCw size={28} className="animate-spin" style={{ margin: '0 auto 12px auto', color: '#2563eb' }} />
             <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>Loading Government-Approved Sovereign Catalog...</div>
-            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>Querying verified MIRA Unified codes, approval orders, and cross-CPSE bridges</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>Querying verified CNMC Unified codes, approval orders, and cross-CPSE bridges</div>
           </div>
         ) : error ? (
           <div style={{ padding: '30px', textAlign: 'center', background: '#fef2f2', borderRadius: '12px', border: '1px solid #fecaca', color: '#b91c1c' }}>
@@ -558,7 +558,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '11px' }}>
               <thead>
                 <tr style={{ background: 'var(--bg-card-alt)', borderBottom: '1px solid var(--border-light)', color: 'var(--text-secondary)' }}>
-                  <th style={{ padding: '12px 16px', fontWeight: 600 }}>MIRA Sovereign Code & URN</th>
+                  <th style={{ padding: '12px 16px', fontWeight: 600 }}>CNMC Sovereign Code & URN</th>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>What Is It? (Description)</th>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>Gov Approval Reason</th>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>Linked CPSE Equivalents</th>
@@ -843,7 +843,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               <div>
                 <span style={{ fontSize: '11px', fontWeight: 700, color: '#2563eb', textTransform: 'uppercase' }}>NATIONAL SOVEREIGN REGISTRATION</span>
                 <h3 style={{ margin: '2px 0 0 0', fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Mint & Ratify New MIRA Standard Code
+                  Mint & Ratify New CNMC Standard Code
                 </h3>
               </div>
               <button
@@ -901,12 +901,12 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 </div>
               </div>
 
-              {/* Suggested 7-Digit MIRA Code & Generation Buttons */}
+              {/* Suggested 7-Digit CNMC Code & Generation Buttons */}
               <div style={{ background: 'var(--bg-card-alt)', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
                   <label style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Tag size={12} color="#2563eb" />
-                    Suggested MIRA Unified Code (7-Digit Numeric) *
+                    Suggested CNMC Unified Code (7-Digit Numeric) *
                   </label>
                   <div style={{ display: 'flex', gap: '6px' }}>
                     <button
@@ -954,7 +954,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
 
                 <input
                   type="text"
-                  placeholder="e.g. MIRA-7842019"
+                  placeholder="e.g. CNMC-7842019"
                   value={createForm.human_code}
                   onChange={(e) => setCreateForm({ ...createForm, human_code: e.target.value })}
                   style={{
@@ -971,7 +971,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   }}
                 />
                 <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                  Standard Sovereign Format: <b>MIRA-1XXXXXX</b> (7-digit number) directly bound to the sovereign machine code below.
+                  Standard Sovereign Format: <b>CNMC-1XXXXXX</b> (7-digit number) directly bound to the sovereign machine code below.
                 </div>
               </div>
 
