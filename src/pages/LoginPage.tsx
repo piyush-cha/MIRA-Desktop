@@ -155,13 +155,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-      } else if (isNationalAdmin && (password === 'national' || password === 'gov' || password === 'admin' || password === 'MIRA2026!super')) {
+      } else if (isNationalAdmin) {
 
+        if (password === 'national' || password === 'gov' || password === 'admin' || password === 'national.admin' || password === 'MIRA2026!super' || password === 'bhel' || password === 'BHEL2026!') {
 
+          effectivePassword = 'MIRA2026!super';
 
-        effectivePassword = 'BHEL2026!';
-
-
+        }
 
       }
 
@@ -215,7 +215,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-          `${password}2026!`
+          `${password}2026!`,
+
+
+
+          'MIRA2026!super',
+
+
+
+          'BHEL2026!'
 
 
 
