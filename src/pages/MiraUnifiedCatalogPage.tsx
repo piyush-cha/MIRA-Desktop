@@ -516,7 +516,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                       <ShieldCheck size={16} color="#059669" />
                       <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#065f46', letterSpacing: '0.02em' }}>
-                        APPROVED BY GOVERNMENT OF INDIA
+                        GOV APPROVED
                       </span>
                     </div>
 
@@ -541,7 +541,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                         <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '4px' }}>
                           <Tag size={12} />
-                          SOVEREIGN MIRA UNIFIED CODE (7-DIGIT)
+                          MIRA CODE
                         </span>
                         <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>
                           Order: {mat.ratification_order || 'GOV-RAT-2026-STD'}
@@ -590,7 +590,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', fontWeight: 700, color: '#2563eb' }}>
                           <Cpu size={11} />
-                          <span>CONNECTED SOVEREIGN MACHINE CODE:</span>
+                          <span>MACHINE CODE:</span>
                         </div>
                         <div
                           onClick={() => handleCopy(mat.machine_urn)}
@@ -620,7 +620,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     {/* SECTION 2: What is it? (Standard Description & Physics) */}
                     <div>
                       <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
-                        WHAT IS THIS MATERIAL? (SPECIFICATION)
+                        SPECIFICATION
                       </div>
                       <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3 }}>
                         {mat.extracted_noun}
@@ -657,11 +657,9 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: '#92400e' }}>
                         <Award size={13} color="#d97706" />
-                        GOVERNMENT APPROVAL REASON & RATIFICATION BASIS:
+                        RATIFICATION BASIS:
                       </div>
-                      <div style={{ fontSize: '12px', color: '#78350f', lineHeight: 1.45, fontStyle: 'italic' }}>
-                        "{mat.approval_reason}"
-                      </div>
+                      
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px', paddingTop: '4px', borderTop: '1px solid #fef3c7', fontSize: '10.5px', color: '#b45309' }}>
                         <span>Approving Body: <b>{mat.approval_authority || mat.approved_by}</b></span>
                         <span>Ref: {mat.ratification_order || 'GOV-RAT-2026-STD'}</span>
@@ -681,7 +679,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: 'var(--text-primary)' }}>
                           <LinkIcon size={12} color="#2563eb" />
-                          SAME MATERIAL LINKED FROM DIFFERENT CPSEs:
+                          LINKED CPSEs:
                         </div>
                         <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#2563eb', background: 'rgba(37,99,235,0.08)', padding: '2px 6px', borderRadius: '4px' }}>
                           {mat.mapped_cpses?.length || 0} CPSEs Pooling
@@ -801,7 +799,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                       }}
                     >
                       <Eye size={13} />
-                      Inspect Full Sovereign Spec &rarr;
+                      View Spec &rarr;
                     </button>
                   </div>
                 </div>
@@ -959,7 +957,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               <div style={{ background: '#fffbeb', padding: '16px', borderRadius: '10px', border: '1px solid #fde68a' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', fontWeight: 800, color: '#92400e', marginBottom: '6px' }}>
                   <Award size={15} color="#d97706" />
-                  GOVERNMENT APPROVAL REASON & RATIFICATION BASIS:
+                  RATIFICATION BASIS:
                 </div>
                 <div style={{ fontSize: '13px', color: '#78350f', lineHeight: 1.5, fontStyle: 'italic' }}>
                   "{selectedMaterial.approval_reason}"
