@@ -222,33 +222,35 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
             </div>
           </div>
 
-          {/* Specified CPSE Silo Selector */}
+          {/* Specified CPSE Silo Selector (National Governance only) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 12px', borderRadius: '8px' }}>
-              <Building2 size={14} color="#64748B" />
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Connected Silo:</span>
-              <select
-                value={selectedCpse}
-                onChange={(e) => setSelectedCpse(e.target.value)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#0F172A',
-                  fontWeight: 700,
-                  fontSize: '12.5px',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  paddingLeft: '4px'
-                }}
-              >
-                <option value="ALL">🌐 All Enterprise Silos (National Master)</option>
-                {allCpses.map((c: any) => (
-                  <option key={c.code} value={c.code}>
-                    {c.code} — {c.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {isNationalAdmin && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 12px', borderRadius: '8px' }}>
+                <Building2 size={14} color="#64748B" />
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Connected Silo:</span>
+                <select
+                  value={selectedCpse}
+                  onChange={(e) => setSelectedCpse(e.target.value)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: '#0F172A',
+                    fontWeight: 700,
+                    fontSize: '12.5px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    paddingLeft: '4px'
+                  }}
+                >
+                  <option value="ALL">🌐 All Enterprise Silos (National Master)</option>
+                  {allCpses.map((c: any) => (
+                    <option key={c.code} value={c.code}>
+                      {c.code} — {c.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <button 
               className="gov-refresh-btn" 
               onClick={() => fetchUsers(selectedCpse)} 
@@ -572,23 +574,35 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
 
               <form onSubmit={handleCreateUser}>
                 <div className="modal-body" style={{ padding: '20px' }}>
-                  <div className="form-group" style={{ marginBottom: '14px' }}>
-                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
-                      Target Isolated Enterprise Silo
-                    </label>
-                    <select 
-                      className="gov-select w-full"
-                      value={formData.cpse_id}
-                      onChange={(e) => setFormData({ ...formData, cpse_id: e.target.value })}
-                      style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', fontWeight: 700 }}
-                    >
-                      {allCpses.map(cpse => (
-                        <option key={cpse.code} value={cpse.code}>
-                          {cpse.code} — {cpse.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  {isNationalAdmin ? (
+                    <div className="form-group" style={{ marginBottom: '14px' }}>
+                      <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                        Target Isolated Enterprise Silo
+                      </label>
+                      <select 
+                        className="gov-select w-full"
+                        value={formData.cpse_id}
+                        onChange={(e) => setFormData({ ...formData, cpse_id: e.target.value })}
+                        style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', fontWeight: 700 }}
+                      >
+                        {allCpses.map(cpse => (
+                          <option key={cpse.code} value={cpse.code}>
+                            {cpse.code} — {cpse.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="form-group" style={{ marginBottom: '14px' }}>
+                      <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                        Enterprise Silo
+                      </label>
+                      <div style={{ padding: '8px 12px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '13px', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Building2 size={14} color="#2563EB" />
+                        <span>{user?.cpseName || selectedCpse} ({selectedCpse})</span>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="form-group" style={{ marginBottom: '14px' }}>
                     <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
