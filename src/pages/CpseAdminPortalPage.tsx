@@ -1161,12 +1161,9 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                   ) : (
 
-                    <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '13px' }}>
-
-                      <CheckCircle2 size={18} style={{ margin: '0 auto 8px', color: 'var(--status-green)' }} />
-
-                      No active anomalies detected in local catalog.
-
+                    <div style={{ padding: '24px', color: 'var(--text-muted)', fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                      <CheckCircle2 size={18} style={{ color: 'var(--status-green)' }} />
+                      <span>No active anomalies detected in local catalog.</span>
                     </div>
 
                   )}
