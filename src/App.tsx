@@ -63,7 +63,7 @@ export default function App() {
 
         'cnmc', 'cross-cpse', 'data-quality', 
 
-        'policies', 'users-roles'
+        'policies'
 
       ];
 
