@@ -4,7 +4,7 @@ import {
 
   Send, Mic, MicOff, Paperclip, X, Minimize2, Maximize2,
 
-  Command, AtSign, Cpu, MessageCircle, GripHorizontal
+  Command, AtSign, Cpu, MessageCircle, GripHorizontal, Bot, Sparkles
 
 } from 'lucide-react';
 
@@ -1150,7 +1150,11 @@ export const MiraFloatingBot: React.FC = () => {
 
               <div className="mira-header-avatar-wrap">
 
-                <Mira3DAvatar mood={loading ? 'thinking' : avatarMood} size={36} />
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#EFF6FF', color: '#2563EB', borderRadius: '50%' }}>
+
+                  <Bot size={18} />
+
+                </div>
 
               </div>
 
@@ -1160,19 +1164,13 @@ export const MiraFloatingBot: React.FC = () => {
 
                   <span>MIRA Copilot</span>
 
-                  <span className="mira-mcp-badge">
-
-                    <span className="mira-mcp-dot"></span>
-
-                    SAP MM MCP
-
-                  </span>
-
                 </div>
 
-                <div className="mira-header-subtitle" title="Sovereign Multilingual Material Intelligence">
+                <div className="mira-header-subtitle" title="SAP S/4HANA Material Management Connected">
 
-                  Sovereign Multilingual Material Intelligence
+                  <span className="mira-mcp-dot"></span>
+
+                  <span>SAP S/4HANA Connected</span>
 
                 </div>
 
@@ -1258,7 +1256,7 @@ export const MiraFloatingBot: React.FC = () => {
 
               >
 
-                {isMinimized ? <Maximize2 size={14} /> : <Minimize2 size={14} />}
+                {isMinimized ? <Maximize2 size={13} /> : <Minimize2 size={13} />}
 
               </button>
 
@@ -1274,7 +1272,7 @@ export const MiraFloatingBot: React.FC = () => {
 
               >
 
-                <X size={15} />
+                <X size={14} />
 
               </button>
 
@@ -1300,7 +1298,7 @@ export const MiraFloatingBot: React.FC = () => {
 
                       <div className="mira-bot-icon-small">
 
-                        <MessageCircle size={13} />
+                        <Bot size={13} />
 
                       </div>
 
@@ -1604,9 +1602,9 @@ export const MiraFloatingBot: React.FC = () => {
 
                     currentLang === 'hi' 
 
-                      ? "MIRA से पूछें... (उदा. /pr_create 50 वाल्व या @ONGC)" 
+                      ? "MIRA से पूछें... ('/' या @ONGC)" 
 
-                      : "Ask MIRA Copilot... (type '/' for SAP actions, '@' to mention)"
+                      : "Ask MIRA Copilot or type '/' for SAP MM..."
 
                   }
 
