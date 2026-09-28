@@ -450,54 +450,18 @@ export const ExpertReviewsPage: React.FC<{ onNavigate: (page: string) => void }>
 
 
 
-        <div className="gov-table-card">
-
-
-
-          <table className="gov-data-table">
-
-
-
+        <div className="gov-table-card" style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
+          <table className="gov-data-table" style={{ width: '100%', minWidth: '780px' }}>
             <thead>
-
-
-
               <tr>
-
-
-
-                <th>Legacy Code & CPSE</th>
-
-
-
-                <th>Raw Material Description</th>
-
-
-
-                <th>Suggested CNMC Standard</th>
-
-
-
-                <th>AI Confidence</th>
-
-
-
-                <th>Risk Level</th>
-
-
-
-                <th>Assigned Expert</th>
-
-
-
-                <th>Actions</th>
-
-
-
+                <th style={{ width: '13%', minWidth: '110px' }}>Legacy Code & CPSE</th>
+                <th style={{ width: '22%', minWidth: '150px' }}>Raw Material Description</th>
+                <th style={{ width: '21%', minWidth: '160px' }}>Suggested CNMC Standard</th>
+                <th style={{ width: '12%', minWidth: '95px' }}>AI Confidence</th>
+                <th style={{ width: '9%', minWidth: '75px' }}>Risk Level</th>
+                <th style={{ width: '12%', minWidth: '105px' }}>Assigned Expert</th>
+                <th style={{ width: '11%', minWidth: '110px', textAlign: 'right', paddingRight: '16px' }}>Actions</th>
               </tr>
-
-
-
             </thead>
 
 
@@ -558,7 +522,7 @@ export const ExpertReviewsPage: React.FC<{ onNavigate: (page: string) => void }>
 
 
 
-                    <td className="max-w-xs">{r.description}</td>
+                    <td style={{ maxWidth: '200px', wordBreak: 'break-word', overflowWrap: 'break-word' }}>{r.description}</td>
 
 
 
@@ -666,11 +630,11 @@ export const ExpertReviewsPage: React.FC<{ onNavigate: (page: string) => void }>
 
 
 
-                    <td>
+                    <td style={{ width: '110px', minWidth: '110px', textAlign: 'right', paddingRight: '16px' }}>
 
 
 
-                      <div className="action-buttons-cell">
+                      <div className="action-buttons-cell" style={{ justifyContent: 'flex-end', gap: '6px' }}>
 
 
 

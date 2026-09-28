@@ -4578,7 +4578,10 @@ html, body, #root {
 
 
 
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 
 
 
@@ -5018,7 +5021,10 @@ html, body, #root {
 
 
 
-  gap: 8px;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
 
 
 
@@ -48081,7 +48087,10 @@ html, body, #root {
 
 
 
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 
 
 
@@ -48521,7 +48530,10 @@ html, body, #root {
 
 
 
-  gap: 8px;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
 
 
 
