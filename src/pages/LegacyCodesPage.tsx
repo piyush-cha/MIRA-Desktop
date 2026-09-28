@@ -39,7 +39,20 @@ export const LegacyCodesPage: React.FC<{ onNavigate: (page: string) => void }> =
       subtitle="Cross-CPSE Heterogeneous Part Numbers Aligned to Master CNMC Taxonomy"
     >
       <div className="gov-page-container">
+        
+        <div style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--border-light)' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Layers size={24} color="#2563eb" />
+            Legacy Material Codes & Harmonization Mapping
+          </h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Building2 size={14} />
+            Cross-CPSE Heterogeneous Part Numbers Aligned to Master CNMC Taxonomy
+          </p>
+        </div>
+        
         {/* Top Control Bar */}
+
         <div className="intel-top-bar">
           <div className="search-box-wrapper">
             <Search size={15} />
@@ -105,11 +118,17 @@ export const LegacyCodesPage: React.FC<{ onNavigate: (page: string) => void }> =
                       </div>
                     </td>
                     <td>
-                      <div className="font-mono text-xs font-bold text-emerald">{c.ground_truth_cnmc}</div>
+                      
+                      {c.ground_truth_cnmc === 'UNMAPPED' ? (
+                        <div className="font-mono text-xs font-bold text-muted">UNMAPPED</div>
+                      ) : (
+                        <div className="font-mono text-xs font-bold text-emerald">{c.ground_truth_cnmc}</div>
+                      )}
+
                       <div className="text-xs text-muted max-w-xs truncate">{c.golden_standard_name}</div>
                     </td>
                     <td>
-                      <span className={`status-pill ${(c.mapping_status || 'SUGGESTED').toLowerCase()}`}>
+                      <span className={`status-pill ${(c.mapping_status || 'SUGGESTED').toLowerCase()} ${c.mapping_status === 'ISOLATED' ? 'high' : ''}`}>
                         {c.mapping_status || 'SUGGESTED'}
                       </span>
                     </td>
