@@ -310,7 +310,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
               <input
                 type="text"
-                placeholder="Search by 7-digit MIRA Code (e.g. MIRA-6321523), URN, Noun, Grade, or CPSE local code..."
+                placeholder="Search Sovereign Catalog by MIRA Code, URN, Noun, Grade, or CPSE code..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -420,9 +420,9 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   fontSize: '12px',
                   fontWeight: selectedCategory === cat.code ? 700 : 500,
                   borderRadius: '20px',
-                  border: selectedCategory === cat.code ? '1px solid #2563eb' : '1px solid var(--border-light)',
-                  background: selectedCategory === cat.code ? 'rgba(37, 99, 235, 0.08)' : 'var(--bg-card)',
-                  color: selectedCategory === cat.code ? '#2563eb' : 'var(--text-secondary)',
+                  border: selectedCategory === cat.code ? '1px solid #1B2332' : '1px solid var(--border-light)',
+                  background: selectedCategory === cat.code ? '#1B2332' : 'var(--bg-card)',
+                  color: selectedCategory === cat.code ? '#ffffff' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
                   display: 'inline-flex',
