@@ -251,6 +251,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
   };
 
   return (
+    <>
     <AppShell
       currentPage="cnmc"
       onNavigate={onNavigate}
@@ -641,6 +642,8 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
         )}
 
       </div>
+
+    </AppShell>
 
       {/* Detail Slide-Over / Modal */}
       {selectedMaterial && (
@@ -1166,6 +1169,6 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           </div>
         </div>
       )}
-    </AppShell>
+    </>
   );
 };
