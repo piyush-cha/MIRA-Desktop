@@ -585,7 +585,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                       <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', marginTop: '2px' }}>Spec: {mat.raw_material_composition}</div>
                     </td>
                     <td style={{ padding: '12px 16px', maxWidth: '240px' }}>
-                      <div style={{ fontSize: '11px', color: '#78350f', background: '#fffbeb', padding: '4px 6px', borderRadius: '6px', border: '1px solid #fde68a', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '11px', color: 'var(--text-secondary)', background: '#fffbeb', padding: '4px 6px', borderRadius: '6px', border: '1px solid #fde68a', lineHeight: 1.4 }}>
                         {mat.approval_reason}
                       </div>
                     </td>
@@ -670,11 +670,11 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             overflowY: 'auto'
           }}>
             {/* Header */}
-            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-light)', background: 'var(--bg-card)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontWeight: 800, color: '#065f46' }}>
-                  <ShieldCheck size={14} color="#059669" />
-                  GOVERNMENT RATIFIED SPECIFICATION POINTER
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontWeight: 700, color: '#64748b' }}>
+                  <ShieldCheck size={14} />
+                  SPECIFICATION DETAILS
                 </div>
                 <h2 style={{ fontSize: '20px', fontWeight: 800, margin: '4px 0 0 0', color: 'var(--text-primary)' }}>
                   {selectedMaterial.human_code}
@@ -693,24 +693,24 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
               
               {/* 1. What is this Material? */}
-              <div style={{ background: 'var(--bg-app)', padding: '16px', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
+              <div style={{ padding: '0 0 16px 0', borderBottom: '1px solid var(--border-light)' }}>
                 <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0px' }}>
-                  WHAT IS THIS MATERIAL? (CORE SPECIFICATION)
+                  SPECIFICATION
                 </div>
                 <div style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)' }}>{selectedMaterial.extracted_noun}</div>
                 <div style={{ fontSize: '13.5px', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>{selectedMaterial.core_physics}</div>
               </div>
 
               {/* 2. Government Ratification Reason */}
-              <div style={{ background: '#fffbeb', padding: '16px', borderRadius: '10px', border: '1px solid #fde68a' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', fontWeight: 800, color: '#92400e', marginBottom: '2px' }}>
-                  <Award size={15} color="#d97706" />
+              <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-light)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>
+                  <Award size={14} />
                   RATIFICATION BASIS:
                 </div>
-                <div style={{ fontSize: '13px', color: '#78350f', lineHeight: 1.5, fontStyle: 'italic' }}>
+                <div style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, fontStyle: 'italic' }}>
                   "{selectedMaterial.approval_reason}"
                 </div>
-                <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #fef3c7', fontSize: '11px', color: '#b45309', display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid var(--border-light)', fontSize: '11px', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between' }}>
                   <span>Approving Body: <b>{selectedMaterial.approval_authority}</b></span>
                   <span>Order Ref: <b>{selectedMaterial.ratification_order}</b></span>
                 </div>
@@ -719,9 +719,9 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               {/* 3. Same Material Linked Across CPSEs */}
               {selectedMaterial.mapped_cpses && selectedMaterial.mapped_cpses.length > 0 && (
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <LinkIcon size={14} color="#2563eb" />
-                    SAME PHYSICAL MATERIAL LINKED ACROSS CPSEs ({selectedMaterial.mapped_cpses.length} ENTERPRISES):
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <LinkIcon size={14} />
+                    LINKED CPSEs ({selectedMaterial.mapped_cpses.length}):
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {selectedMaterial.mapped_cpses.map((m, idx) => {
