@@ -38,24 +38,24 @@ export const LegacyCodesPage: React.FC<{ onNavigate: (page: string) => void }> =
       title="Legacy Material Codes & Harmonization Mapping"
       subtitle="Cross-CPSE Heterogeneous Part Numbers Aligned to Master CNMC Taxonomy"
     >
-      <div className="gov-page-container">
+      <div className="gov-page-container" style={{ gap: '10px', paddingTop: '14px', paddingBottom: '36px' }}>
         
-        <div style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--border-light)' }}>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Layers size={24} color="#2563eb" />
+        <div style={{ marginBottom: '0px', paddingBottom: '8px', borderBottom: '1px solid var(--border-light)' }}>
+          <h1 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 3px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Layers size={19} color="#2563eb" />
             Legacy Material Codes & Harmonization Mapping
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Building2 size={14} />
+          <p style={{ color: 'var(--text-secondary)', fontSize: '12.5px', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Building2 size={13} />
             Cross-CPSE Heterogeneous Part Numbers Aligned to Master CNMC Taxonomy
           </p>
         </div>
         
         {/* Top Control Bar */}
 
-        <div className="intel-top-bar">
-          <div className="search-box-wrapper">
-            <Search size={15} />
+        <div className="intel-top-bar" style={{ margin: 0 }}>
+          <div className="search-box-wrapper" style={{ padding: '6px 12px' }}>
+            <Search size={14} />
             <input 
               type="text" 
               className="gov-search-input"
@@ -66,11 +66,12 @@ export const LegacyCodesPage: React.FC<{ onNavigate: (page: string) => void }> =
             />
           </div>
 
-          <div className="intel-filters">
+          <div className="intel-filters" style={{ gap: '8px' }}>
             <select 
               className="gov-select"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
+              style={{ padding: '6px 12px', height: '34px' }}
             >
               <option value="ALL">All Mapping Statuses</option>
               <option value="APPROVED">Approved Golden</option>
@@ -78,15 +79,15 @@ export const LegacyCodesPage: React.FC<{ onNavigate: (page: string) => void }> =
               <option value="SUGGESTED">AI Suggested</option>
             </select>
 
-            <button className="gov-refresh-btn" onClick={fetchCodes} title="Refresh Codes">
+            <button className="gov-refresh-btn" onClick={fetchCodes} title="Refresh Codes" style={{ width: '34px', height: '34px' }}>
               <RefreshCw size={14} className={loading ? 'spinning' : ''} />
             </button>
           </div>
         </div>
 
         {/* Legacy Master Table */}
-        <div className="gov-table-card">
-          <table className="gov-data-table">
+        <div className="gov-table-card" style={{ overflowX: 'auto', maxWidth: '100%', marginTop: 0 }}>
+          <table className="gov-data-table" style={{ width: '100%', minWidth: '780px' }}>
             <thead>
               <tr>
                 <th>Legacy Item Code</th>
