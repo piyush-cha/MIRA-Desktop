@@ -1590,7 +1590,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -1598,7 +1598,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
   display: inline-block;
   max-width: 105px;
   overflow: hidden;
@@ -1610,7 +1610,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -3258,7 +3258,7 @@ html, body, #root {
 
 
 
-.chip-blue { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+.chip-blue { background: #DBEAFE; color: #1E40AF; border: 1px solid rgba(27,35,50,0.2); }
 
 
 
@@ -10786,7 +10786,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -10794,7 +10794,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -13066,7 +13066,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -13074,7 +13074,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -13082,7 +13082,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -13210,7 +13210,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -13218,7 +13218,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -18906,7 +18906,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -19802,7 +19802,7 @@ html, body, #root {
 
 
 
-.audit-cpse-badge.sail { background: #DBEAFE; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.audit-cpse-badge.sail { background: #DBEAFE; color: #1B2332; border: 1px solid rgba(27,35,50,0.2); }
 
 
 
@@ -20442,7 +20442,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -20458,7 +20458,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -20850,7 +20850,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -20866,7 +20866,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -23314,7 +23314,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -23322,7 +23322,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -24402,7 +24402,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -24410,7 +24410,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -24418,7 +24418,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -24898,7 +24898,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -26962,7 +26962,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -35746,7 +35746,7 @@ html, body, #root {
 
 
 
-.badge-cat-c { background: #EFF6FF; color: #1D4ED8; border: 1.5px solid #BFDBFE; }
+.badge-cat-c { background: #D88E33; color: #1B2332; border: 1.5px solid #BFDBFE; }
 
 
 
@@ -37146,7 +37146,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -37154,7 +37154,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -37162,7 +37162,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -38146,7 +38146,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -38154,7 +38154,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -38162,7 +38162,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -39354,7 +39354,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -39362,7 +39362,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -39370,7 +39370,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -41634,7 +41634,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -41642,7 +41642,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -43394,7 +43394,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -43410,7 +43410,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -46850,7 +46850,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -46858,7 +46858,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
   display: inline-block;
   max-width: 105px;
   overflow: hidden;
@@ -46870,7 +46870,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -48566,7 +48566,7 @@ html, body, #root {
 
 
 
-.chip-blue { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+.chip-blue { background: #DBEAFE; color: #1E40AF; border: 1px solid rgba(27,35,50,0.2); }
 
 
 
@@ -55918,7 +55918,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -55926,7 +55926,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
@@ -55934,7 +55934,7 @@ html, body, #root {
 
 
 
-  border: 1px solid #BFDBFE;
+  border: 1px solid rgba(27,35,50,0.2);
 
 
 
@@ -56062,7 +56062,7 @@ html, body, #root {
 
 
 
-  background: #EFF6FF;
+  background: #D88E33;
 
 
 
@@ -56070,7 +56070,7 @@ html, body, #root {
 
 
 
-  color: #1D4ED8;
+  color: #1B2332;
 
 
 
