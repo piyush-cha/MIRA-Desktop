@@ -43,7 +43,7 @@ export const CpseAdminPage: React.FC<CpseAdminPageProps> = ({ onNavigate }) => {
     hierarchyLevel: 'AREA',
     assignedNodeCode: '',
     assignedNodeName: '',
-    permissions: ['CNMC Cat A Oversight', 'Material Sanction'],
+    permissions: ['MIRA Cat A Oversight', 'Material Sanction'],
   });
 
   const [assigning, setAssigning] = useState(false);
@@ -157,12 +157,12 @@ export const CpseAdminPage: React.FC<CpseAdminPageProps> = ({ onNavigate }) => {
             }}
           >
             <Bot size={15} color="var(--accent-gold)" />
-            <span>Ask CNMC Voice</span>
+            <span>Ask MIRA Voice</span>
           </button>
         </div>
       </div>
 
-      {/* Navigation Tabs (Hierarchy & Roles vs CNMC Materials) */}
+      {/* Navigation Tabs (Hierarchy & Roles vs MIRA Materials) */}
       <div className="panel-card" style={{ padding: '10px 18px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <div className="tab-row">
           <button
@@ -175,7 +175,7 @@ export const CpseAdminPage: React.FC<CpseAdminPageProps> = ({ onNavigate }) => {
             className={`tab ${activeTab === 'materials' ? 'active' : ''}`}
             onClick={() => setActiveTab('materials')}
           >
-            CNMC Strategic Materials (Cat A, B, C)
+            MIRA Strategic Materials (Cat A, B, C)
           </button>
         </div>
 

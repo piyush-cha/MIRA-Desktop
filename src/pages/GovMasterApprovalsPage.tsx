@@ -117,7 +117,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
       
       setSuccessToast({
         code: item.human_code,
-        message: `Code ${item.human_code} officially ratified! Now published to CNMC Sovereign Master.`
+        message: `Code ${item.human_code} officially ratified! Now published to MIRA Sovereign Master.`
       });
       window.dispatchEvent(new CustomEvent('master-nominations-updated'));
       setTimeout(() => setSuccessToast(null), 6000);
@@ -210,7 +210,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
               CPSE Material Master Nominations
             </h1>
             <p style={{ margin: 0, fontSize: '13px', color: '#93c5fd', maxWidth: '720px', lineHeight: 1.5 }}>
-              Review sovereign 7-digit standard codes proposed by CPSE nodal officers. Ratified items are immediately inducted into the <b>CNMC Sovereign Unified Material Master</b> and broadcast across Indian public enterprises.
+              Review sovereign 7-digit standard codes proposed by CPSE nodal officers. Ratified items are immediately inducted into the <b>MIRA Sovereign Unified Material Master</b> and broadcast across Indian public enterprises.
             </p>
           </div>
 
@@ -406,7 +406,7 @@ export const GovMasterApprovalsPage: React.FC<GovMasterApprovalsPageProps> = ({ 
               <Search size={14} color="#64748b" />
               <input
                 type="text"
-                placeholder="Search CNMC code, CPSE, noun..."
+                placeholder="Search CNMC Code, CPSE, noun..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{

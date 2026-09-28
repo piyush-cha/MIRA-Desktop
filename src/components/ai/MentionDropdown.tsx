@@ -17,13 +17,13 @@ export const MentionDropdown: React.FC<MentionDropdownProps> = ({ query, onSelec
     // Pages
     { id: 'page-national', type: 'page', label: '@NationalGovernance', description: 'National Sovereign Grid' },
     { id: 'page-onboarding', type: 'page', label: '@CpseOnboarding', description: 'Onboard CPSE & Dispatch Credentials' },
-    { id: 'page-cnmc', type: 'page', label: '@CnmcMaterials', description: 'CNMC Category A, B, C Strategic Materials' },
+    { id: 'page-cnmc', type: 'page', label: '@CnmcMaterials', description: 'MIRA Category A, B, C Strategic Materials' },
     { id: 'page-admin', type: 'page', label: '@CpseAdmin', description: 'Scoped CPSE Admin View' },
 
     // Components
     { id: 'comp-kpi', type: 'component', label: '@KPIStrip', description: 'National Sovereign KPI Matrix' },
     { id: 'comp-escalation', type: 'component', label: '@EscalationQueue', description: 'Cross-CPSE Priority Queue' },
-    { id: 'comp-mat-matrix', type: 'component', label: '@MaterialCategorization', description: 'CNMC Strategic Tier Matrix' },
+    { id: 'comp-mat-matrix', type: 'component', label: '@MaterialCategorization', description: 'MIRA Strategic Tier Matrix' },
 
     // Bots
     { id: 'bot-jarvis', type: 'bot', label: '@MIRA_Jarvis', description: 'Autonomous Governance Voice Core' },

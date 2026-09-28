@@ -110,7 +110,7 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
                   <div className="stat-num">{cpse.material_records.toLocaleString()}</div>
                 </div>
                 <div className="cpse-stat">
-                  <div className="stat-label">CNMC Harmonized</div>
+                  <div className="stat-label">MIRA Harmonized</div>
                   <div className="stat-num text-emerald">{cpse.standardized_count.toLocaleString()}</div>
                 </div>
                 <div className="cpse-stat">
@@ -121,7 +121,7 @@ export const CpseDirectoryPage: React.FC<{ onNavigate: (page: string) => void }>
 
               <div className="cpse-progress-section">
                 <div className="cpse-progress-info">
-                  <span className="cpse-progress-title">CNMC Harmonization</span>
+                  <span className="cpse-progress-title">MIRA Harmonization</span>
                   <span className="cpse-progress-value">{cpse.cnmc_coverage_pct ?? 0}%</span>
                 </div>
                 <div className="cpse-progress-bar">

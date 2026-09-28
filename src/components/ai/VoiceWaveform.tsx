@@ -64,7 +64,7 @@ export const VoiceWaveform: React.FC<VoiceWaveformProps> = ({ isSpeaking, isList
       <div className="absolute right-3 top-2.5 flex items-center gap-1.5 text-[10px] font-mono tracking-wider">
         <span className={`w-2 h-2 rounded-full ${isListening ? 'bg-rose-500 animate-ping' : isSpeaking ? 'bg-cyan-400 animate-pulse' : 'bg-slate-500'}`} />
         <span className={isListening ? 'text-rose-400 font-bold' : isSpeaking ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
-          {isListening ? 'VOICE IN' : isSpeaking ? 'CNMC SPEAKS' : 'JARVIS STANDBY'}
+          {isListening ? 'VOICE IN' : isSpeaking ? 'MIRA SPEAKS' : 'JARVIS STANDBY'}
         </span>
       </div>
     </div>

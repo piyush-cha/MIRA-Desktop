@@ -108,7 +108,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     } catch (e) {
       console.warn('Failed to fetch suggested code from API:', e);
       const rand = Math.floor(1000000 + Math.random() * 9000000);
-      setCreateForm(prev => ({ ...prev, human_code: `CNMC-${rand}` }));
+      setCreateForm(prev => ({ ...prev, human_code: `MIRA-${rand}` }));
     }
   };
 
@@ -210,7 +210,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
   // Preview generated codes for creation modal - 7 digit numeric standard
   const codeNumMatch = (createForm.human_code || '').match(/\d{7}/);
   const previewCodeNum = codeNumMatch ? codeNumMatch[0] : (1000000 + materials.length + 1).toString();
-  const previewHumanCode = `CNMC-${previewCodeNum}`;
+  const previewHumanCode = `MIRA-${previewCodeNum}`;
   const previewSlug = (createForm.core_physics || 'standard-spec')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -264,10 +264,10 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(37, 99, 235, 0.08)', border: '1px solid rgba(37, 99, 235, 0.2)', padding: '2px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, color: '#2563eb', marginBottom: '2px' }}>
               <ShieldCheck size={12} />
-              CNMC NATIONAL MASTER
+              CNMC National MASTER
             </div>
             <h3 className="section-title" style={{ margin: '0 0 4px 0', fontSize: '18px', color: 'var(--text-primary)' }}>
-              CNMC Sovereign Unified Material Master
+              MIRA Sovereign Unified Material Master
             </h3>
             <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', maxWidth: '800px' }}>
               Displaying Government Approved & Ratified CNMC Standard Codes with standardized physical definitions and cross-CPSE ERP links.
@@ -558,7 +558,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '11px' }}>
               <thead>
                 <tr style={{ background: 'var(--bg-card-alt)', borderBottom: '1px solid var(--border-light)', color: 'var(--text-secondary)' }}>
-                  <th style={{ padding: '12px 16px', fontWeight: 600 }}>CNMC Sovereign Code & URN</th>
+                  <th style={{ padding: '12px 16px', fontWeight: 600 }}>MIRA Sovereign Code & URN</th>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>What Is It? (Description)</th>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>Gov Approval Reason</th>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>Linked CPSE Equivalents</th>

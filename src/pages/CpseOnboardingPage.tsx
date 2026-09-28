@@ -407,7 +407,7 @@ export const CpseOnboardingPage: React.FC<CpseOnboardingPageProps> = ({ onNaviga
 
 
 
-              Issue sovereign CNMC licenses, register CPSE nodes, and dispatch cryptographic credentials to designated administrators.
+              Issue sovereign MIRA licenses, register CPSE nodes, and dispatch cryptographic credentials to designated administrators.
 
 
 

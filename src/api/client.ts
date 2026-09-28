@@ -110,7 +110,7 @@ export const api = {
 
 
 
-  /** CNMC Sovereign National Unified Material Master Catalog */
+  /** MIRA Sovereign National Unified Material Master Catalog */
 
   getUnifiedCatalog: async (params?: {
 
@@ -344,7 +344,7 @@ export const api = {
 
 
 
-  /** Section 5 — CNMC mapping status breakdown */
+  /** Section 5 — MIRA mapping status breakdown */
 
   getCnmcStatus: async () => {
 
@@ -778,7 +778,7 @@ export const api = {
 
   // ===========================================================================
 
-  // SAP Material Management Gateway & CNMC Copilot (MCP)
+  // SAP Material Management Gateway & MIRA Copilot (MCP)
 
   // ===========================================================================
 

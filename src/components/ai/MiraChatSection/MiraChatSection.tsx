@@ -346,7 +346,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-        responseText = `CNMC Category A (Strategic Materials): 0 critical items monitored. Warning active for Rare Earth Concentrates at IREL (India) Limited.`;
+        responseText = `MIRA Category A (Strategic Materials): 0 critical items monitored. Warning active for Rare Earth Concentrates at IREL (India) Limited.`;
 
 
 
@@ -358,7 +358,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-        responseText = 'Navigating to CPSE Onboarding Module. National Governance can register new CPSEs, provision CNMC Enterprise licenses, and dispatch one-time credentials directly.';
+        responseText = 'Navigating to CPSE Onboarding Module. National Governance can register new CPSEs, provision MIRA Enterprise licenses, and dispatch one-time credentials directly.';
 
 
 
@@ -366,7 +366,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-        responseText = 'CNMC Voice Engine is online and synchronized with Web Speech API. You can direct me hands-free.';
+        responseText = 'MIRA Voice Engine is online and synchronized with Web Speech API. You can direct me hands-free.';
 
 
 
@@ -374,7 +374,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-        responseText = `Acknowledged instruction: "${userText}". I have synchronized with the National Sovereign Database and CNMC material registers.`;
+        responseText = `Acknowledged instruction: "${userText}". I have synchronized with the National Sovereign Database and MIRA material registers.`;
 
 
 
@@ -458,7 +458,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-          <span>CNMC Jarvis Voice</span>
+          <span>MIRA Jarvis Voice</span>
 
 
 
@@ -562,7 +562,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-            {isListening ? 'Listening via Microphone...' : isSpeaking ? 'Speaking Response...' : 'CNMC Voice Core Ready'}
+            {isListening ? 'Listening via Microphone...' : isSpeaking ? 'Speaking Response...' : 'MIRA Voice Core Ready'}
 
 
 
@@ -730,7 +730,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-                  <Sparkles size={12} color="var(--accent-gold)" /> CNMC Voice
+                  <Sparkles size={12} color="var(--accent-gold)" /> MIRA Voice
 
 
 
@@ -942,7 +942,7 @@ export const MiraChatSection: React.FC<MiraChatSectionProps> = ({ onNavigate }) 
 
 
 
-            placeholder="Ask CNMC or type @ for CPSEs..."
+            placeholder="Ask MIRA or type @ for CPSEs..."
 
 
 

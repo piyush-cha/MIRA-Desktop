@@ -103,7 +103,7 @@ const PRESET_SEND_BACK_REASONS: string[] = [
 ];
 
 const PRESET_REJECTION_REASONS: string[] = [
-  'Duplicate material already exists in CNMC Sovereign Master with an active unified code.',
+  'Duplicate material already exists in MIRA Sovereign Master with an active unified code.',
   'Item obsolete or discontinued under national procurement guidelines.',
   'Does not meet minimum mandatory national technical standard requirements.',
   'Disallowed non-standard specification; standard existing alternative available in national catalog.'
@@ -352,7 +352,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
         priority: createForm.priority,
         domain_code: createForm.domain_code,
         category_code: createForm.category_code,
-        initial_reason: createForm.initial_reason || `New material codification proposed for ${createForm.item_name} to mint CNMC Sovereign Unified Code.`,
+        initial_reason: createForm.initial_reason || `New material codification proposed for ${createForm.item_name} to mint MIRA Sovereign Unified Code.`,
         created_by: createForm.created_by
       });
 
@@ -1415,11 +1415,11 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                     {confirmAction === 'APPROVE' ? (
                       confirmModalTicket.current_tier === 7 ? (
                         <span>
-                          <b>Cabinet Sovereign Ratification:</b> Approving this tier officially affixes the Sovereign Seal, writes the authoritative record into <code>mira_national_master</code>, and syncs with CNMC definitions!
+                          <b>Cabinet Sovereign Ratification:</b> Approving this tier officially affixes the Sovereign Seal, writes the authoritative record into <code>mira_national_master</code>, and syncs with MIRA definitions!
                         </span>
                       ) : confirmModalTicket.current_tier === 5 ? (
                         <span>
-                          <b>Standardization Clearance:</b> Approving Tier 5 automatically triggers Laya AI normalization, mints an unused random 7-digit CNMC code (e.g. <code>CNMC-XXXXXXX</code>), and connects the Sovereign Machine URN!
+                          <b>Standardization Clearance:</b> Approving Tier 5 automatically triggers Laya AI normalization, mints an unused random 7-digit CNMC Code (e.g. <code>MIRA-XXXXXXX</code>), and connects the Sovereign Machine URN!
                         </span>
                       ) : (
                         <span>

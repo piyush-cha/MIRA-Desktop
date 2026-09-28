@@ -11,10 +11,10 @@ export const CnmcMaterialPage: React.FC<CnmcMaterialPageProps> = ({ onNavigate }
     <AppShell
       currentPage="cnmc"
       onNavigate={onNavigate}
-      title="CNMC Material Registry"
+      title="MIRA Material Registry"
     >
       <div style={{ marginBottom: '8px' }}>
-        <h1 className="greeting-text">CNMC Strategic Material Categorization</h1>
+        <h1 className="greeting-text">MIRA Strategic Material Categorization</h1>
         <div className="greeting-sub">Coal & National Mineral Criticality Tiering — Category A, Category B, Category C</div>
       </div>
 

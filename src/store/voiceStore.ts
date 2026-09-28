@@ -51,7 +51,7 @@ const speakWithMiraVoice = (text: string, onEnd?: () => void) => {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = 1.05; // Slightly authoritative, clear speed
-  utterance.pitch = 1.0; // Professional CNMC tone
+  utterance.pitch = 1.0; // Professional MIRA tone
   utterance.volume = 1.0;
 
   // Find English India / natural female voice if available
@@ -86,7 +86,7 @@ export const useVoiceStore = create<VoiceState>((set, get) => ({
     {
       id: 'msg-0',
       sender: 'mira',
-      text: 'Greetings Commander. I am CNMC Jarvis Voice Agent. I am monitoring all 74 CPSEs, CNMC Category A-B-C materials, and National Governance matrices. You can speak to me or type "@" to access CPSEs, pages, components, or bots.',
+      text: 'Greetings Commander. I am MIRA Jarvis Voice Agent. I am monitoring all 74 CPSEs, MIRA Category A-B-C materials, and National Governance matrices. You can speak to me or type "@" to access CPSEs, pages, components, or bots.',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       categoryBadge: 'Governance'
     }
@@ -109,7 +109,7 @@ export const useVoiceStore = create<VoiceState>((set, get) => ({
       chatMessages: [...state.chatMessages, newMessage]
     }));
 
-    // Auto-speak response if from CNMC
+    // Auto-speak response if from MIRA
     if (msg.sender === 'mira') {
       get().speakText(msg.text);
     }
@@ -174,7 +174,7 @@ export const useVoiceStore = create<VoiceState>((set, get) => ({
       {
         id: 'msg-init',
         sender: 'mira',
-        text: 'Session history reset. CNMC Jarvis is ready for instructions.',
+        text: 'Session history reset. MIRA Jarvis is ready for instructions.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         categoryBadge: 'Governance'
       }

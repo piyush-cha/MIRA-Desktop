@@ -231,7 +231,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
     assignedNodeName: 'BHEL Tiruchirappalli High Pressure Boiler Plant',
 
-    permissions: ['CNMC Cat A Oversight', 'Material Sanction'],
+    permissions: ['MIRA Cat A Oversight', 'Material Sanction'],
 
   });
 
@@ -257,7 +257,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
       assignedNodeName: first.name,
 
-      permissions: ['CNMC Cat A Oversight', 'Material Sanction'],
+      permissions: ['MIRA Cat A Oversight', 'Material Sanction'],
 
     });
 
@@ -273,7 +273,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
     plant_code: `${selectedCpseCode}-PLNT-01`,
 
-    cnmc_code: 'CNMC-BRG-6205-2RS',
+    cnmc_code: 'MIRA-BRG-6205-2RS',
 
     legacy_code: `${selectedCpseCode}-MAT-001`,
 
@@ -993,7 +993,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
               <div className="metric-card">
 
-                <div className="metric-label">CNMC Alignment</div>
+                <div className="metric-label">MIRA Alignment</div>
 
                 <div className="metric-value" style={{ color: '#0284c7' }}>{overviewData?.kpis?.cnmc_coverage_pct ?? 0}%</div>
 
@@ -1841,7 +1841,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                     <th>Plant Location</th>
 
-                    <th>CNMC Alignment</th>
+                    <th>MIRA Alignment</th>
 
                     <th>Unit Rate (INR)</th>
 
@@ -2640,7 +2640,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                   <button type="submit" className="gov-btn primary" disabled={submitting}>
 
-                    {submitting ? 'Validating CNMC...' : 'Submit to SAP ERP'}
+                    {submitting ? 'Validating MIRA...' : 'Submit to SAP ERP'}
 
                   </button>
 
@@ -2706,7 +2706,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>
 
-                        AI Duplicate Audit & CNMC Harmonization Studio
+                        AI Duplicate Audit & MIRA Harmonization Studio
 
                       </h3>
 

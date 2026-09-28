@@ -88,9 +88,9 @@ const MENTION_SUGGESTIONS = [
 
   { type: 'CPSE', label: '@COALINDIA', desc: 'Coal India Limited' },
 
-  { type: 'MATERIAL', label: '@CNMC-MEC-VLV-002150', desc: 'Ball Valve 2 Inch Cl.150' },
+  { type: 'MATERIAL', label: '@MIRA-MEC-VLV-002150', desc: 'Ball Valve 2 Inch Cl.150' },
 
-  { type: 'MATERIAL', label: '@CNMC-MEC-BRG-22220E', desc: 'Spherical Roller Bearing 22220' },
+  { type: 'MATERIAL', label: '@MIRA-MEC-BRG-22220E', desc: 'Spherical Roller Bearing 22220' },
 
   { type: 'SAP', label: '@SAP_PO_4500091823', desc: 'Active Purchase Order' },
 
@@ -118,19 +118,19 @@ const SLASH_COMMANDS = [
 
 const GREETINGS: Record<string, string> = {
 
-  en: "Hi! I'm CNMC, your AI assistant. How can I help you today?",
+  en: "Hi! I'm MIRA, your AI assistant. How can I help you today?",
 
-  hi: "नमस्ते! मैं CNMC हूँ, आपकी AI सहायक। मैं आपकी कैसे मदद कर सकती हूँ?",
+  hi: "नमस्ते! मैं MIRA हूँ, आपकी AI सहायक। मैं आपकी कैसे मदद कर सकती हूँ?",
 
-  bn: "হ্যালো! আমি CNMC, আপনার AI সহায়ক। আমি আপনাকে কিভাবে সাহায্য করতে পারি?",
+  bn: "হ্যালো! আমি MIRA, আপনার AI সহায়ক। আমি আপনাকে কিভাবে সাহায্য করতে পারি?",
 
-  ta: "வணக்கம்! நான் CNMC, உங்கள் AI உதவியாளர்.",
+  ta: "வணக்கம்! நான் MIRA, உங்கள் AI உதவியாளர்.",
 
-  te: "హలో! నేను CNMC, మీ AI సహాయకురాలిని.",
+  te: "హలో! నేను MIRA, మీ AI సహాయకురాలిని.",
 
-  mr: "नमस्कार! मी CNMC आहे, तुमची AI सहाय्यक.",
+  mr: "नमस्कार! मी MIRA आहे, तुमची AI सहाय्यक.",
 
-  gu: "નમસ્તે! હું CNMC છું, તમારી AI સહાયક.",
+  gu: "નમસ્તે! હું MIRA છું, તમારી AI સહાયક.",
 
 };
 
@@ -158,7 +158,7 @@ const Mira3DAvatar: React.FC<{ mood: AvatarMood; size?: number; onClick?: () => 
     >
       <img 
         src="/mira-logo.png" 
-        alt="CNMC Logo" 
+        alt="MIRA Logo" 
         style={{ 
           width: '100%', 
           height: '100%', 
@@ -172,7 +172,7 @@ const Mira3DAvatar: React.FC<{ mood: AvatarMood; size?: number; onClick?: () => 
 
 /* ───────────────────────────────────────────────────────────────────
 
-   Speech Bubble Component — floating auto-text from CNMC
+   Speech Bubble Component — floating auto-text from MIRA
 
    ─────────────────────────────────────────────────────────────────── */
 
@@ -614,7 +614,7 @@ export const MiraFloatingBot: React.FC = () => {
 
       sender: 'mira',
 
-      text: "Namaste! I am **CNMC Sovereign AI Copilot** — directly connected to **SAP S/4HANA Material Management** across all 6 CPSEs.\n\nType `/` for SAP actions (like `/pr_create`, `/stock_lookup`) or `@` to mention CPSEs and materials.",
+      text: "Namaste! I am **MIRA Sovereign AI Copilot** — directly connected to **SAP S/4HANA Material Management** across all 6 CPSEs.\n\nType `/` for SAP actions (like `/pr_create`, `/stock_lookup`) or `@` to mention CPSEs and materials.",
 
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 
@@ -1158,7 +1158,7 @@ export const MiraFloatingBot: React.FC = () => {
 
                 <div className="mira-header-title">
 
-                  <span>CNMC Copilot</span>
+                  <span>MIRA Copilot</span>
 
                   <span className="mira-mcp-badge">
 
@@ -1604,9 +1604,9 @@ export const MiraFloatingBot: React.FC = () => {
 
                     currentLang === 'hi' 
 
-                      ? "CNMC से पूछें... (उदा. /pr_create 50 वाल्व या @ONGC)" 
+                      ? "MIRA से पूछें... (उदा. /pr_create 50 वाल्व या @ONGC)" 
 
-                      : "Ask CNMC Copilot... (type '/' for SAP actions, '@' to mention)"
+                      : "Ask MIRA Copilot... (type '/' for SAP actions, '@' to mention)"
 
                   }
 

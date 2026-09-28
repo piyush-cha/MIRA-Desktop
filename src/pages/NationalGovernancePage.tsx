@@ -452,9 +452,9 @@ function SnapshotSection() {
 
     { label: 'Material Records', value: state.data.total_material_records.toLocaleString(), sub: 'Across all CPSEs' },
 
-    { label: 'CNMC Definitions', value: state.data.cnmc_definitions.toLocaleString(), sub: 'National standard codes' },
+    { label: 'MIRA Definitions', value: state.data.cnmc_definitions.toLocaleString(), sub: 'National standard codes' },
 
-    { label: 'CNMC Coverage', value: `${state.data.cnmc_coverage_pct}%`, sub: `${state.data.standardized_materials_count.toLocaleString()} standardized` },
+    { label: 'MIRA Coverage', value: `${state.data.cnmc_coverage_pct}%`, sub: `${state.data.standardized_materials_count.toLocaleString()} standardized` },
 
   ] : [];
 
@@ -678,7 +678,7 @@ function CpseTableSection({ onNavigate }: NavigationProps) {
 
                 {th('Materials', 'material_records')}
 
-                {th('CNMC Coverage', 'cnmc_coverage_pct')}
+                {th('MIRA Coverage', 'cnmc_coverage_pct')}
 
                 {th('Pending Reviews', 'pending_reviews')}
 
@@ -774,7 +774,7 @@ function CpseTableSection({ onNavigate }: NavigationProps) {
 
 // ---------------------------------------------------------------------------
 
-// Section: Harmonization Trend + CNMC Status (side by side)
+// Section: Harmonization Trend + MIRA Status (side by side)
 
 // ---------------------------------------------------------------------------
 
@@ -828,13 +828,13 @@ function HarmonizationAndCnmc() {
 
 
 
-      {/* CNMC Governance Status */}
+      {/* MIRA Governance Status */}
 
       <div className="section-block" style={{ flex: '1 1 0' }}>
 
         <div className="section-header">
 
-          <div className="section-title">CNMC Mapping Status</div>
+          <div className="section-title">MIRA Mapping Status</div>
 
           <button className="btn-ghost icon-only" onClick={reloadCnmc} title="Refresh"><RefreshCw size={13} /></button>
 
@@ -956,7 +956,7 @@ function ExpertReviewSection() {
 
                 <th>Description</th>
 
-                <th>Suggested CNMC</th>
+                <th>Suggested MIRA</th>
 
                 <th>CPSE</th>
 
@@ -1246,7 +1246,7 @@ function ActivitySection() {
 
       ROLE_ASSIGNED: { icon: <FileCheck size={12} />, label: 'Role Assigned' },
 
-      CNMC_APPROVED: { icon: <CheckCircle2 size={12} />, label: 'CNMC Approved' },
+      CNMC_APPROVED: { icon: <CheckCircle2 size={12} />, label: 'MIRA Approved' },
 
     };
 
@@ -1342,7 +1342,7 @@ export const NationalGovernancePage: React.FC<NavigationProps> = ({ onNavigate }
 
           <h1 className="page-title">National Governance</h1>
 
-          <p className="page-subtitle">National oversight of material standardization, harmonization, and CNMC governance.</p>
+          <p className="page-subtitle">National oversight of material standardization, harmonization, and MIRA governance.</p>
 
         </div>
 

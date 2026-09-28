@@ -475,7 +475,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-              alt="CNMC Logo" 
+              alt="MIRA Logo" 
 
 
 
@@ -489,7 +489,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
             <div style={{ overflow: 'hidden', flex: 1 }}>
               <div className="sidebar-logo-text" style={{ fontSize: '13px', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span>CNMC ENTERPRISE</span>
+                <span>MIRA ENTERPRISE</span>
               </div>
               <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 600, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', marginTop: '2px' }}>
                 {user?.cpseName || 'Bharat Heavy Electricals Limited'}
@@ -609,7 +609,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            alt="CNMC Logo" 
+            alt="MIRA Logo" 
 
 
 
@@ -625,7 +625,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            <div className="sidebar-logo-text">CNMC SOVEREIGN</div>
+            <div className="sidebar-logo-text">MIRA SOVEREIGN</div>
 
 
 
@@ -677,7 +677,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-          placeholder={isEnterpriseUser ? "Search local catalog, plants, PRs..." : "Search materials, CNMC, CPSEs..."}
+          placeholder={isEnterpriseUser ? "Search local catalog, plants, PRs..." : "Search materials, MIRA, CPSEs..."}
 
 
 

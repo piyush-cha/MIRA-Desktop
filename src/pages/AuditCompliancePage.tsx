@@ -244,7 +244,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
         type: 'ONBOARDING',
 
-        tier: tierMatch ? tierMatch[1].trim() : 'Enterprise CNMC Sovereign',
+        tier: tierMatch ? tierMatch[1].trim() : 'Enterprise MIRA Sovereign',
 
         admin: adminMatch ? adminMatch[1].trim() : 'admin@cpse.gov.in',
 
@@ -834,7 +834,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
                 <option value="ALL">All Issuers</option>
 
-                <option value="COPILOT">CNMC Sovereign Copilot (AI)</option>
+                <option value="COPILOT">MIRA Sovereign Copilot (AI)</option>
 
                 <option value="GOVERNANCE">National Governance (DPE)</option>
 
@@ -1072,7 +1072,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
                                 <Sparkles size={12} className="text-purple-600 flex-shrink-0" />
 
-                                <span>CNMC Sovereign Copilot</span>
+                                <span>MIRA Sovereign Copilot</span>
 
                               </div>
 

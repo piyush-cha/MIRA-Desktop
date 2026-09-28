@@ -35,7 +35,7 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
     category: 'Category A',
     adminName: '',
     adminEmail: '',
-    licenseTier: 'Enterprise CNMC Sovereign',
+    licenseTier: 'Enterprise MIRA Sovereign',
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -106,7 +106,7 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
           </div>
           <div>
             <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', letterSpacing: '-0.01em' }}>
-              Onboard New CPSE & Assign CNMC Licence
+              Onboard New CPSE & Assign MIRA Licence
             </div>
             <div style={{ fontSize: '12.5px', color: '#6B7280', marginTop: '2px' }}>
               Register enterprise in National Sovereignty Grid and dispatch cryptographic admin credentials
@@ -311,13 +311,13 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
           <div className="form-section">
             <div className="form-section-title">
               <span className="section-step">3</span>
-              <span>CNMC Architecture Licence Tier & Capabilities</span>
+              <span>MIRA Architecture Licence Tier & Capabilities</span>
             </div>
 
             <div className="licence-tier-grid">
               {[
                 {
-                  id: 'Enterprise CNMC Sovereign',
+                  id: 'Enterprise MIRA Sovereign',
                   title: 'Enterprise Sovereign',
                   badge: 'FULL AI SUITE',
                   desc: 'Full AI Voice, Category A 24/7 monitoring, unlimited nodes, and forensic audit trails.',
@@ -325,7 +325,7 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
                   highlight: true,
                 },
                 {
-                  id: 'Standard CNMC Governance',
+                  id: 'Standard MIRA Governance',
                   title: 'Standard Governance',
                   badge: 'CATEGORY B & C',
                   desc: 'Category B & C tracking, standard API endpoints, and scheduled synchronization.',
@@ -333,7 +333,7 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
                   highlight: false,
                 },
                 {
-                  id: 'Basic CNMC Monitoring',
+                  id: 'Basic MIRA Monitoring',
                   title: 'Basic Monitor',
                   badge: 'READ-ONLY',
                   desc: 'Read-only compliance reporting, schedule tracking, and basic audit exports.',

@@ -59,7 +59,7 @@ export const LegacyCodesPage: React.FC<{ onNavigate: (page: string) => void }> =
             <input 
               type="text" 
               className="gov-search-input"
-              placeholder="Search legacy codes, descriptions, or CNMC..." 
+              placeholder="Search legacy codes, descriptions, or MIRA..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && fetchCodes()}
