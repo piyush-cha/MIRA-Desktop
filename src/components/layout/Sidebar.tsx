@@ -491,7 +491,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
               <div className="sidebar-logo-text" style={{ fontSize: '13px', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span>MIRA ENTERPRISE</span>
               </div>
-              <div style={{ fontSize: '11px', color: '#475569', fontWeight: 600, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', marginTop: '2px' }}>
+              <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 600, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', marginTop: '2px' }}>
                 {user?.cpseName || 'Bharat Heavy Electricals Limited'}
               </div>
             </div>
@@ -518,11 +518,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            background: 'rgba(224, 152, 60, 0.1)', 
+            background: 'rgba(37, 99, 235, 0.08)', 
 
 
 
-            color: '#475569', 
+            color: '#2563eb', 
 
 
 
@@ -530,7 +530,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            border: '1px solid rgba(224, 152, 60, 0.3)',
+            border: '1px solid rgba(37, 99, 235, 0.22)',
 
 
 
@@ -558,7 +558,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            <Lock size={10} color="#E0983C" />
+            <Lock size={10} color="#2563eb" />
 
 
 
@@ -567,7 +567,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#1e293b',
+                color: '#1e40af',
                 fontWeight: '700',
                 outline: 'none',
                 cursor: 'pointer',
