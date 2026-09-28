@@ -822,7 +822,7 @@ html, body, #root {
 
 
 
-.nav-item.active { background: var(--bg-hover); color: var(--accent-dark); font-weight: 600; }
+.nav-item.active { background: rgba(37, 99, 235, 0.1); color: #2563eb; font-weight: 700; border-right: 3px solid #2563eb; }
 
 
 
@@ -46082,7 +46082,7 @@ html, body, #root {
 
 
 
-.nav-item.active { background: var(--bg-hover); color: var(--accent-dark); font-weight: 600; }
+.nav-item.active { background: rgba(37, 99, 235, 0.1); color: #2563eb; font-weight: 700; border-right: 3px solid #2563eb; }
 
 
 
