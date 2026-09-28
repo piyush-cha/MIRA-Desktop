@@ -59600,6 +59600,11 @@ html, body, #root {
 
 .nav-item svg {
   color: #64748b !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
   flex-shrink: 0 !important;
   width: 16px !important;
   height: 16px !important;
