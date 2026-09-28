@@ -57,26 +57,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
   // Interactive state
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [selectedMaterial, setSelectedMaterial] = useState<UnifiedMaterial | null>(null);
-  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [expandedCpseCards, setExpandedCpseCards] = useState<Record<string, boolean>>({});
-
-  // Create Form State
-  const [createForm, setCreateForm] = useState({
-    domain_code: 'MECH',
-    category_code: 'VAL',
-    extracted_noun: '',
-    core_physics: '',
-    variant: '',
-    raw_material_composition: '',
-    criticality: 'Category B',
-    approval_reason: '',
-    human_code: 'CNMC-7842019',
-    custom_attribute_key: '',
-    custom_attribute_value: '',
-    technical_attributes: {} as Record<string, string>
-  });
-  const [creating, setCreating] = useState<boolean>(false);
-  const [createSuccessMsg, setCreateSuccessMsg] = useState<string | null>(null);
 
   const fetchCatalog = async () => {
     setLoading(true);
@@ -96,27 +77,6 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     }
   };
 
-  const fetchSuggestedCode = async (mode: 'random' | 'sequential' = 'random') => {
-    try {
-      const res = await api.suggestUnifiedCode({ mode, category: createForm.category_code });
-      if (res && res.code) {
-        setCreateForm(prev => ({
-          ...prev,
-          human_code: res.code
-        }));
-      }
-    } catch (e) {
-      console.warn('Failed to fetch suggested code from API:', e);
-      const rand = Math.floor(1000000 + Math.random() * 9000000);
-      setCreateForm(prev => ({ ...prev, human_code: `CNMC-${rand}` }));
-    }
-  };
-
-  useEffect(() => {
-    if (showCreateModal) {
-      fetchSuggestedCode('random');
-    }
-  }, [showCreateModal]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -135,88 +95,6 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     setExpandedCpseCards(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const handleAddAttribute = () => {
-    if (createForm.custom_attribute_key.trim() && createForm.custom_attribute_value.trim()) {
-      setCreateForm({
-        ...createForm,
-        technical_attributes: {
-          ...createForm.technical_attributes,
-          [createForm.custom_attribute_key.trim()]: createForm.custom_attribute_value.trim()
-        },
-        custom_attribute_key: '',
-        custom_attribute_value: ''
-      });
-    }
-  };
-
-  const handleRemoveAttribute = (key: string) => {
-    const next = { ...createForm.technical_attributes };
-    delete next[key];
-    setCreateForm({ ...createForm, technical_attributes: next });
-  };
-
-  const handleCreateSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!createForm.extracted_noun.trim() || !createForm.core_physics.trim()) {
-      alert("Please provide the Extracted Noun and Core Physics Description.");
-      return;
-    }
-
-    setCreating(true);
-    try {
-      const res = await api.createUnifiedCode({
-        domain_code: createForm.domain_code,
-        category_code: createForm.category_code,
-        extracted_noun: createForm.extracted_noun,
-        core_physics: createForm.core_physics,
-        variant: createForm.variant,
-        raw_material_composition: createForm.raw_material_composition,
-        criticality: createForm.criticality,
-        approval_reason: createForm.approval_reason || "Approved by National Governance Authority as sovereign unified engineering standard.",
-        technical_attributes: createForm.technical_attributes,
-        human_code: previewHumanCode,
-        created_by: user?.email || 'national.admin@gov.in'
-      });
-
-      setCreateSuccessMsg(`CNMC Standard ${res.data?.human_code || previewHumanCode} ratified successfully by Government!`);
-      setTimeout(() => {
-        setCreateSuccessMsg(null);
-        setShowCreateModal(false);
-        // Reset form
-        setCreateForm({
-          domain_code: 'MECH',
-          category_code: 'VAL',
-          extracted_noun: '',
-          core_physics: '',
-          variant: '',
-          raw_material_composition: '',
-          criticality: 'Category B',
-          approval_reason: '',
-          human_code: 'CNMC-1000014',
-          custom_attribute_key: '',
-          custom_attribute_value: '',
-          technical_attributes: {}
-        });
-      }, 1600);
-
-      await fetchCatalog();
-    } catch (err) {
-      alert(`Creation failed: ${getApiErrorMessage(err)}`);
-    } finally {
-      setCreating(false);
-    }
-  };
-
-  // Preview generated codes for creation modal - 7 digit numeric standard
-  const codeNumMatch = (createForm.human_code || '').match(/\d{7}/);
-  const previewCodeNum = codeNumMatch ? codeNumMatch[0] : (1000000 + materials.length + 1).toString();
-  const previewHumanCode = `CNMC-${previewCodeNum}`;
-  const previewSlug = (createForm.core_physics || 'standard-spec')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .slice(0, 32)
-    .replace(/^-|-$/g, '') || 'standard-spec';
-  const previewUrn = `urn:mira:${previewCodeNum}:${createForm.category_code.toLowerCase()}:${previewSlug}:v1`;
 
   const categoryOptions = [
     { code: 'ALL', label: 'All Domains' },
@@ -285,11 +163,15 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             </button>
             <button
               type="button"
-              onClick={() => setShowCreateModal(true)}
+              onClick={() => {
+                sessionStorage.setItem('open_tier1_modal', 'true');
+                onNavigate('tier-tickets');
+              }}
               className="gov-btn primary small"
+              title="Propose uncataloged new material through Tier 1 Induction Workflow"
             >
               <Plus size={14} />
-              Propose & Mint Sovereign Code
+              Propose New Material (Tier 1)
             </button>
           </div>
         </div>
@@ -455,11 +337,14 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             <ShieldCheck size={36} color="#10b981" style={{ margin: '0 auto 12px auto' }} />
             <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>No Approved Sovereign Standard Found</div>
             <div style={{ fontSize: '13px', color: 'var(--text-secondary)', maxWidth: '440px', margin: '6px auto 16px auto' }}>
-              Only materials officially approved & ratified by the Government are displayed here. You can mint a new sovereign standard proposal.
+              Only materials officially approved & ratified by the Government are displayed here. You can initiate a new material induction application through the Tier 1 workflow.
             </div>
             <button
               type="button"
-              onClick={() => setShowCreateModal(true)}
+              onClick={() => {
+                sessionStorage.setItem('open_tier1_modal', 'true');
+                onNavigate('tier-tickets');
+              }}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -475,7 +360,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               }}
             >
               <Plus size={14} />
-              Propose Sovereign Standard
+              Propose New Material (Tier 1 Induction)
             </button>
           </div>
         ) : viewMode === 'grid' ? (
@@ -810,365 +695,6 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
         </div>
       )}
 
-      {/* Create Unified Code Modal */}
-      {showCreateModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 0, 0, 0.55)',
-          backdropFilter: 'blur(3px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 1100,
-          padding: '20px'
-        }}>
-          <div style={{
-            background: 'var(--bg-card)',
-            borderRadius: '16px',
-            maxWidth: '640px',
-            width: '100%',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.25)',
-            border: '1px solid var(--border-light)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            maxHeight: '90vh'
-          }}>
-            {/* Modal Header */}
-            <div style={{ padding: '18px 24px', background: 'var(--bg-card-alt)', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#2563eb', textTransform: 'uppercase' }}>NATIONAL SOVEREIGN REGISTRATION</span>
-                <h3 style={{ margin: '2px 0 0 0', fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Mint & Ratify New CNMC Standard Code
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowCreateModal(false)}
-                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleCreateSubmit} style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '14px', overflowY: 'auto' }}>
-              {createSuccessMsg && (
-                <div style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857', padding: '12px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <CheckCircle2 size={16} />
-                  {createSuccessMsg}
-                </div>
-              )}
-
-              {/* Domain & Category Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>Domain</label>
-                  <select
-                    value={createForm.domain_code}
-                    onChange={(e) => setCreateForm({ ...createForm, domain_code: e.target.value })}
-                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '11px' }}
-                  >
-                    <option value="MECH">Mechanical Engineering (MECH)</option>
-                    <option value="ELEC">Electrical & Power (ELEC)</option>
-                    <option value="PIPE">Piping & Boiler Pressure (PIPE)</option>
-                    <option value="FAST">Fasteners & Hardware (FAST)</option>
-                    <option value="INST">Instrumentation & Controls (INST)</option>
-                    <option value="STL">Structural & Alloy Steel (STL)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>Category Code</label>
-                  <select
-                    value={createForm.category_code}
-                    onChange={(e) => setCreateForm({ ...createForm, category_code: e.target.value })}
-                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '11px' }}
-                  >
-                    <option value="VAL">VAL — Valves & Actuators</option>
-                    <option value="BRG">BRG — Bearings & Bushings</option>
-                    <option value="MOT">MOT — Motors & Drivers</option>
-                    <option value="PIPE">PIPE — Pipes & Tubes</option>
-                    <option value="PUMP">PUMP — Process Pumps</option>
-                    <option value="FAST">FAST — Studs & Fasteners</option>
-                    <option value="XMIT">XMIT — Transmitters & Gauges</option>
-                    <option value="PLT">PLT — Steel Plates & Structurals</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Suggested 7-Digit CNMC Code & Generation Buttons */}
-              <div style={{ background: 'var(--bg-card-alt)', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
-                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <Tag size={12} color="#2563eb" />
-                    Suggested CNMC Unified Code (7-Digit Numeric) *
-                  </label>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <button
-                      type="button"
-                      onClick={() => fetchSuggestedCode('random')}
-                      title="Generate a random 7-digit identifier"
-                      style={{
-                        padding: '3px 8px',
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border-medium)',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '3px',
-                        color: '#2563eb'
-                      }}
-                    >
-                      <Sparkles size={11} /> Random 7-Digit
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => fetchSuggestedCode('sequential')}
-                      title="Use the next sequential 7-digit serial number"
-                      style={{
-                        padding: '3px 8px',
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border-medium)',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '3px',
-                        color: '#16a34a'
-                      }}
-                    >
-                      <Hash size={11} /> Next Sequential
-                    </button>
-                  </div>
-                </div>
-
-                <input
-                  type="text"
-                  placeholder="e.g. CNMC-7842019"
-                  value={createForm.human_code}
-                  onChange={(e) => setCreateForm({ ...createForm, human_code: e.target.value })}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    borderRadius: '6px',
-                    border: '1px solid #2563eb',
-                    fontSize: '13.5px',
-                    fontWeight: 800,
-                    color: '#1d4ed8',
-                    fontFamily: 'monospace',
-                    boxSizing: 'border-box',
-                    background: 'var(--bg-card)'
-                  }}
-                />
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                  Standard Sovereign Format: <b>CNMC-1XXXXXX</b> (7-digit number) directly bound to the sovereign machine code below.
-                </div>
-              </div>
-
-              {/* Standard Extracted Noun */}
-              <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                  Standard Extracted Noun *
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. BUTTERFLY VALVE, BALL BEARING, CENTRIFUGAL PUMP"
-                  value={createForm.extracted_noun}
-                  onChange={(e) => setCreateForm({ ...createForm, extracted_noun: e.target.value })}
-                  required
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '13px', boxSizing: 'border-box' }}
-                />
-              </div>
-
-              {/* Core Physics Description */}
-              <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                  What is this material? (Core Physics Description) *
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="e.g. Triple Offset High Performance Butterfly Valve 6-Inch Class 150 Lug Type Lugged Inconel Seat"
-                  value={createForm.core_physics}
-                  onChange={(e) => setCreateForm({ ...createForm, core_physics: e.target.value })}
-                  required
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '13px', boxSizing: 'border-box', fontFamily: 'inherit' }}
-                />
-              </div>
-
-              {/* Approval Reason Input */}
-              <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                  Government Approval Reason & Ratification Basis *
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="e.g. Approved under National Standard Harmonization Order #GOV-2026: Standardized across Indian PSUs to eliminate multi-enterprise redundant inventory and institute unified sovereign rate parity."
-                  value={createForm.approval_reason}
-                  onChange={(e) => setCreateForm({ ...createForm, approval_reason: e.target.value })}
-                  style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '13px', boxSizing: 'border-box', fontFamily: 'inherit' }}
-                />
-              </div>
-
-              {/* Variant & Material Grade */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                    Variant / Sizing
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 6 INCH / CLASS 150 / LUG"
-                    value={createForm.variant}
-                    onChange={(e) => setCreateForm({ ...createForm, variant: e.target.value })}
-                    style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '13px', boxSizing: 'border-box' }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                    Material Composition / Grade
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. ASTM A216 WCB / Disc SS316"
-                    value={createForm.raw_material_composition}
-                    onChange={(e) => setCreateForm({ ...createForm, raw_material_composition: e.target.value })}
-                    style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '13px', boxSizing: 'border-box' }}
-                  />
-                </div>
-              </div>
-
-              {/* Criticality Tier */}
-              <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                  Criticality Tier
-                </label>
-                <select
-                  value={createForm.criticality}
-                  onChange={(e) => setCreateForm({ ...createForm, criticality: e.target.value })}
-                  style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '11px' }}
-                >
-                  <option value="Category A">Category A — Strategic & Critical (24/7 Zero Breach Protocol)</option>
-                  <option value="Category B">Category B — Essential Operational Supplies</option>
-                  <option value="Category C">Category C — Standard Consumable Stores</option>
-                </select>
-              </div>
-
-              {/* Technical Attributes Builder */}
-              <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
-                  Technical Parameters (Physical Attributes)
-                </label>
-                <div style={{ display: 'flex', gap: '4px', marginBottom: '8px' }}>
-                  <input
-                    type="text"
-                    placeholder="Key (e.g. pressure_rating)"
-                    value={createForm.custom_attribute_key}
-                    onChange={(e) => setCreateForm({ ...createForm, custom_attribute_key: e.target.value })}
-                    style={{ flex: 1, padding: '7px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '12px' }}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Value (e.g. 150 Bar)"
-                    value={createForm.custom_attribute_value}
-                    onChange={(e) => setCreateForm({ ...createForm, custom_attribute_value: e.target.value })}
-                    style={{ flex: 1, padding: '7px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', fontSize: '12px' }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddAttribute}
-                    style={{ padding: '7px 12px', background: 'var(--bg-app)', border: '1px solid var(--border-medium)', borderRadius: '6px', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}
-                  >
-                    Add
-                  </button>
-                </div>
-
-                {Object.keys(createForm.technical_attributes).length > 0 && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', background: 'var(--bg-app)', padding: '8px', borderRadius: '6px' }}>
-                    {Object.entries(createForm.technical_attributes).map(([k, v]) => (
-                      <span key={k} style={{ fontSize: '11px', background: 'var(--bg-card)', padding: '2px 8px', borderRadius: '4px', border: '1px solid var(--border-light)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <b>{k}:</b> {v}
-                        <X size={11} style={{ cursor: 'pointer', color: 'var(--text-muted)' }} onClick={() => handleRemoveAttribute(k)} />
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Live Preview Box */}
-              <div style={{ background: 'var(--bg-card-alt)', padding: '14px 16px', borderRadius: '10px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
-                <div style={{ fontSize: '11px', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '8px' }}>
-                  <Sparkles size={13} />
-                  LIVE SOVEREIGN POINTER & MACHINE URN BINDING PREVIEW
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 800, color: '#1e40af' }}>
-                  <Hash size={14} />
-                  <code>{previewHumanCode}</code>
-                  <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#15803d', background: '#dcfce7', padding: '1px 6px', borderRadius: '4px' }}>
-                    7-Digit Sovereign Serial
-                  </span>
-                </div>
-
-                {/* Connected Machine Code */}
-                <div style={{ marginTop: '4px', padding: '8px 10px', background: 'var(--bg-card)', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
-                  <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#2563eb', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '3px' }}>
-                    <Cpu size={12} />
-                    CONNECTED SOVEREIGN MACHINE CODE (URN):
-                  </div>
-                  <div style={{ fontSize: '11.5px', color: '#334155', fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                    {previewUrn}
-                  </div>
-                  <div style={{ fontSize: '10px', color: '#64748b', marginTop: '3px', fontStyle: 'italic' }}>
-                    * Bi-directional sovereign resolution: <b>{previewCodeNum}</b> directly binds the human master to the machine URN.
-                  </div>
-                </div>
-              </div>
-
-              {/* Submit Buttons */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '10px' }}>
-                <button
-                  type="button"
-                  onClick={() => setShowCreateModal(false)}
-                  style={{ padding: '8px 16px', background: 'none', border: '1px solid var(--border-medium)', borderRadius: '6px', fontSize: '11px', fontWeight: 600, cursor: 'pointer' }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={creating}
-                  style={{
-                    padding: '8px 20px',
-                    background: '#2563eb',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderRadius: '6px',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                >
-                  {creating ? <RefreshCw size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
-                  Mint & Ratify Standard
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </>
   );
 };

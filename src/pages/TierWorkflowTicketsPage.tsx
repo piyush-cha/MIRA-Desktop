@@ -230,6 +230,13 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
     fetchTickets();
   }, [selectedCpse, isNationalGov, user?.cpseCode]);
 
+  useEffect(() => {
+    if (sessionStorage.getItem('open_tier1_modal') === 'true') {
+      sessionStorage.removeItem('open_tier1_modal');
+      setShowCreateModal(true);
+    }
+  }, []);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
@@ -1900,7 +1907,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                   <Plus size={20} color="#10b981" />
                   <div>
                     <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700 }}>
-                      Propose New Material for Unified Code Induction (Tier 1: Plant Data Entry)
+                      Propose New Material & Mint Sovereign Code (Tier 1: Plant Data Entry)
                     </h3>
                     <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '2px' }}>
                       Exclusive Tier 1 Privilege: Propose uncataloged new material to mint a Sovereign CNMC Unified Code
@@ -2233,7 +2240,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                     }}
                   >
                     {isCreatingTicket && <RefreshCw size={14} className="spinning" />}
-                    <span>Submit New Material Proposal</span>
+                    <span>Submit Proposal & Mint Sovereign Code</span>
                   </button>
                 </div>
               </form>
