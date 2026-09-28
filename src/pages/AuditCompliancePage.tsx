@@ -879,17 +879,17 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
           <div className="table-responsive">
 
-            <table className="gov-data-table audit-data-table" style={{ width: '100%', minWidth: '780px' }}>
+            <table className="gov-data-table audit-data-table" style={{ width: '100%', tableLayout: 'fixed' }}>
 
               <thead>
 
                 <tr>
-                  <th style={{ width: '15%', minWidth: '130px' }}>Event Action</th>
-                  <th style={{ width: '16%', minWidth: '135px' }}>Actor / Officer</th>
-                  <th style={{ width: '18%', minWidth: '145px' }}>Target Resource</th>
-                  <th style={{ width: '27%', minWidth: '180px' }}>Event Payload & Sovereign Details</th>
-                  <th style={{ width: '12%', minWidth: '110px', textAlign: 'center' }}>Cryptographic Proof</th>
-                  <th style={{ width: '12%', minWidth: '110px' }}>Timestamp (IST)</th>
+                  <th style={{ width: '14%' }}>Event Action</th>
+                  <th style={{ width: '16%' }}>Actor / Officer</th>
+                  <th style={{ width: '17%' }}>Target Resource</th>
+                  <th style={{ width: '28%' }}>Event Payload & Sovereign Details</th>
+                  <th style={{ width: '12%', textAlign: 'center' }}>Cryptographic Proof</th>
+                  <th style={{ width: '13%' }}>Timestamp (IST)</th>
                 </tr>
 
               </thead>
@@ -1175,15 +1175,17 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
                         <td>
 
                           <div className="audit-time-cell">
-
-                            <span className="audit-date-time">{log.timestamp}</span>
-
-                            <span className="audit-time-ago">
-
-                              <Clock size={10} /> {formatTimeAgo(log.timestamp)}
-
+                            <span className="audit-date-time">
+                              {log.timestamp.includes(' ') ? log.timestamp.split(' ')[0] : log.timestamp}
                             </span>
-
+                            {log.timestamp.includes(' ') && (
+                              <span style={{ fontSize: '10px', color: '#64748B', fontFamily: 'monospace' }}>
+                                {log.timestamp.split(' ')[1]}
+                              </span>
+                            )}
+                            <span className="audit-time-ago">
+                              <Clock size={9} /> {formatTimeAgo(log.timestamp)}
+                            </span>
                           </div>
 
                         </td>
