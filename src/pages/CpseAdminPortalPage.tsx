@@ -869,15 +869,15 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                 gap: '8px', 
 
-                background: 'rgba(16, 185, 129, 0.08)', 
+                background: 'rgba(216, 142, 51, 0.08)', 
 
-                border: '1px solid rgba(16, 185, 129, 0.25)', 
+                border: '1px solid rgba(216, 142, 51, 0.3)', 
 
                 padding: '6px 14px', 
 
                 borderRadius: '20px',
 
-                color: '#065F46',
+                color: '#B47622',
 
                 fontSize: '12px',
 
@@ -885,11 +885,11 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
               }}>
 
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981', display: 'inline-block', boxShadow: '0 0 8px rgba(16, 185, 129, 0.6)' }} />
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#D88E33', display: 'inline-block', boxShadow: '0 0 8px rgba(216, 142, 51, 0.6)' }} />
 
                 <span>Isolated Enterprise Silo: <b>{selectedCpseCode}</b></span>
 
-                <span style={{ fontSize: '10px', background: '#D1FAE5', color: '#047857', padding: '1px 6px', borderRadius: '10px', fontWeight: 700 }}>
+                <span style={{ fontSize: '10px', background: 'rgba(216, 142, 51, 0.15)', color: '#B47622', padding: '1px 6px', borderRadius: '10px', fontWeight: 700 }}>
 
                   LOCKED
 
@@ -995,7 +995,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                 <div className="metric-label">CNMC Alignment</div>
 
-                <div className="metric-value" style={{ color: '#10B981' }}>{overviewData?.kpis?.cnmc_coverage_pct ?? 0}%</div>
+                <div className="metric-value" style={{ color: '#D88E33' }}>{overviewData?.kpis?.cnmc_coverage_pct ?? 0}%</div>
 
                 <div className="metric-sub">National Golden Coverage</div>
 
@@ -1323,11 +1323,8 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 
               <div>
-
-                <h3 className="section-title">CPSE Material Catalog & Intra-Enterprise Duplicate Detector</h3>
-
-                <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Standardize local plant items against CNMC Golden records and resolve duplicate entries.</p>
-
+                <h3 className="section-title">Material Catalog Studio</h3>
+                <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Manage local materials and resolve duplicates.</p>
               </div>
 
               <div style={{ display: 'flex', gap: '8px' }}>
@@ -1430,7 +1427,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       {activeJob.status === 'COMPLETED' ? (
 
-                        <CheckCircle2 size={18} color="#10B981" />
+                        <CheckCircle2 size={18} color="#D88E33" />
 
                       ) : activeJob.status === 'FAILED' ? (
 
@@ -1492,7 +1489,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                     <div style={{ textAlign: 'right' }}>
 
-                      <div style={{ fontSize: '18px', fontWeight: 800, color: activeJob.status === 'COMPLETED' ? '#10B981' : '#2563EB' }}>
+                      <div style={{ fontSize: '18px', fontWeight: 800, color: activeJob.status === 'COMPLETED' ? '#D88E33' : '#2563EB' }}>
 
                         {activeJob.progress_pct}%
 
@@ -1540,9 +1537,9 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                     background: activeJob.status === 'COMPLETED'
 
-                      ? 'linear-gradient(90deg, #10B981, #059669)'
+                      ? 'linear-gradient(90deg, #D88E33, #059669)'
 
-                      : 'linear-gradient(90deg, #2563EB, #3B82F6, #10B981)',
+                      : 'linear-gradient(90deg, #2563EB, #3B82F6, #D88E33)',
 
                     transition: 'width 0.3s ease-in-out',
 
@@ -1584,7 +1581,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         background: isDone ? 'rgba(16, 185, 129, 0.06)' : isCurrent ? 'rgba(37, 99, 235, 0.06)' : 'var(--bg-canvas, #f8fafc)',
 
-                        border: `1px solid ${isDone ? 'rgba(16, 185, 129, 0.25)' : isCurrent ? 'rgba(37, 99, 235, 0.35)' : 'var(--border-subtle, #e2e8f0)'}`,
+                        border: `1px solid ${isDone ? 'rgba(216, 142, 51, 0.3)' : isCurrent ? 'rgba(37, 99, 235, 0.35)' : 'var(--border-subtle, #e2e8f0)'}`,
 
                         display: 'flex',
 
@@ -1596,7 +1593,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', fontWeight: 700, color: isDone ? '#059669' : isCurrent ? '#2563EB' : 'var(--text-secondary)' }}>
 
-                          {isDone ? <CheckCircle2 size={13} color="#10B981" /> : isCurrent ? <RefreshCw size={13} className="spinning" color="#2563EB" /> : <div style={{ width: '13px', height: '13px', borderRadius: '50%', border: '1px solid var(--text-muted)' }} />}
+                          {isDone ? <CheckCircle2 size={13} color="#D88E33" /> : isCurrent ? <RefreshCw size={13} className="spinning" color="#2563EB" /> : <div style={{ width: '13px', height: '13px', borderRadius: '50%', border: '1px solid var(--text-muted)' }} />}
 
                           {s.title}
 
@@ -1672,7 +1669,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                 border: `1px solid ${uploadStatus.type === 'success' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
 
-                color: uploadStatus.type === 'success' ? '#065F46' : '#991B1B',
+                color: uploadStatus.type === 'success' ? '#B47622' : '#991B1B',
 
                 fontSize: '13px',
 
@@ -1682,7 +1679,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                 {uploadStatus.type === 'success' ? (
 
-                  <CheckCircle2 size={18} color="#10B981" />
+                  <CheckCircle2 size={18} color="#D88E33" />
 
                 ) : (
 
@@ -2916,7 +2913,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         ? 'linear-gradient(135deg, #2563EB, #4F46E5)'
 
-                        : 'linear-gradient(135deg, #10B981, #059669)',
+                        : 'linear-gradient(135deg, #D88E33, #059669)',
 
                       display: 'flex',
 
@@ -2974,9 +2971,9 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       }}>
 
-                        <div style={{ fontSize: '10px', color: '#065F46', fontWeight: 600 }}>Est. Inventory Saving</div>
+                        <div style={{ fontSize: '10px', color: '#B47622', fontWeight: 600 }}>Est. Inventory Saving</div>
 
-                        <div style={{ fontSize: '12px', color: '#047857', fontWeight: 800 }}>
+                        <div style={{ fontSize: '12px', color: '#B47622', fontWeight: 800 }}>
 
                           ₹{reviewItem.savings_inr?.toLocaleString()}
 
@@ -3166,7 +3163,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Dimensional & Rating Alignment:</span>
 
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#10B981' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#D88E33' }}>
 
                         {reviewItem.spec_breakdown?.spec_similarity || '98.2% Metric Correlation'}
 
@@ -3270,7 +3267,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       ? { color: '#7C3AED', borderColor: 'rgba(124, 58, 237, 0.4)' }
 
-                      : { background: 'linear-gradient(135deg, #10B981, #059669)', gap: '6px' }}
+                      : { background: 'linear-gradient(135deg, #D88E33, #059669)', gap: '6px' }}
 
                   >
 
