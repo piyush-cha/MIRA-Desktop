@@ -653,15 +653,18 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           background: 'rgba(0, 0, 0, 0.55)',
           backdropFilter: 'blur(3px)',
           display: 'flex',
-          justifyContent: 'flex-end',
-          zIndex: 1000
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000,
+          padding: '20px'
         }}>
           <div style={{
             width: '100%',
             maxWidth: '620px',
             background: 'var(--bg-card)',
-            height: '100%',
-            boxShadow: '-6px 0 30px rgba(0, 0, 0, 0.25)',
+            maxHeight: '90vh',
+            borderRadius: '12px',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
             display: 'flex',
             flexDirection: 'column',
             overflowY: 'auto'
