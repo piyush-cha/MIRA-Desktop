@@ -7,7 +7,7 @@ import {
 const MOCK_CNMC_MATERIALS: any[] = [
   {
     id: 'cnmc-001',
-    code: 'MIRA-COAL-COK-001',
+    code: 'CNMC-COAL-COK-001',
     name: 'Prime Coking Coal (Ash < 10%, CSR > 65%)',
     category: 'Category A',
     cpseName: 'Steel Authority of India (SAIL)',
@@ -21,7 +21,7 @@ const MOCK_CNMC_MATERIALS: any[] = [
   },
   {
     id: 'cnmc-002',
-    code: 'MIRA-MEC-VLV-002',
+    code: 'CNMC-MEC-VLV-002',
     name: 'High-Pressure Ball Valve 50MM ASME B16.5 1500#',
     category: 'Category A',
     cpseName: 'Oil & Natural Gas Corp (ONGC)',
@@ -35,7 +35,7 @@ const MOCK_CNMC_MATERIALS: any[] = [
   },
   {
     id: 'cnmc-003',
-    code: 'MIRA-ELE-TRF-008',
+    code: 'CNMC-ELE-TRF-008',
     name: 'Power Transformer 400kV 500MVA Class 0.2',
     category: 'Category A',
     cpseName: 'NTPC Limited',
@@ -49,7 +49,7 @@ const MOCK_CNMC_MATERIALS: any[] = [
   },
   {
     id: 'cnmc-004',
-    code: 'MIRA-PMP-SUB-014',
+    code: 'CNMC-PMP-SUB-014',
     name: 'Heavy-Duty Submersible Slurry Pump 75kW',
     category: 'Category B',
     cpseName: 'Coal India Limited (CIL)',
@@ -63,7 +63,7 @@ const MOCK_CNMC_MATERIALS: any[] = [
   },
   {
     id: 'cnmc-005',
-    code: 'MIRA-MEC-BRG-222',
+    code: 'CNMC-MEC-BRG-222',
     name: 'Spherical Roller Bearing 22220-E1-K-C3',
     category: 'Category B',
     cpseName: 'Bharat Heavy Electricals (BHEL)',
@@ -77,7 +77,7 @@ const MOCK_CNMC_MATERIALS: any[] = [
   },
   {
     id: 'cnmc-006',
-    code: 'MIRA-CHE-LUB-505',
+    code: 'CNMC-CHE-LUB-505',
     name: 'Turbine Synthetic Lubricant ISO VG 46',
     category: 'Category C',
     cpseName: 'Indian Oil Corporation (IOCL)',

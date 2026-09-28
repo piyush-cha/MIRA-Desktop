@@ -108,7 +108,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     } catch (e) {
       console.warn('Failed to fetch suggested code from API:', e);
       const rand = Math.floor(1000000 + Math.random() * 9000000);
-      setCreateForm(prev => ({ ...prev, human_code: `MIRA-${rand}` }));
+      setCreateForm(prev => ({ ...prev, human_code: `CNMC-${rand}` }));
     }
   };
 
@@ -210,7 +210,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
   // Preview generated codes for creation modal - 7 digit numeric standard
   const codeNumMatch = (createForm.human_code || '').match(/\d{7}/);
   const previewCodeNum = codeNumMatch ? codeNumMatch[0] : (1000000 + materials.length + 1).toString();
-  const previewHumanCode = `MIRA-${previewCodeNum}`;
+  const previewHumanCode = `CNMC-${previewCodeNum}`;
   const previewSlug = (createForm.core_physics || 'standard-spec')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')

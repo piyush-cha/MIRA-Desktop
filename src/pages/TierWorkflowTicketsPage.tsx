@@ -1419,7 +1419,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                         </span>
                       ) : confirmModalTicket.current_tier === 5 ? (
                         <span>
-                          <b>Standardization Clearance:</b> Approving Tier 5 automatically triggers Laya AI normalization, mints an unused random 7-digit CNMC Code (e.g. <code>MIRA-XXXXXXX</code>), and connects the Sovereign Machine URN!
+                          <b>Standardization Clearance:</b> Approving Tier 5 automatically triggers Laya AI normalization, mints an unused random 7-digit CNMC Code (e.g. <code>CNMC-XXXXXXX</code>), and connects the Sovereign Machine URN!
                         </span>
                       ) : (
                         <span>

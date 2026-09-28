@@ -273,7 +273,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
     plant_code: `${selectedCpseCode}-PLNT-01`,
 
-    cnmc_code: 'MIRA-BRG-6205-2RS',
+    cnmc_code: 'CNMC-BRG-6205-2RS',
 
     legacy_code: `${selectedCpseCode}-MAT-001`,
 

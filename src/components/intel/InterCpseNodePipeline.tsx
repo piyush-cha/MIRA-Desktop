@@ -898,7 +898,7 @@ const PRESET_SCENARIOS: Record<string, { nodes: InterCpseNode[]; connections: In
 
 
 
-        code: 'MIRA-MEC-VLV-002150',
+        code: 'CNMC-MEC-VLV-002150',
 
 
 
@@ -1350,7 +1350,7 @@ const PRESET_SCENARIOS: Record<string, { nodes: InterCpseNode[]; connections: In
 
 
 
-        code: 'MIRA-MEC-BRG-222',
+        code: 'CNMC-MEC-BRG-222',
 
 
 

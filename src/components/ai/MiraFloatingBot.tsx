@@ -88,9 +88,9 @@ const MENTION_SUGGESTIONS = [
 
   { type: 'CPSE', label: '@COALINDIA', desc: 'Coal India Limited' },
 
-  { type: 'MATERIAL', label: '@MIRA-MEC-VLV-002150', desc: 'Ball Valve 2 Inch Cl.150' },
+  { type: 'MATERIAL', label: '@CNMC-MEC-VLV-002150', desc: 'Ball Valve 2 Inch Cl.150' },
 
-  { type: 'MATERIAL', label: '@MIRA-MEC-BRG-22220E', desc: 'Spherical Roller Bearing 22220' },
+  { type: 'MATERIAL', label: '@CNMC-MEC-BRG-22220E', desc: 'Spherical Roller Bearing 22220' },
 
   { type: 'SAP', label: '@SAP_PO_4500091823', desc: 'Active Purchase Order' },
 
