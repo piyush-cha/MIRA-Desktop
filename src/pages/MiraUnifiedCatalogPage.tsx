@@ -261,7 +261,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
         {/* Clean Sovereign National Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(216, 142, 51, 0.1)', border: '1px solid rgba(216, 142, 51, 0.3)', padding: '2px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, color: '#B47622', marginBottom: '6px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(216, 142, 51, 0.1)', border: '1px solid rgba(216, 142, 51, 0.3)', padding: '2px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, color: '#B47622', marginBottom: '2px' }}>
               <ShieldCheck size={12} />
               MIRA NATIONAL MASTER
             </div>
@@ -273,7 +273,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             </p>
           </div>
           
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '4px' }}>
             <button
               type="button"
               onClick={() => fetchCatalog()}
@@ -347,7 +347,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             </div>
 
             {/* Criticality Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 600 }}>Criticality:</span>
               <div style={{ display: 'flex', background: 'var(--bg-card-alt)', padding: '2px', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
                 {['ALL', 'Category A', 'Category B', 'Category C'].map((crit) => (
@@ -409,7 +409,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
           </div>
 
           {/* Domain Category Filter Pills */}
-          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none' }}>
+          <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none' }}>
             {categoryOptions.map((cat) => (
               <button
                 key={cat.code}
@@ -468,7 +468,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 border: 'none',
                 padding: '8px 16px',
                 borderRadius: '6px',
-                fontSize: '12.5px',
+                fontSize: '11px',
                 fontWeight: 600,
                 cursor: 'pointer'
               }}
@@ -506,7 +506,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 >
                   {/* Government Approval Header Banner */}
                   <div style={{
-                    padding: '12px 18px',
+                    padding: '8px 12px',
                     background: 'linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%)',
                     borderBottom: '1px solid #bbf7d0',
                     display: 'flex',
@@ -534,11 +534,11 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   </div>
 
                   {/* Card Main Body */}
-                  <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
+                  <div style={{ padding: '10px', display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
                     
                     {/* SECTION 1: Our MIRA Sovereign Material Code */}
-                    <div style={{ background: 'var(--bg-card-alt)', padding: '12px 14px', borderRadius: '10px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <div style={{ background: 'var(--bg-card-alt)', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
                         <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '4px' }}>
                           <Tag size={12} />
                           MIRA CODE
@@ -579,8 +579,8 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
 
                       {/* Explicit Connection to Machine Code */}
                       <div style={{
-                        marginTop: '8px',
-                        padding: '6px 8px',
+                        marginTop: '4px',
+                        padding: '4px 6px',
                         borderRadius: '6px',
                         background: 'rgba(37, 99, 235, 0.05)',
                         border: '1px solid rgba(37, 99, 235, 0.15)',
@@ -619,13 +619,13 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
 
                     {/* SECTION 2: What is it? (Standard Description & Physics) */}
                     <div>
-                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0px' }}>
                         SPECIFICATION
                       </div>
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3 }}>
                         {mat.extracted_noun}
                       </div>
-                      <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px', lineHeight: 1.3 }}>
                         {mat.core_physics}
                       </div>
 
@@ -649,7 +649,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     <div style={{
                       background: '#fffbeb',
                       borderRadius: '10px',
-                      padding: '12px 14px',
+                      padding: '8px 10px',
                       border: '1px solid #fde68a',
                       display: 'flex',
                       flexDirection: 'column',
@@ -670,11 +670,11 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     <div style={{
                       background: 'var(--bg-app)',
                       borderRadius: '10px',
-                      padding: '12px 14px',
+                      padding: '8px 10px',
                       border: '1px solid var(--border-light)',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '8px'
+                      gap: '4px'
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: 'var(--text-primary)' }}>
@@ -778,7 +778,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   </div>
 
                   {/* Card Footer */}
-                  <div style={{ padding: '12px 18px', background: 'var(--bg-card-alt)', borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ padding: '8px 12px', background: 'var(--bg-card-alt)', borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                       Ratified: {mat.created_at ? new Date(mat.created_at).toLocaleDateString() : 'Gov Master Active'}
                     </span>
@@ -809,7 +809,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
         ) : (
           /* Table View */
           <div style={{ background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-light)', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12.5px' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '11px' }}>
               <thead>
                 <tr style={{ background: 'var(--bg-card-alt)', borderBottom: '1px solid var(--border-light)', color: 'var(--text-secondary)' }}>
                   <th style={{ padding: '12px 16px', fontWeight: 600 }}>MIRA Sovereign Code & URN</th>
@@ -840,7 +840,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                       <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', marginTop: '2px' }}>Spec: {mat.raw_material_composition}</div>
                     </td>
                     <td style={{ padding: '12px 16px', maxWidth: '240px' }}>
-                      <div style={{ fontSize: '11px', color: '#78350f', background: '#fffbeb', padding: '6px 8px', borderRadius: '6px', border: '1px solid #fde68a', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '11px', color: '#78350f', background: '#fffbeb', padding: '4px 6px', borderRadius: '6px', border: '1px solid #fde68a', lineHeight: 1.4 }}>
                         {mat.approval_reason}
                       </div>
                     </td>
@@ -946,7 +946,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               
               {/* 1. What is this Material? */}
               <div style={{ background: 'var(--bg-app)', padding: '16px', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0px' }}>
                   WHAT IS THIS MATERIAL? (CORE SPECIFICATION)
                 </div>
                 <div style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)' }}>{selectedMaterial.extracted_noun}</div>
@@ -955,7 +955,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
 
               {/* 2. Government Ratification Reason */}
               <div style={{ background: '#fffbeb', padding: '16px', borderRadius: '10px', border: '1px solid #fde68a' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', fontWeight: 800, color: '#92400e', marginBottom: '6px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', fontWeight: 800, color: '#92400e', marginBottom: '2px' }}>
                   <Award size={15} color="#d97706" />
                   RATIFICATION BASIS:
                 </div>
@@ -970,7 +970,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
 
               {/* 3. Machine Code Connection */}
               <div style={{ background: 'rgba(37, 99, 235, 0.04)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(37, 99, 235, 0.2)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
                   <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#1d4ed8', display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <Cpu size={13} color="#2563eb" />
                     CONNECTED SOVEREIGN MACHINE CODE (URN)
@@ -1011,17 +1011,17 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     <LinkIcon size={14} color="#2563eb" />
                     SAME PHYSICAL MATERIAL LINKED ACROSS CPSEs ({selectedMaterial.mapped_cpses.length} ENTERPRISES):
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {selectedMaterial.mapped_cpses.map((m, idx) => {
                       const badge = getCpseBadgeColor(m.cpse);
                       return (
-                        <div key={idx} style={{ padding: '12px 14px', borderRadius: '8px', border: '1px solid var(--border-light)', background: 'var(--bg-card-alt)', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                        <div key={idx} style={{ padding: '8px 10px', borderRadius: '8px', border: '1px solid var(--border-light)', background: 'var(--bg-card-alt)', display: 'flex', flexDirection: 'column', gap: '5px' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                               <span style={{ fontSize: '11px', fontWeight: 800, padding: '2px 8px', borderRadius: '4px', background: badge.bg, color: badge.text, border: `1px solid ${badge.border}` }}>
                                 {m.cpse}
                               </span>
-                              <span style={{ fontWeight: 700, fontSize: '12.5px', color: '#18181b' }}>{m.plant || 'National Reserve'}</span>
+                              <span style={{ fontWeight: 700, fontSize: '11px', color: '#18181b' }}>{m.plant || 'National Reserve'}</span>
                             </div>
                             <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#059669', fontFamily: 'monospace' }}>
                               {m.unit_price}
@@ -1143,7 +1143,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
             {/* Form */}
             <form onSubmit={handleCreateSubmit} style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '14px', overflowY: 'auto' }}>
               {createSuccessMsg && (
-                <div style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857', padding: '12px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', color: '#047857', padding: '12px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <CheckCircle2 size={16} />
                   {createSuccessMsg}
                 </div>
@@ -1156,7 +1156,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   <select
                     value={createForm.domain_code}
                     onChange={(e) => setCreateForm({ ...createForm, domain_code: e.target.value })}
-                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '12.5px' }}
+                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '11px' }}
                   >
                     <option value="MECH">Mechanical Engineering (MECH)</option>
                     <option value="ELEC">Electrical & Power (ELEC)</option>
@@ -1172,7 +1172,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   <select
                     value={createForm.category_code}
                     onChange={(e) => setCreateForm({ ...createForm, category_code: e.target.value })}
-                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '12.5px' }}
+                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '11px' }}
                   >
                     <option value="VAL">VAL — Valves & Actuators</option>
                     <option value="BRG">BRG — Bearings & Bushings</option>
@@ -1187,8 +1187,8 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               </div>
 
               {/* Suggested 7-Digit MIRA Code & Generation Buttons */}
-              <div style={{ background: 'var(--bg-card-alt)', padding: '12px 14px', borderRadius: '8px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <div style={{ background: 'var(--bg-card-alt)', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(37, 99, 235, 0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
                   <label style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Tag size={12} color="#2563eb" />
                     Suggested MIRA Unified Code (7-Digit Numeric) *
@@ -1341,7 +1341,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 <select
                   value={createForm.criticality}
                   onChange={(e) => setCreateForm({ ...createForm, criticality: e.target.value })}
-                  style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '12.5px' }}
+                  style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-medium)', background: 'var(--bg-card)', fontSize: '11px' }}
                 >
                   <option value="Category A">Category A — Strategic & Critical (24/7 Zero Breach Protocol)</option>
                   <option value="Category B">Category B — Essential Operational Supplies</option>
@@ -1354,7 +1354,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
                   Technical Parameters (Physical Attributes)
                 </label>
-                <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '8px' }}>
                   <input
                     type="text"
                     placeholder="Key (e.g. pressure_rating)"
@@ -1397,7 +1397,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   LIVE SOVEREIGN POINTER & MACHINE URN BINDING PREVIEW
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 800, color: '#1e40af' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 800, color: '#1e40af' }}>
                   <Hash size={14} />
                   <code>{previewHumanCode}</code>
                   <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#15803d', background: '#dcfce7', padding: '1px 6px', borderRadius: '4px' }}>
@@ -1406,7 +1406,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 </div>
 
                 {/* Connected Machine Code */}
-                <div style={{ marginTop: '8px', padding: '8px 10px', background: 'var(--bg-card)', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
+                <div style={{ marginTop: '4px', padding: '8px 10px', background: 'var(--bg-card)', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
                   <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#2563eb', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '3px' }}>
                     <Cpu size={12} />
                     CONNECTED SOVEREIGN MACHINE CODE (URN):
@@ -1425,7 +1425,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  style={{ padding: '8px 16px', background: 'none', border: '1px solid var(--border-medium)', borderRadius: '6px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}
+                  style={{ padding: '8px 16px', background: 'none', border: '1px solid var(--border-medium)', borderRadius: '6px', fontSize: '11px', fontWeight: 600, cursor: 'pointer' }}
                 >
                   Cancel
                 </button>
@@ -1438,7 +1438,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '6px',
-                    fontSize: '12.5px',
+                    fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
                     display: 'flex',
