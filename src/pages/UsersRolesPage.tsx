@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   UserCircle, Plus, RefreshCw, Search, Shield, UserCheck, 
   CheckCircle2, Mail, Building2, Lock, Key, Copy, Check, Filter,
-  ExternalLink, ChevronDown, Users, ShieldAlert, Cpu
+  ExternalLink, ChevronDown, Users, ShieldAlert, Cpu, Edit2
 } from 'lucide-react';
 import { AppShell } from '../components/layout/AppShell';
 import { api, getApiErrorMessage } from '../api/client';
@@ -33,6 +33,19 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
     cpse_id: user?.cpseCode || 'BHEL'
   });
   const [createSubmitting, setCreateSubmitting] = useState<boolean>(false);
+
+  // Edit User Modal
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [editFormData, setEditFormData] = useState({
+    user_id: '',
+    username: '',
+    email: '',
+    full_name: '',
+    role_code: 'AREA_ADMIN',
+    cpse_code: user?.cpseCode || 'BHEL'
+  });
+  const [editSubmitting, setEditSubmitting] = useState<boolean>(false);
 
   // Consolidated CPSEs list
   const knownCpses = [
@@ -108,6 +121,56 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
       setError(`Failed to provision officer: ${getApiErrorMessage(err)}`);
     } finally {
       setCreateSubmitting(false);
+    }
+  };
+
+  const handleOpenEdit = (officer: any) => {
+    setSelectedUser(officer);
+    setEditFormData({
+      user_id: officer.user_id,
+      username: officer.username,
+      email: officer.email,
+      full_name: officer.full_name || '',
+      role_code: officer.primary_role_code || 'AREA_ADMIN',
+      cpse_code: officer.cpse_code || selectedCpse
+    });
+    setEditModalOpen(true);
+  };
+
+  const handleUpdateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEditSubmitting(true);
+    setError(null);
+    setSuccessMsg(null);
+    try {
+      if (editFormData.user_id && !editFormData.user_id.startsWith('seed-')) {
+        await api.updateUser(editFormData.user_id, {
+          full_name: editFormData.full_name,
+          email: editFormData.email,
+          role_code: editFormData.role_code
+        });
+      }
+      
+      // Update local state directly as well so changes reflect immediately
+      setUsers(prev => prev.map(u => {
+        if (u.user_id === editFormData.user_id) {
+          return {
+            ...u,
+            full_name: editFormData.full_name,
+            email: editFormData.email,
+            primary_role_code: editFormData.role_code
+          };
+        }
+        return u;
+      }));
+
+      setEditModalOpen(false);
+      setSuccessMsg(`Officer ${editFormData.full_name || editFormData.username} updated successfully!`);
+      setTimeout(() => setSuccessMsg(null), 4000);
+    } catch (err) {
+      setError(`Failed to update officer: ${getApiErrorMessage(err)}`);
+    } finally {
+      setEditSubmitting(false);
     }
   };
 
@@ -411,18 +474,19 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
             <table className="gov-data-table" style={{ width: '100%', tableLayout: 'fixed', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', textAlign: 'left' }}>
-                  <th style={{ width: '22%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Officer Identity</th>
-                  <th style={{ width: '24%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Enterprise Email</th>
-                  <th style={{ width: '18%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Primary Role Title</th>
+                  <th style={{ width: '20%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Officer Identity</th>
+                  <th style={{ width: '22%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Enterprise Email</th>
+                  <th style={{ width: '16%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Primary Role Title</th>
                   <th style={{ width: '14%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Connected Silo Scope</th>
                   <th style={{ width: '12%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clearance Tier</th>
-                  <th style={{ width: '10%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Security Status</th>
+                  <th style={{ width: '8%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Status</th>
+                  <th style={{ width: '8%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', textAlign: 'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.length === 0 ? (
                   <tr>
-                    <td colSpan={6} style={{ padding: '36px', textAlign: 'center', color: '#64748B' }}>
+                    <td colSpan={7} style={{ padding: '36px', textAlign: 'center', color: '#64748B' }}>
                       <Shield size={32} color="#CBD5E1" style={{ margin: '0 auto 8px', display: 'block' }} />
                       <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A' }}>No Provisioned Officers Found</div>
                       <div style={{ fontSize: '12px', marginTop: '4px' }}>
@@ -550,6 +614,32 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
                             ACTIVE
                           </span>
                         </td>
+
+                        <td style={{ padding: '10px 14px', textAlign: 'right' }}>
+                          <button
+                            type="button"
+                            onClick={() => handleOpenEdit(u)}
+                            title="Edit Officer Profile & Role"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              padding: '4px 10px',
+                              borderRadius: '6px',
+                              border: '1px solid #CBD5E1',
+                              background: '#FFFFFF',
+                              color: '#2563EB',
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
+                              transition: 'all 0.15s ease'
+                            }}
+                          >
+                            <Edit2 size={11} />
+                            <span>Edit</span>
+                          </button>
+                        </td>
                       </tr>
                     );
                   })
@@ -673,6 +763,108 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
                   </button>
                   <button type="submit" className="btn-primary" disabled={createSubmitting} style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' }}>
                     {createSubmitting ? 'Provisioning...' : `Confirm Provision in ${formData.cpse_id}`}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Edit Officer Modal */}
+        {editModalOpen && (
+          <div className="modal-backdrop">
+            <div className="modal-dialog" style={{ maxWidth: '480px', borderRadius: '14px', overflow: 'hidden' }}>
+              <div className="modal-header" style={{ padding: '16px 20px', borderBottom: '1px solid #E2E8F0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Edit2 size={18} color="#2563EB" />
+                  <h3 style={{ fontSize: '16px', fontWeight: 800, margin: 0, color: '#0F172A' }}>
+                    Edit Enterprise Officer
+                  </h3>
+                </div>
+                <button onClick={() => setEditModalOpen(false)} className="close-btn">×</button>
+              </div>
+
+              <form onSubmit={handleUpdateUser}>
+                <div className="modal-body" style={{ padding: '20px' }}>
+                  <div className="form-group" style={{ marginBottom: '14px' }}>
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                      Enterprise Silo
+                    </label>
+                    <div style={{ padding: '8px 12px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '13px', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Building2 size={14} color="#2563EB" />
+                      <span>{editFormData.cpse_code} Enterprise Node</span>
+                    </div>
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: '14px' }}>
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                      Full Officer Name
+                    </label>
+                    <input 
+                      type="text" 
+                      className="gov-input"
+                      required
+                      placeholder="e.g. Er. Rajiv Singhania"
+                      value={editFormData.full_name}
+                      onChange={(e) => setEditFormData({ ...editFormData, full_name: e.target.value })}
+                      style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', width: '100%' }}
+                    />
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: '14px' }}>
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                      Enterprise Username (Read Only)
+                    </label>
+                    <input 
+                      type="text" 
+                      className="gov-input font-mono"
+                      disabled
+                      value={editFormData.username}
+                      style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', background: '#F1F5F9', color: '#64748B', fontSize: '13px', width: '100%', cursor: 'not-allowed' }}
+                    />
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: '14px' }}>
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                      Gov / CPSE Email Address
+                    </label>
+                    <input 
+                      type="email" 
+                      className="gov-input font-mono"
+                      required
+                      placeholder="e.g. officer@cpse.in"
+                      value={editFormData.email}
+                      onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
+                      style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', width: '100%' }}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
+                      Role & Hierarchical Scope
+                    </label>
+                    <select 
+                      className="gov-select w-full"
+                      value={editFormData.role_code}
+                      onChange={(e) => setEditFormData({ ...editFormData, role_code: e.target.value })}
+                      style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px' }}
+                    >
+                      <option value="CPSE_ADMIN">CPSE Nodal Administrator (Tier 4)</option>
+                      <option value="AREA_ADMIN">Area / Subsidiary Officer (Tier 3)</option>
+                      <option value="ZONE_ADMIN">Zonal Directorate Leader (Tier 3)</option>
+                      <option value="PLANT_USER">Plant Materials Specialist (Tier 2)</option>
+                      <option value="TIER_1_OPERATOR">Field Indenting Officer (Tier 1)</option>
+                      {isNationalAdmin && <option value="NATIONAL_GOVERNANCE">National Governance Admin (Tier 5)</option>}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="modal-footer" style={{ padding: '12px 20px', background: '#F8FAFC', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                  <button type="button" className="btn-secondary" onClick={() => setEditModalOpen(false)}>
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn-primary" disabled={editSubmitting} style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' }}>
+                    {editSubmitting ? 'Saving Changes...' : 'Save Officer Changes'}
                   </button>
                 </div>
               </form>
