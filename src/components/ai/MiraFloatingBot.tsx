@@ -1078,13 +1078,7 @@ export const MiraFloatingBot: React.FC = () => {
 
           <Mira3DAvatar mood={avatarMood} size={110} />
 
-          <div className="mira-char-name-badge">
 
-            <span className="mira-char-pulse"></span>
-
-            MIRA Copilot
-
-          </div>
 
         </div>
 
