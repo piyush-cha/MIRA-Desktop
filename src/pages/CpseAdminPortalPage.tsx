@@ -1323,8 +1323,8 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 
               <div>
-                <h3 className="section-title">Material Catalog Studio</h3>
-                <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Manage local materials and resolve duplicates.</p>
+                <h3 className="section-title">CPSE Material Catalog & Intra-Enterprise Duplicate Detector</h3>
+                <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Standardize local plant items against CNMC Golden records and resolve duplicate entries.</p>
               </div>
 
               <div style={{ display: 'flex', gap: '8px' }}>
