@@ -493,9 +493,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-        <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.8px', color: '#1a1f2c' }}>
+        <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.8px', color: '#1B2332' }}>
           MIRA Sovereign <span style={{ 
-            background: 'linear-gradient(135deg, #d4af7a 0%, #aa7732 100%)', 
+            background: 'linear-gradient(135deg, #F8B44A 0%, #D88E33 100%)', 
             WebkitBackgroundClip: 'text', 
             WebkitTextFillColor: 'transparent',
             display: 'inline-block'
