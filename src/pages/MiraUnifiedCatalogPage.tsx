@@ -258,118 +258,38 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingBottom: '80px' }}>
         
-        {/* Sovereign National Hero Header */}
-        <div style={{
-          background: 'linear-gradient(135deg, #090d16 0%, #111827 50%, #1e293b 100%)',
-          borderRadius: '16px',
-          padding: '24px 28px',
-          color: '#ffffff',
-          boxShadow: '0 10px 25px -5px rgba(15, 23, 42, 0.4)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Subtle background glow */}
-          <div style={{
-            position: 'absolute',
-            top: '-60px',
-            right: '-40px',
-            width: '260px',
-            height: '260px',
-            background: 'radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(0, 0, 0, 0) 70%)',
-            pointerEvents: 'none'
-          }} />
-
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', position: 'relative', zIndex: 1 }}>
-            <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(16, 185, 129, 0.2)', border: '1px solid rgba(16, 185, 129, 0.4)', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 700, color: '#6ee7b7', marginBottom: '10px' }}>
-                <ShieldCheck size={13} />
-                OFFICIALLY APPROVED BY GOVERNMENT OF INDIA • MIRA NATIONAL MASTER
-              </div>
-              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: 0, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                MIRA Sovereign Unified Material Master
-              </h1>
-              <p style={{ margin: '6px 0 0 0', fontSize: '13px', color: '#94a3b8', maxWidth: '720px', lineHeight: 1.5 }}>
-                Displaying exclusively Government Approved & Ratified MIRA Standard Codes. Each sovereign material displays its standardized physical definition, formal ratification order, and verified identical cross-CPSE ERP links.
-              </p>
+        {/* Clean Sovereign National Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(216, 142, 51, 0.1)', border: '1px solid rgba(216, 142, 51, 0.3)', padding: '2px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, color: '#B47622', marginBottom: '6px' }}>
+              <ShieldCheck size={12} />
+              MIRA NATIONAL MASTER
             </div>
-
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <button
-                type="button"
-                onClick={() => fetchCatalog()}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#ffffff',
-                  padding: '9px 14px',
-                  borderRadius: '8px',
-                  fontSize: '12.5px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
-                Refresh
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setShowCreateModal(true)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-                  border: 'none',
-                  color: '#ffffff',
-                  padding: '9px 18px',
-                  borderRadius: '8px',
-                  fontSize: '12.5px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
-                  transition: 'transform 0.15s ease'
-                }}
-              >
-                <Plus size={15} />
-                Propose & Mint Sovereign Code
-              </button>
-            </div>
+            <h3 className="section-title" style={{ margin: '0 0 4px 0', fontSize: '18px', color: 'var(--text-primary)' }}>
+              MIRA Sovereign Unified Material Master
+            </h3>
+            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', maxWidth: '800px' }}>
+              Displaying Government Approved & Ratified MIRA Standard Codes with standardized physical definitions and cross-CPSE ERP links.
+            </p>
           </div>
-
-          {/* Quick Metrics Bar */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: '12px',
-            marginTop: '22px',
-            paddingTop: '18px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)'
-          }}>
-            <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>Gov-Approved Standards</div>
-              <div style={{ fontSize: '20px', fontWeight: 800, color: '#38bdf8', marginTop: '2px' }}>{materials.length} Standard Codes</div>
-            </div>
-
-            <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>Taxonomy Domains</div>
-              <div style={{ fontSize: '20px', fontWeight: 800, color: '#a78bfa', marginTop: '2px' }}>8 Technical Sectors</div>
-            </div>
-
-            <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>Cross-CPSE Silo Bridges</div>
-              <div style={{ fontSize: '20px', fontWeight: 800, color: '#34d399', marginTop: '2px' }}>44 Multi-Plant Links</div>
-            </div>
-
-            <div style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>Ratification Status</div>
-              <div style={{ fontSize: '20px', fontWeight: 800, color: '#10b981', marginTop: '2px' }}>100% Gov Approved</div>
-            </div>
+          
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              type="button"
+              onClick={() => fetchCatalog()}
+              className="gov-btn secondary small"
+            >
+              <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+              Refresh
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowCreateModal(true)}
+              className="gov-btn primary small"
+            >
+              <Plus size={14} />
+              Propose & Mint Sovereign Code
+            </button>
           </div>
         </div>
 
