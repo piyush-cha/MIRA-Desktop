@@ -806,8 +806,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
             {/* Top Empty State Hero */}
             <div style={{
               textAlign: 'center',
-              padding: '48px 24px 36px 24px',
-              borderBottom: '1px solid #f1f5f9',
+              padding: '48px 24px',
               background: 'radial-gradient(ellipse at top, rgba(239, 246, 255, 0.6) 0%, #ffffff 70%)'
             }}>
               <div style={{
@@ -898,101 +897,6 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                     Clear Filter Criteria
                   </button>
                 )}
-              </div>
-            </div>
-
-            {/* Visual 7-Tier Induction Lifecycle Stepper */}
-            <div style={{ padding: '24px 28px', backgroundColor: '#fcfcfd' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Layers size={16} color="#2563eb" />
-                  <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                    Sovereign 7-Tier Verification & Induction Lifecycle
-                  </span>
-                </div>
-                <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 500 }}>
-                  Statutory Multi-Level RBAC Governance Process
-                </span>
-              </div>
-
-              {/* Step cards grid */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))',
-                gap: '10px'
-              }}>
-                {TIER_STEPS.map((s) => (
-                  <div
-                    key={s.tier}
-                    style={{
-                      backgroundColor: '#ffffff',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '8px',
-                      padding: '12px 10px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '6px',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{
-                        fontSize: '10.5px',
-                        fontWeight: 800,
-                        color: s.tier === 1 ? '#2563eb' : s.tier === 7 ? '#15803d' : '#475569',
-                        backgroundColor: s.tier === 1 ? '#eff6ff' : s.tier === 7 ? '#dcfce7' : '#f1f5f9',
-                        padding: '2px 6px',
-                        borderRadius: '4px',
-                        border: s.tier === 1 ? '1px solid #bfdbfe' : s.tier === 7 ? '1px solid #86efac' : '1px solid #e2e8f0'
-                      }}>
-                        TIER {s.tier}
-                      </span>
-                      {s.tier === 7 && <BookmarkCheck size={13} color="#15803d" />}
-                    </div>
-
-                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', lineHeight: 1.3 }}>
-                      {s.title.replace(`Tier ${s.tier}: `, '')}
-                    </div>
-
-                    <div style={{ fontSize: '10.5px', color: '#64748b', lineHeight: 1.3 }}>
-                      {s.role.split('/')[0].trim()}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Governance Assurance Pillars */}
-              <div style={{
-                marginTop: '18px',
-                paddingTop: '16px',
-                borderTop: '1px solid #e2e8f0',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                gap: '14px'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <Lock size={15} color="#2563eb" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0f172a' }}>Zero-Trust Cryptographic Ledger</div>
-                    <div style={{ fontSize: '11px', color: '#64748b' }}>Every tier progression is permanently stamped with officer ID, role, and statutory rationale.</div>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <Cpu size={15} color="#2563eb" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0f172a' }}>AI Deduplication Matrix</div>
-                    <div style={{ fontSize: '11px', color: '#64748b' }}>Tier 5 Laya AI scans multi-CPSE inventories to prevent redundant capital expenditure.</div>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <Award size={15} color="#15803d" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0f172a' }}>Cabinet Sovereign Minting</div>
-                    <div style={{ fontSize: '11px', color: '#64748b' }}>Tier 7 gazettes a standardized 7-digit CNMC code locked across all CPSE ERP systems.</div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
