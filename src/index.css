@@ -15258,2087 +15258,282 @@ html, body, #root {
 
 
 
+/* ── Sovereign Compliance Executive Card (White & Short Professional) ── */
 .compliance-executive-card {
-
-
-
-
-
-
-
-  background: linear-gradient(135deg, #0B1329 0%, #0F172A 60%, #1E293B 100%);
-
-
-
-
-
-
-
-  color: #FFFFFF;
-
-
-
-
-
-
-
-  border-radius: var(--radius-xl);
-
-
-
-
-
-
-
-  padding: 24px 28px;
-
-
-
-
-
-
-
-  border: 1px solid #334155;
-
-
-
-
-
-
-
-  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
-
-
-
-
-
-
-
+  background: #FFFFFF;
+  color: #0F172A;
+  border-radius: 12px;
+  padding: 12px 18px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   position: relative;
-
-
-
-
-
-
-
   overflow: hidden;
-
-
-
-
-
-
-
+  margin-bottom: 14px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-executive-card::before {
-
-
-
-
-
-
-
   content: '';
-
-
-
-
-
-
-
   position: absolute;
-
-
-
-
-
-
-
-  top: 0; right: 0; bottom: 0; width: 400px;
-
-
-
-
-
-
-
-  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
-
-
-
-
-
-
-
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 260px;
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
   pointer-events: none;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-exec-header {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   justify-content: space-between;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
-  gap: 20px;
-
-
-
-
-
-
-
+  gap: 14px;
   flex-wrap: wrap;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-hero-left {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
-  gap: 18px;
-
-
-
-
-
-
-
+  gap: 12px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-hero-icon-box {
-
-
-
-
-
-
-
-  width: 54px;
-
-
-
-
-
-
-
-  height: 54px;
-
-
-
-
-
-
-
-  border-radius: var(--radius-lg);
-
-
-
-
-
-
-
-  background: rgba(16, 185, 129, 0.15);
-
-
-
-
-
-
-
-  border: 1px solid #10B981;
-
-
-
-
-
-
-
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
   justify-content: center;
-
-
-
-
-
-
-
   position: relative;
-
-
-
-
-
-
-
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
-
-
-
-
-
-
-
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.12);
   flex-shrink: 0;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .hero-icon-pulse {
-
-
-
-
-
-
-
   position: absolute;
-
-
-
-
-
-
-
-  inset: -3px;
-
-
-
-
-
-
-
-  border-radius: calc(var(--radius-lg) + 3px);
-
-
-
-
-
-
-
-  border: 1px solid rgba(16, 185, 129, 0.4);
-
-
-
-
-
-
-
+  inset: -2px;
+  border-radius: 10px;
+  border: 1px solid rgba(16, 185, 129, 0.25);
   animation: heroPulse 3s infinite;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @keyframes heroPulse {
-
-
-
-
-
-
-
   0% { transform: scale(1); opacity: 0.8; }
-
-
-
-
-
-
-
   50% { transform: scale(1.08); opacity: 0; }
-
-
-
-
-
-
-
   100% { transform: scale(1); opacity: 0.8; }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-tier-pill {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
-  gap: 8px;
-
-
-
-
-
-
-
-  font-size: 10.5px;
-
-
-
-
-
-
-
-  font-weight: 800;
-
-
-
-
-
-
-
-  color: #34D399;
-
-
-
-
-
-
-
-  letter-spacing: 0.08em;
-
-
-
-
-
-
-
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #059669;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-
-
-
-
-
-
-
-  margin-bottom: 4px;
-
-
-
-
-
-
-
+  margin-bottom: 2px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .dot-pulse-green {
-
-
-
-
-
-
-
-  width: 7px;
-
-
-
-
-
-
-
-  height: 7px;
-
-
-
-
-
-
-
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-
-
-
-
-
-
-
   background: #10B981;
-
-
-
-
-
-
-
-  box-shadow: 0 0 8px #10B981;
-
-
-
-
-
-
-
+  box-shadow: 0 0 6px #10B981;
   animation: beaconGlow 2s infinite ease-in-out;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @keyframes beaconGlow {
-
-
-
-
-
-
-
   0%, 100% { opacity: 1; transform: scale(1); }
-
-
-
-
-
-
-
   50% { opacity: 0.4; transform: scale(0.85); }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pill-divider {
-
-
-
-
-
-
-
-  color: #64748B;
-
-
-
-
-
-
-
+  color: #CBD5E1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-hero-title {
-
-
-
-
-
-
-
-  font-size: 22px;
-
-
-
-
-
-
-
+  font-size: 14.5px;
   font-weight: 700;
-
-
-
-
-
-
-
-  color: #F8FAFC;
-
-
-
-
-
-
-
+  color: #0F172A;
   letter-spacing: -0.01em;
-
-
-
-
-
-
-
+  margin: 0;
+  line-height: 1.2;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-score-highlight {
-
-
-
-
-
-
-
-  color: #34D399;
-
-
-
-
-
-
-
+  color: #059669;
   font-weight: 800;
-
-
-
-
-
-
-
-  text-shadow: 0 0 16px rgba(52, 211, 153, 0.4);
-
-
-
-
-
-
-
+  font-size: 15.5px;
+  margin-left: 2px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-exec-actions {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
-  flex-direction: column;
-
-
-
-
-
-
-
-  align-items: flex-end;
-
-
-
-
-
-
-
+  flex-direction: row;
+  align-items: center;
   gap: 8px;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .security-hash-pill {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
-  gap: 7px;
-
-
-
-
-
-
-
-  background: rgba(255,255,255,0.06);
-
-
-
-
-
-
-
-  border: 1px solid rgba(255,255,255,0.12);
-
-
-
-
-
-
-
-  padding: 6px 14px;
-
-
-
-
-
-
-
+  gap: 6px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 4px 10px;
   border-radius: 9999px;
-
-
-
-
-
-
-
   font-size: 11px;
-
-
-
-
-
-
-
-  color: #E2E8F0;
-
-
-
-
-
-
-
+  color: #475569;
   font-weight: 600;
-
-
-
-
-
-
-
-  backdrop-filter: blur(8px);
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .security-hash-pill.active {
-
-
-
-
-
-
-
-  background: rgba(16, 185, 129, 0.12);
-
-
-
-
-
-
-
-  border-color: rgba(16, 185, 129, 0.35);
-
-
-
-
-
-
-
-  color: #D1FAE5;
-
-
-
-
-
-
-
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+  color: #166534;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .compliance-seal-benchmark {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
-  flex-direction: column;
-
-
-
-
-
-
-
-  align-items: flex-end;
-
-
-
-
-
-
-
-  gap: 2px;
-
-
-
-
-
-
-
+  align-items: center;
+  gap: 6px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 3px 8px;
+  border-radius: 6px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .benchmark-tag {
-
-
-
-
-
-
-
-  font-size: 10px;
-
-
-
-
-
-
-
-  font-weight: 800;
-
-
-
-
-
-
-
-  letter-spacing: 0.08em;
-
-
-
-
-
-
-
-  color: #34D399;
-
-
-
-
-
-
-
-  background: rgba(52, 211, 153, 0.12);
-
-
-
-
-
-
-
-  border: 1px solid rgba(52, 211, 153, 0.25);
-
-
-
-
-
-
-
-  padding: 2px 8px;
-
-
-
-
-
-
-
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #047857;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  padding: 2px 6px;
   border-radius: 4px;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .benchmark-sub {
-
-
-
-
-
-
-
-  font-size: 10.5px;
-
-
-
-
-
-
-
-  color: #94A3B8;
-
-
-
-
-
-
-
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 500;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Strategic Pillars 4-Grid */
-
-
-
-
-
-
-
+/* Strategic Pillars Compact Grid */
 .compliance-pillars-modern-grid {
-
-
-
-
-
-
-
   display: grid;
-
-
-
-
-
-
-
   grid-template-columns: repeat(4, 1fr);
-
-
-
-
-
-
-
-  gap: 14px;
-
-
-
-
-
-
-
-  margin-top: 24px;
-
-
-
-
-
-
-
+  gap: 10px;
+  margin-top: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media (max-width: 1100px) {
-
-
-
-
-
-
-
   .compliance-pillars-modern-grid {
-
-
-
-
-
-
-
     grid-template-columns: repeat(2, 1fr);
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-modern {
-
-
-
-
-
-
-
-  background: rgba(255, 255, 255, 0.04);
-
-
-
-
-
-
-
-  border: 1px solid rgba(255, 255, 255, 0.09);
-
-
-
-
-
-
-
-  border-radius: var(--radius-lg);
-
-
-
-
-
-
-
-  padding: 14px 16px;
-
-
-
-
-
-
-
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 8px 11px;
   display: flex;
-
-
-
-
-
-
-
   flex-direction: column;
-
-
-
-
-
-
-
-  transition: all 0.2s ease;
-
-
-
-
-
-
-
+  transition: all 0.15s ease;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-modern:hover {
-
-
-
-
-
-
-
-  background: rgba(255, 255, 255, 0.07);
-
-
-
-
-
-
-
-  border-color: rgba(52, 211, 153, 0.35);
-
-
-
-
-
-
-
-  transform: translateY(-2px);
-
-
-
-
-
-
-
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-
-
-
-
-
-
-
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-header {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
   justify-content: space-between;
-
-
-
-
-
-
-
-  gap: 8px;
-
-
-
-
-
-
-
+  gap: 6px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-icon-name {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
-  gap: 8px;
-
-
-
-
-
-
-
+  gap: 5px;
   overflow: hidden;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-title {
-
-
-
-
-
-
-
-  font-size: 12.5px;
-
-
-
-
-
-
-
+  font-size: 11.5px;
   font-weight: 700;
-
-
-
-
-
-
-
-  color: #F1F5F9;
-
-
-
-
-
-
-
+  color: #1E293B;
   white-space: nowrap;
-
-
-
-
-
-
-
   overflow: hidden;
-
-
-
-
-
-
-
   text-overflow: ellipsis;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-score {
-
-
-
-
-
-
-
-  font-size: 13.5px;
-
-
-
-
-
-
-
+  font-size: 12px;
   font-weight: 800;
-
-
-
-
-
-
-
-  color: #34D399;
-
-
-
-
-
-
-
+  color: #059669;
   flex-shrink: 0;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-meter-bar {
-
-
-
-
-
-
-
-  height: 4px;
-
-
-
-
-
-
-
+  height: 3px;
   width: 100%;
-
-
-
-
-
-
-
-  background: rgba(255, 255, 255, 0.1);
-
-
-
-
-
-
-
+  background: #E2E8F0;
   border-radius: 999px;
-
-
-
-
-
-
-
-  margin: 10px 0 8px;
-
-
-
-
-
-
-
+  margin: 5px 0;
   overflow: hidden;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-meter-fill {
-
-
-
-
-
-
-
   height: 100%;
-
-
-
-
-
-
-
-  background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
-
-
-
-
-
-
-
+  background: linear-gradient(90deg, #10B981 0%, #059669 100%);
   border-radius: 999px;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-desc {
-
-
-
-
-
-
-
-  font-size: 11px;
-
-
-
-
-
-
-
-  color: #94A3B8;
-
-
-
-
-
-
-
-  line-height: 1.4;
-
-
-
-
-
-
-
-  min-height: 32px;
-
-
-
-
-
-
-
-  flex: 1;
-
-
-
-
-
-
-
+  font-size: 10px;
+  color: #64748B;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 0 4px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-card-footer {
-
-
-
-
-
-
-
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
   justify-content: space-between;
-
-
-
-
-
-
-
-  margin-top: 10px;
-
-
-
-
-
-
-
-  padding-top: 8px;
-
-
-
-
-
-
-
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-
-
-
-
-
-
-
+  padding-top: 4px;
+  border-top: 1px solid #EEF2F6;
+  margin-top: auto;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-status-badge {
-
-
-
-
-
-
-
-  font-size: 10px;
-
-
-
-
-
-
-
-  font-weight: 800;
-
-
-
-
-
-
-
-  color: #34D399;
-
-
-
-
-
-
-
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #059669;
   display: flex;
-
-
-
-
-
-
-
   align-items: center;
-
-
-
-
-
-
-
-  gap: 4px;
-
-
-
-
-
-
-
-  letter-spacing: 0.04em;
-
-
-
-
-
-
-
+  gap: 3px;
+  letter-spacing: 0.03em;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .pillar-meta {
-
-
-
-
-
-
-
-  font-size: 10px;
-
-
-
-
-
-
-
-  color: #64748B;
-
-
-
-
-
-
-
+  font-size: 9.5px;
+  color: #94A3B8;
 }
+
+
 
 
 

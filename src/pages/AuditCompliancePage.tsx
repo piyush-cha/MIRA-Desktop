@@ -549,163 +549,84 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
         {compliance && (
 
           <div className="compliance-executive-card">
-
             {/* Header / Sovereign Security Ribbon */}
-
             <div className="compliance-exec-header">
-
               <div className="compliance-hero-left">
-
                 <div className="compliance-hero-icon-box">
-
-                  <ShieldCheck size={28} className="text-emerald-400" />
-
+                  <ShieldCheck size={20} className="text-emerald-600" />
                   <span className="hero-icon-pulse" />
-
                 </div>
-
                 <div>
-
                   <div className="compliance-tier-pill">
-
                     <span className="dot-pulse-green" />
-
                     <span>{compliance.certification_level.toUpperCase()}</span>
-
                     <span className="pill-divider">•</span>
-
                     <span>MEITY / DPE AIR-GAP DIRECTIVE 2026</span>
-
                   </div>
-
                   <h2 className="compliance-hero-title">
-
                     National Sovereign Compliance Rating:{' '}
-
                     <span className="compliance-score-highlight">{compliance.compliance_score}%</span>
-
                   </h2>
-
                 </div>
-
               </div>
-
-
 
               <div className="compliance-exec-actions">
-
                 <div className="security-hash-pill active">
-
-                  <Lock size={13} className="text-emerald-400" />
-
+                  <Lock size={12} className="text-emerald-600" />
                   <span>SHA-256 Tamper-Evident Active</span>
-
                 </div>
-
                 <div className="compliance-seal-benchmark">
-
                   <span className="benchmark-tag">EXCEPTIONAL STANDING</span>
-
                   <span className="benchmark-sub">0 Non-Conformances Reported</span>
-
                 </div>
-
               </div>
-
             </div>
-
-
 
             {/* Strategic Pillars Grid */}
-
             <div className="compliance-pillars-modern-grid">
-
               {compliance.pillars?.map((p: Pillar, idx: number) => {
-
                 // Sanitize "6 of 4" seed typo
-
                 let description = p.description;
-
                 if (description.includes('6 of 4')) {
-
                   description = '6 of 6 Connected CPSE SAP Gateways actively authenticated via SAML 2.0.';
-
                 }
 
-
-
                 // Dynamic icon
-
                 let PillarIcon = CheckCircle2;
-
                 if (p.name.includes('Zero-Trust')) PillarIcon = Shield;
-
                 else if (p.name.includes('Cryptographic')) PillarIcon = Lock;
-
                 else if (p.name.includes('ERP') || p.name.includes('SAP')) PillarIcon = Server;
-
                 else if (p.name.includes('GeM') || p.name.includes('UNSPSC')) PillarIcon = Sparkles;
 
-
-
                 return (
-
-                  <div key={idx} className="pillar-card-modern">
-
+                  <div key={idx} className="pillar-card-modern" title={description}>
                     <div className="pillar-card-header">
-
                       <div className="pillar-icon-name">
-
-                        <PillarIcon size={15} className="text-emerald-400 flex-shrink-0" />
-
+                        <PillarIcon size={14} className="text-emerald-600 flex-shrink-0" />
                         <span className="pillar-card-title">{p.name}</span>
-
                       </div>
-
                       <span className="pillar-card-score">{p.score}%</span>
-
                     </div>
-
-
 
                     <div className="pillar-meter-bar">
-
                       <div 
-
                         className="pillar-meter-fill" 
-
                         style={{ width: `${Math.min(100, p.score)}%` }}
-
                       />
-
                     </div>
-
-
 
                     <p className="pillar-card-desc">{description}</p>
-
                     
-
                     <div className="pillar-card-footer">
-
                       <span className="pillar-status-badge">
-
-                        <Check size={11} /> COMPLIANT
-
+                        <Check size={10} /> COMPLIANT
                       </span>
-
                       <span className="pillar-meta">Verified Live</span>
-
                     </div>
-
                   </div>
-
                 );
-
               })}
-
             </div>
-
           </div>
 
         )}
