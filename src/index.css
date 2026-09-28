@@ -15432,14 +15432,22 @@ html, body, #root {
 /* Strategic Pillars Compact Grid */
 .compliance-pillars-modern-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
   margin-top: 10px;
+  width: 100%;
 }
 
 @media (max-width: 1100px) {
   .compliance-pillars-modern-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .compliance-pillars-modern-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -15447,10 +15455,12 @@ html, body, #root {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 8px;
-  padding: 8px 11px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
   transition: all 0.15s ease;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .pillar-card-modern:hover {
@@ -15472,15 +15482,18 @@ html, body, #root {
   align-items: center;
   gap: 5px;
   overflow: hidden;
+  min-width: 0;
+  flex: 1;
 }
 
 .pillar-card-title {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   color: #1E293B;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .pillar-card-score {
@@ -15512,6 +15525,7 @@ html, body, #root {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
   margin: 0 0 4px;
 }
 
@@ -15563,6 +15577,7 @@ html, body, #root {
 
 
 
+.audit-table-integrated-toolbar,
 .audit-toolbar-card {
 
 
@@ -15651,6 +15666,15 @@ html, body, #root {
 
 
 
+}
+
+.audit-table-integrated-toolbar {
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-light);
+  border-radius: 0;
+  box-shadow: none;
+  background: #F8FAFC;
 }
 
 

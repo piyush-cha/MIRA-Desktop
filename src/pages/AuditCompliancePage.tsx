@@ -633,9 +633,41 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
 
 
+        {/* Chronological Sovereign Event Stream Table */}
+
+        <div className="gov-table-card audit-table-wrapper" style={{ overflowX: 'auto', maxWidth: '100%' }}>
+
+          <div className="card-header-bar audit-table-header">
+
+            <div className="flex items-center gap-2">
+
+              <h3 className="card-title">Chronological Sovereign Event Stream</h3>
+
+              <span className="audit-count-badge">
+
+                {filteredLogs.length} Sealed Event{filteredLogs.length === 1 ? '' : 's'}
+
+              </span>
+
+            </div>
+
+            <div className="audit-header-meta">
+
+              <Lock size={12} className="text-emerald-500" />
+
+              <span>Immutable Ledger · Ed25519 Root Certified</span>
+
+            </div>
+
+          </div>
+
+
+
+
+
         {/* Audit Filter & Search Toolbar */}
 
-        <div className="audit-toolbar-card">
+        <div className="audit-table-integrated-toolbar">
 
           <div className="audit-search-container">
 
@@ -845,56 +877,19 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
 
 
-        {/* Chronological Sovereign Event Stream Table */}
-
-        <div className="gov-table-card audit-table-wrapper">
-
-          <div className="card-header-bar audit-table-header">
-
-            <div className="flex items-center gap-2">
-
-              <h3 className="card-title">Chronological Sovereign Event Stream</h3>
-
-              <span className="audit-count-badge">
-
-                {filteredLogs.length} Sealed Event{filteredLogs.length === 1 ? '' : 's'}
-
-              </span>
-
-            </div>
-
-            <div className="audit-header-meta">
-
-              <Lock size={12} className="text-emerald-500" />
-
-              <span>Immutable Ledger · Ed25519 Root Certified</span>
-
-            </div>
-
-          </div>
-
-
-
           <div className="table-responsive">
 
-            <table className="gov-data-table audit-data-table">
+            <table className="gov-data-table audit-data-table" style={{ width: '100%', minWidth: '780px' }}>
 
               <thead>
 
                 <tr>
-
-                  <th style={{ width: '180px' }}>Event Action</th>
-
-                  <th style={{ width: '170px' }}>Actor / Officer</th>
-
-                  <th style={{ width: '210px' }}>Target Resource</th>
-
-                  <th>Event Payload & Sovereign Details</th>
-
-                  <th style={{ width: '140px', textAlign: 'center' }}>Cryptographic Proof</th>
-
-                  <th style={{ width: '150px' }}>Timestamp (IST)</th>
-
+                  <th style={{ width: '15%', minWidth: '130px' }}>Event Action</th>
+                  <th style={{ width: '16%', minWidth: '135px' }}>Actor / Officer</th>
+                  <th style={{ width: '18%', minWidth: '145px' }}>Target Resource</th>
+                  <th style={{ width: '27%', minWidth: '180px' }}>Event Payload & Sovereign Details</th>
+                  <th style={{ width: '12%', minWidth: '110px', textAlign: 'center' }}>Cryptographic Proof</th>
+                  <th style={{ width: '12%', minWidth: '110px' }}>Timestamp (IST)</th>
                 </tr>
 
               </thead>
@@ -1165,7 +1160,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
                             <Lock size={12} className="text-emerald-500" />
 
-                            <span className="hash-mono">{log.log_id.replace('audit-', '')}</span>
+                            <span className="hash-mono" title={log.log_id}>{log.log_id.replace('audit-', '').slice(0, 8)}…{log.log_id.slice(-4)}</span>
 
                             <Eye size={12} className="text-muted ml-1" />
 
