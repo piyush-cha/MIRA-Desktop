@@ -697,7 +697,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
               
               {/* 1. What is this Material? */}
               <div style={{ padding: '0 0 16px 0', borderBottom: '1px solid var(--border-light)' }}>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0px' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px', letterSpacing: '0.02em' }}>
                   SPECIFICATION
                 </div>
                 <div style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)' }}>{selectedMaterial.extracted_noun}</div>
@@ -714,8 +714,8 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   "{selectedMaterial.approval_reason}"
                 </div>
                 <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid var(--border-light)', fontSize: '11px', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Approving Body: <b>{selectedMaterial.approval_authority}</b></span>
-                  <span>Order Ref: <b>{selectedMaterial.ratification_order}</b></span>
+                  <span>Approving Body: <b style={{ color: 'var(--text-secondary)' }}>{selectedMaterial.approval_authority}</b></span>
+                  <span>Order Ref: <b style={{ color: 'var(--text-secondary)' }}>{selectedMaterial.ratification_order}</b></span>
                 </div>
               </div>
 
