@@ -583,7 +583,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            <span>ENTERPRISE SILO: <b>{user?.cpseCode || 'BHEL'}</b></span>
+            <span>ENTERPRISE SILO: </span>
+            <select 
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#1e40af',
+                fontWeight: '700',
+                outline: 'none',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                fontSize: 'inherit'
+              }}
+              defaultValue={user?.cpseCode || 'BHEL'}
+            >
+              <option value="BHEL">BHEL</option>
+              <option value="NTPC">NTPC</option>
+              <option value="ONGC">ONGC</option>
+              <option value="GAIL">GAIL</option>
+              <option value="IOCL">IOCL</option>
+            </select>
 
 
 
