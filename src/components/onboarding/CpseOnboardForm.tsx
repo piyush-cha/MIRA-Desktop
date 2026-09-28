@@ -321,7 +321,7 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
                   title: 'Enterprise Sovereign',
                   badge: 'FULL AI SUITE',
                   desc: 'Full AI Voice, Category A 24/7 monitoring, unlimited nodes, and forensic audit trails.',
-                  features: ['Voice AI Copilot', 'Unlimited Nodes', '24/7 Monitoring'],
+                  features: ['Voice AI', 'Unlimited Nodes', '24/7 Monitoring'],
                   highlight: true,
                 },
                 {

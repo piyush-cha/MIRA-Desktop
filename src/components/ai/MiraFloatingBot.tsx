@@ -620,7 +620,7 @@ export const MiraFloatingBot: React.FC = () => {
 
       sender: 'mira',
 
-      text: "Namaste! I am **MIRA Sovereign AI Copilot** — directly connected to **SAP S/4HANA Material Management** across all 6 CPSEs.\n\nType `/` for SAP actions (like `/pr_create`, `/stock_lookup`) or `@` to mention CPSEs and materials.",
+      text: "Namaste! I am **MIRA** — directly connected to **SAP S/4HANA Material Management** across all 6 CPSEs.\n\nType `/` for SAP actions (like `/pr_create`, `/stock_lookup`) or `@` to mention CPSEs and materials.",
 
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 
@@ -978,7 +978,7 @@ export const MiraFloatingBot: React.FC = () => {
 
         sender: 'system',
 
-        text: `⚠️ Error connecting to SAP MCP Copilot: ${getApiErrorMessage(err)}`,
+        text: `⚠️ Error connecting to MIRA: ${getApiErrorMessage(err)}`,
 
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
@@ -1076,7 +1076,7 @@ export const MiraFloatingBot: React.FC = () => {
 
           }}
 
-          title="Click to open Copilot • Drag to move anywhere"
+          title="Click to open MIRA • Drag to move anywhere"
 
         >
 
@@ -1181,7 +1181,7 @@ export const MiraFloatingBot: React.FC = () => {
 
                 <div className="mira-header-title">
 
-                  <span>MIRA Copilot</span>
+                  <span>MIRA</span>
 
                 </div>
 
@@ -1628,7 +1628,7 @@ export const MiraFloatingBot: React.FC = () => {
 
                       ? "MIRA से पूछें... ('/' या @ONGC)" 
 
-                      : "Ask MIRA Copilot or type '/' for SAP MM..."
+                      : "Ask MIRA or type '/' for SAP MM..."
 
                   }
 

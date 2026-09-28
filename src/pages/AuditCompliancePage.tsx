@@ -434,7 +434,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
       if (actorFilter === 'COPILOT') {
 
-        matchesActor = log.actor.toLowerCase().includes('copilot');
+        matchesActor = log.actor.toLowerCase().includes('copilot') || log.actor.toLowerCase().includes('mira');
 
       } else if (actorFilter === 'GOVERNANCE') {
 
@@ -787,7 +787,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
                 <option value="ALL">All Issuers</option>
 
-                <option value="COPILOT">MIRA Sovereign Copilot (AI)</option>
+                <option value="COPILOT">MIRA (AI)</option>
 
                 <option value="GOVERNANCE">National Governance (DPE)</option>
 
@@ -926,7 +926,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
                     const isAutonomousPr = log.action.includes('PR_AUTONOMOUS');
 
-                    const isCopilot = log.actor.toLowerCase().includes('copilot');
+                    const isCopilot = log.actor.toLowerCase().includes('copilot') || log.actor.toLowerCase().includes('mira');
 
 
 
@@ -988,7 +988,7 @@ export const AuditCompliancePage: React.FC<{ onNavigate: (page: string) => void 
 
                                 <Sparkles size={12} className="text-purple-600 flex-shrink-0" />
 
-                                <span>MIRA Sovereign Copilot</span>
+                                <span>MIRA</span>
 
                               </div>
 

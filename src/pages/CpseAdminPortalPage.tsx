@@ -2508,7 +2508,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
                             </div>
                             <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a' }}>No Purchase Requisitions Found</div>
                             <div style={{ fontSize: '12.5px', color: '#64748b', maxWidth: '420px', lineHeight: 1.4 }}>
-                              {prSearchQuery ? 'No requisitions match your search filter.' : `This CPSE has no active SAP PRs. Use the Copilot or click "Create SAP PR" to initiate one.`}
+                              {prSearchQuery ? 'No requisitions match your search filter.' : `This CPSE has no active SAP PRs. Use MIRA or click "Create SAP PR" to initiate one.`}
                             </div>
                             {prSearchQuery && (
                               <button
