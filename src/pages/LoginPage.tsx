@@ -494,17 +494,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
         <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.8px', color: '#1B2332' }}>
-          MIRA Sovereign <span style={{ 
-            background: 'linear-gradient(135deg, #F8B44A 0%, #D88E33 100%)', 
-            WebkitBackgroundClip: 'text', 
-            WebkitTextFillColor: 'transparent',
-            display: 'inline-block'
-          }}>Grid</span>
+          MIRA Sovereign <span style={{ color: '#E0983C' }}>Grid</span>
         </h2>
 
-
-
-        <p style={{ fontSize: '11px', fontWeight: 700, color: '#4b5563', marginBottom: '32px', textTransform: 'uppercase', lineHeight: '1.6', letterSpacing: '0.5px' }}>
+        <p style={{ fontSize: '11px', fontWeight: 700, color: '#273449', marginBottom: '32px', textTransform: 'uppercase', lineHeight: '1.6', letterSpacing: '0.5px' }}>
           NATIONAL MATERIAL GOVERNANCE<br/>& AUTONOMOUS CPSE PORTAL
         </p>
 
