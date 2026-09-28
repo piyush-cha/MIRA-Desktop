@@ -1031,105 +1031,55 @@ export const InterPlantCollaborationGraph: React.FC<InterPlantCollaborationGraph
 
 
 
-        <div style={{ marginTop: '24px', background: '#0F172A', border: '1px solid #1E293B', borderRadius: '8px', padding: '16px' }}>
+        <div style={{ marginTop: '24px', background: '#0F172A', border: '1px solid #1E293B', borderRadius: '12px', padding: '20px' }}>
 
+          <div style={{ fontSize: '13px', fontWeight: 700, color: '#F8FAFC', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
 
-
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#F8FAFC', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-
-
-
-            <Zap size={14} color="#F59E0B" />
-
-
+            <Zap size={16} color="#F59E0B" />
 
             <span>Active Card-to-Card Transfer Corridors ({data?.links?.length || 0})</span>
-
-
 
           </div>
 
 
 
-
-
-
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-
-
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
 
             {data?.links?.map((link: any) => (
 
+              <div key={link.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(30, 41, 59, 0.5)', border: '1px solid #1E293B', padding: '12px 16px', borderRadius: '8px', fontSize: '12.5px', transition: 'background 0.2s ease' }}>
 
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#F8FAFC' }}>
 
-              <div key={link.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#1E293B', padding: '10px 14px', borderRadius: '6px', fontSize: '12px' }}>
-
-
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#F8FAFC' }}>
-
-
-
-                  <span style={{ background: '#3B82F6', color: '#FFFFFF', padding: '2px 6px', borderRadius: '3px', fontSize: '10px', fontWeight: 700 }}>
-
-
+                  <span style={{ background: 'rgba(59, 130, 246, 0.15)', border: '1px solid rgba(59, 130, 246, 0.3)', color: '#60A5FA', padding: '3px 8px', borderRadius: '12px', fontSize: '10px', fontWeight: 800, letterSpacing: '0.04em' }}>
 
                     {link.status.replace(/_/g, ' ')}
 
-
-
                   </span>
 
-
-
-                  <b>{link.label}</b>
-
-
+                  <b style={{ fontWeight: 600, color: '#F1F5F9', letterSpacing: '0.01em' }}>{link.label}</b>
 
                   {link.material_code && (
 
+                    <span style={{ fontSize: '11px', color: '#64748B', fontFamily: 'monospace', background: 'rgba(0,0,0,0.2)', padding: '2px 6px', borderRadius: '4px' }}>
 
-
-                    <span style={{ fontSize: '11px', color: '#94A3B8', fontFamily: 'monospace' }}>
-
-
-
-                      ({link.material_code})
-
-
+                      {link.material_code}
 
                     </span>
 
-
-
                   )}
 
-
-
                 </div>
 
 
 
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', color: '#94A3B8', fontSize: '11.5px' }}>
 
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>Flow: <b style={{ color: '#E2E8F0' }}>{link.flow_rate}</b></span>
 
-
-
-                <div style={{ display: 'flex', gap: '16px', color: '#94A3B8', fontSize: '11.5px' }}>
-
-
-
-                  <span>Flow: <b style={{ color: '#E2E8F0' }}>{link.flow_rate}</b></span>
-
-
-
-                  <span>Est. Savings: <b style={{ color: '#34D399' }}>{link.savings_inr}</b></span>
-
-
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>Est. Savings: <b style={{ color: '#10B981', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 8px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>{link.savings_inr}</b></span>
 
                 </div>
-
-
 
               </div>
 
