@@ -488,33 +488,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
             <div style={{ overflow: 'hidden', flex: 1 }}>
-
-
-
               <div className="sidebar-logo-text" style={{ fontSize: '13px', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-
-
-
                 <span>MIRA ENTERPRISE</span>
-
-
-
               </div>
-
-
-
-              <div style={{ fontSize: '11px', color: 'inherit', fontWeight: 700, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
-
-
-
+              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', marginTop: '2px' }}>
                 {user?.cpseName || 'Bharat Heavy Electricals Limited'}
-
-
-
               </div>
-
-
-
             </div>
 
 
@@ -543,7 +522,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            color: 'inherit', 
+            color: '#2563eb', 
 
 
 
@@ -650,7 +629,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            <div className="sidebar-subtitle" style={{ fontSize: '10px', fontWeight: 500 }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 500 }}>
 
 
 
@@ -730,7 +709,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            color: 'inherit', 
+            color: 'var(--text-primary)', 
 
 
 
