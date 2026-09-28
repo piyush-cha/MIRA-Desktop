@@ -1901,43 +1901,18 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         <span 
 
-                          className={`status-pill ${item.duplicate_risk === 'PENDING_APPROVAL' ? 'pending' : item.duplicate_risk === 'REJECTED' ? 'rejected' : 'approved'}`}
+                          className="status-pill"
 
-                          style={item.duplicate_risk === 'PENDING_APPROVAL' ? {
-
-                            background: '#fef3c7',
-
-                            color: '#92400e',
-
-                            borderColor: '#fde68a',
-
+                                                    style={{
+                            background: item.duplicate_risk === 'PENDING_APPROVAL' || item.cnmc_code === 'PENDING_NATIONAL_MINT' ? 'rgba(216, 142, 51, 0.1)' : 'rgba(27, 35, 50, 0.05)',
+                            color: item.duplicate_risk === 'PENDING_APPROVAL' || item.cnmc_code === 'PENDING_NATIONAL_MINT' ? '#B47622' : '#1B2332',
+                            borderColor: item.duplicate_risk === 'PENDING_APPROVAL' || item.cnmc_code === 'PENDING_NATIONAL_MINT' ? 'rgba(216, 142, 51, 0.3)' : 'rgba(27, 35, 50, 0.2)',
                             fontWeight: 700
-
-                          } : item.duplicate_risk === 'RATIFIED' ? {
-
-                            background: '#ecfdf5',
-
-                            color: '#065f46',
-
-                            borderColor: '#a7f3d0',
-
-                            fontWeight: 700
-
-                          } : item.duplicate_risk === 'REJECTED' ? {
-
-                            background: '#fef2f2',
-
-                            color: '#b91c1c',
-
-                            borderColor: '#fca5a5',
-
-                            fontWeight: 700
-
-                          } : undefined}
+                          }}
 
                         >
 
-                          {item.cnmc_code}
+                          {item.cnmc_code === 'PENDING_NATIONAL_MINT' ? 'MINT PENDING' : item.cnmc_code}
 
                         </span>
 
@@ -1959,11 +1934,11 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         }`}>
 
-                          {item.duplicate_risk === 'PENDING_APPROVAL' ? '⌛ PENDING GOV' :
+                          {item.duplicate_risk === 'PENDING_APPROVAL' ? 'PENDING' :
 
-                           item.duplicate_risk === 'RATIFIED' ? '✅ RATIFIED' :
+                           item.duplicate_risk === 'RATIFIED' ? 'RATIFIED' :
 
-                           item.duplicate_risk === 'REJECTED' ? '❌ REJECTED' :
+                           item.duplicate_risk === 'REJECTED' ? 'REJECTED' :
 
                            item.duplicate_risk === 'HARMONIZED' ? 'HARMONIZED' : 
 
