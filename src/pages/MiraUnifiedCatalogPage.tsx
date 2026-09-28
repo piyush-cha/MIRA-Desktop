@@ -553,67 +553,6 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   </div>
                 </div>
               );
-            })}}
-                      </div>
-
-                      {/* Expand / Collapse Button if more than 2 CPSEs */}
-                      {mat.mapped_cpses && mat.mapped_cpses.length > 2 && (
-                        <button
-                          type="button"
-                          onClick={() => toggleExpandCpses(mat.id)}
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            color: '#2563eb',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '4px',
-                            padding: '4px 0',
-                            marginTop: '2px'
-                          }}
-                        >
-                          {isExpanded ? (
-                            <>Show Fewer CPSEs <ChevronUp size={12} /></>
-                          ) : (
-                            <>+ View All {mat.mapped_cpses.length} Linked CPSE Equivalents <ChevronDown size={12} /></>
-                          )}
-                        </button>
-                      )}
-                    </div>
-
-                  </div>
-
-                  {/* Card Footer */}
-                  <div style={{ padding: '8px 12px', background: 'var(--bg-card-alt)', borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-                      Ratified: {mat.created_at ? new Date(mat.created_at).toLocaleDateString() : 'Gov Master Active'}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedMaterial(mat)}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px',
-                        background: 'none',
-                        border: 'none',
-                        color: '#2563eb',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        padding: 0
-                      }}
-                    >
-                      <Eye size={13} />
-                      View Spec &rarr;
-                    </button>
-                  </div>
-                </div>
-              );
             })}
           </div>
         ) : (
