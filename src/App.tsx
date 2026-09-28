@@ -61,9 +61,9 @@ export default function App() {
 
         'national', 'onboarding', 'cpses', 'onboard-new', 
 
-        'cnmc', 'cross-cpse', 'expert-reviews', 'data-quality', 
+        'cnmc', 'cross-cpse', 'data-quality', 
 
-        'legacy-codes', 'policies', 'users-roles'
+        'policies', 'users-roles'
 
       ];
 
