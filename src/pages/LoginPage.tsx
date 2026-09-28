@@ -487,46 +487,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-        <img 
+        <div style={{ background: '#f8f9fa', borderRadius: '18px', padding: '16px', display: 'inline-flex', marginBottom: '16px', alignItems: 'center', justifyContent: 'center' }}>
+          <img src="/mira-logo.png" alt="MIRA Logo" style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
+        </div>
 
 
 
-          src="/mira-logo.png" 
-
-
-
-          alt="MIRA Logo" 
-
-
-
-          style={{ width: '64px', height: '64px', borderRadius: '12px', marginBottom: '16px', objectFit: 'contain' }} 
-
-
-
-        />
-
-
-
-        <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '4px', letterSpacing: '-0.5px' }}>
-
-
-
-          MIRA Sovereign Grid
-
-
-
+        <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px', color: '#1a1f2c' }}>
+          MIRA Sovereign <span style={{ color: '#b48850' }}>Grid</span>
         </h2>
 
 
 
-        <p style={{ fontSize: '12.5px', color: 'var(--text-muted)', marginBottom: '24px' }}>
-
-
-
-          National Material Governance & Autonomous CPSE Portal
-
-
-
+        <p style={{ fontSize: '11px', fontWeight: 700, color: '#4b5563', marginBottom: '32px', textTransform: 'uppercase', lineHeight: '1.6', letterSpacing: '0.5px' }}>
+          NATIONAL MATERIAL GOVERNANCE<br/>& AUTONOMOUS CPSE PORTAL
         </p>
 
 
@@ -547,7 +521,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-              SOVEREIGN IDENTIFIER / USERNAME
+              SOVEREIGN ID
 
 
 
@@ -579,7 +553,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-                placeholder="Enter username or email"
+                placeholder="Enter username"
 
 
 
@@ -611,7 +585,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-              CRYPTOGRAPHIC PASSCODE
+              PASSWORD
 
 
 
@@ -643,7 +617,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-                placeholder="Enter passcode"
+                placeholder="............"
 
 
 
