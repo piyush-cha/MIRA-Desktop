@@ -212,7 +212,13 @@ export const MiraFloatingBot: React.FC = () => {
 
   const [currentLang, setCurrentLang] = useState<string>('en');
 
-  const [activeCpse, setActiveCpse] = useState<string>('ONGC');
+  const [activeCpse, setActiveCpse] = useState<string>(user?.cpseCode || 'ONGC');
+
+  useEffect(() => {
+    if (user?.cpseCode) {
+      setActiveCpse(user.cpseCode);
+    }
+  }, [user?.cpseCode]);
 
   const [inputText, setInputText] = useState<string>('');
 
@@ -1148,14 +1154,27 @@ export const MiraFloatingBot: React.FC = () => {
 
               </span>
 
-              <div className="mira-header-avatar-wrap">
-
-                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#EFF6FF', color: '#2563EB', borderRadius: '50%' }}>
-
-                  <Bot size={18} />
-
-                </div>
-
+              <div 
+                className="mira-header-avatar-wrap"
+                style={{ 
+                  width: '32px', 
+                  height: '32px', 
+                  minWidth: '32px', 
+                  borderRadius: '8px', 
+                  background: '#FFFFFF', 
+                  border: '1px solid #E2E8F0', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  padding: '2px', 
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.06)' 
+                }}
+              >
+                <img 
+                  src="/mira-logo.png" 
+                  alt="MIRA Logo" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                />
               </div>
 
               <div className="mira-header-text-group">
@@ -1210,33 +1229,6 @@ export const MiraFloatingBot: React.FC = () => {
 
 
 
-              {/* CPSE Context Selector */}
-
-              <select
-
-                className="mira-cpse-select"
-
-                value={activeCpse}
-
-                onChange={(e) => setActiveCpse(e.target.value)}
-
-                title="Target CPSE Context"
-
-              >
-
-                <option value="ONGC">ONGC</option>
-
-                <option value="IOCL">IOCL</option>
-
-                <option value="SAIL">SAIL</option>
-
-                <option value="NTPC">NTPC</option>
-
-                <option value="BHEL">BHEL</option>
-
-                <option value="COALINDIA">CIL</option>
-
-              </select>
 
 
 
@@ -1295,13 +1287,28 @@ export const MiraFloatingBot: React.FC = () => {
                   <div key={msg.id} className={`mira-message-row ${msg.sender}`}>
 
                     {msg.sender === 'mira' && (
-
-                      <div className="mira-bot-icon-small">
-
-                        <Bot size={13} />
-
+                      <div 
+                        className="mira-bot-icon-small"
+                        style={{ 
+                          width: '24px', 
+                          height: '24px', 
+                          minWidth: '24px', 
+                          borderRadius: '6px', 
+                          background: '#FFFFFF', 
+                          border: '1px solid #E2E8F0', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center', 
+                          padding: '2px', 
+                          flexShrink: 0 
+                        }}
+                      >
+                        <img 
+                          src="/mira-logo.png" 
+                          alt="MIRA" 
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                        />
                       </div>
-
                     )}
 
                     
@@ -1412,10 +1419,27 @@ export const MiraFloatingBot: React.FC = () => {
 
                   <div className="mira-message-row mira">
 
-                    <div className="mira-bot-icon-small">
-
-                      <MessageCircle size={13} />
-
+                    <div 
+                      className="mira-bot-icon-small"
+                      style={{ 
+                        width: '24px', 
+                        height: '24px', 
+                        minWidth: '24px', 
+                        borderRadius: '6px', 
+                        background: '#FFFFFF', 
+                        border: '1px solid #E2E8F0', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        padding: '2px', 
+                        flexShrink: 0 
+                      }}
+                    >
+                      <img 
+                        src="/mira-logo.png" 
+                        alt="MIRA" 
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                      />
                     </div>
 
                     <div className="mira-message-bubble loading">
