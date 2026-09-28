@@ -330,8 +330,9 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
 
   const handleCreateTicketSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (activeOperationalTier !== 1) {
-      alert('Strict Governance Protocol: Only Tier 1 Plant Data Entry officers can initiate new material applications. Tiers 2–7 possess review, approval, rejection, and return authority only.');
+    const canInitiate = activeOperationalTier === 1 || isNationalGov || user?.roleCode === 'CPSE_ADMIN' || user?.roleCode === 'PLANT_USER';
+    if (!canInitiate) {
+      alert('Strict Governance Protocol: Only Tier 1 Plant Indenting Officers or Enterprise Administrators can initiate new material applications. Tiers 2–7 possess review, approval, rejection, and return authority.');
       return;
     }
 
@@ -478,34 +479,60 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '14px',
-          marginBottom: '14px',
+          gap: '16px',
+          marginBottom: '16px',
           backgroundColor: '#ffffff',
-          padding: '14px 18px',
+          padding: '16px 22px',
           borderRadius: '12px',
           border: '1px solid #e2e8f0',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.02)'
+          boxShadow: '0 2px 8px rgba(15, 23, 42, 0.04)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Subtle sovereign accent bar on left */}
+          <div style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: '4px',
+            background: 'linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%)'
+          }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '9px',
+              width: '44px',
+              height: '44px',
+              borderRadius: '10px',
               background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
               border: '1px solid #bfdbfe',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#2563eb',
+              boxShadow: '0 2px 5px rgba(37, 99, 235, 0.1)',
               flexShrink: 0
             }}>
-              <GitPullRequest size={20} />
+              <GitPullRequest size={22} />
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <h1 style={{ fontSize: '17px', fontWeight: 700, color: '#0f172a', margin: 0 }}>
-                  New Material & Unified Code Induction
-                </h1>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '2px' }}>
+                <span style={{
+                  fontSize: '10px',
+                  fontWeight: 800,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  color: '#2563eb',
+                  background: 'rgba(37, 99, 235, 0.08)',
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(37, 99, 235, 0.2)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}>
+                  <ShieldCheck size={11} /> SOVEREIGN WORKFLOW PROTOCOL
+                </span>
                 <span style={{
                   fontSize: '11px',
                   fontWeight: 700,
@@ -518,33 +545,81 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                   {totalCount} Total in Pipeline
                 </span>
               </div>
-              <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748b' }}>
+              <h1 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '2px 0 3px 0', letterSpacing: '-0.01em' }}>
+                New Material & Unified Code Induction
+              </h1>
+              <p style={{ margin: 0, fontSize: '12.5px', color: '#64748b' }}>
                 7-Tier Sovereign Verification & Codification • Multi-CPSE Harmonization Workflow
               </p>
             </div>
           </div>
 
+          {/* Action buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={() => fetchTickets()}
+              disabled={loading}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 14px',
+                borderRadius: '8px',
+                border: '1px solid #cbd5e1',
+                backgroundColor: '#ffffff',
+                color: '#334155',
+                fontSize: '12.5px',
+                fontWeight: 600,
+                cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <RefreshCw size={13} className={loading ? 'spinning' : ''} />
+              <span>Refresh</span>
+            </button>
 
+            <button
+              type="button"
+              onClick={() => setShowCreateModal(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '7px',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                border: '1px solid #1d4ed8',
+                background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                color: '#ffffff',
+                fontSize: '12.5px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(37, 99, 235, 0.3)',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <Plus size={15} />
+              <span>Initiate Tier 1 Application</span>
+            </button>
+          </div>
         </div>
-
-
 
         {/* Compact Search & Filter Toolbar */}
         <div style={{
           backgroundColor: '#ffffff',
-          padding: '8px 12px',
+          padding: '10px 14px',
           borderRadius: '10px',
           border: '1px solid #e2e8f0',
           marginBottom: '16px',
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '8px',
+          gap: '10px',
           alignItems: 'center',
-          boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
+          boxShadow: '0 1px 3px rgba(15, 23, 42, 0.03)'
         }}>
           {/* Search Input */}
-          <div style={{ flex: '1 1 220px', position: 'relative' }}>
-            <Search size={14} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+          <div style={{ flex: '1 1 240px', position: 'relative' }}>
+            <Search size={14} style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
             <input
               type="text"
               placeholder="Search ticket #, material name, CPSE, or legacy code..."
@@ -553,12 +628,14 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
               style={{
                 width: '100%',
                 boxSizing: 'border-box',
-                padding: '6px 26px 6px 30px',
+                padding: '7px 28px 7px 32px',
                 borderRadius: '6px',
                 border: '1px solid #cbd5e1',
-                fontSize: '12px',
+                fontSize: '12.5px',
                 outline: 'none',
-                color: '#1e293b'
+                color: '#1e293b',
+                backgroundColor: '#f8fafc',
+                transition: 'border-color 0.15s ease'
               }}
             />
             {searchQuery && (
@@ -584,29 +661,32 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
 
           {/* CPSE Select (National Governance only; hidden for specified CPSE users) */}
           {isNationalGov && (
-            <select
-              value={selectedCpse}
-              onChange={(e) => setSelectedCpse(e.target.value)}
-              style={{
-                padding: '6px 10px',
-                borderRadius: '6px',
-                border: '1px solid #cbd5e1',
-                fontSize: '12px',
-                fontWeight: 500,
-                color: '#334155',
-                backgroundColor: '#ffffff',
-                outline: 'none'
-              }}
-            >
-              <option value="ALL">All CPSEs</option>
-              <option value="BHEL">BHEL</option>
-              <option value="NTPC">NTPC</option>
-              <option value="ONGC">ONGC</option>
-              <option value="SAIL">SAIL</option>
-              <option value="IOCL">IOCL</option>
-              <option value="COAL INDIA">COAL INDIA</option>
-              <option value="GAIL">GAIL</option>
-            </select>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <Building2 size={13} color="#64748b" />
+              <select
+                value={selectedCpse}
+                onChange={(e) => setSelectedCpse(e.target.value)}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: '6px',
+                  border: '1px solid #cbd5e1',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: '#334155',
+                  backgroundColor: '#ffffff',
+                  outline: 'none'
+                }}
+              >
+                <option value="ALL">All CPSEs</option>
+                <option value="BHEL">BHEL</option>
+                <option value="NTPC">NTPC</option>
+                <option value="ONGC">ONGC</option>
+                <option value="SAIL">SAIL</option>
+                <option value="IOCL">IOCL</option>
+                <option value="COAL INDIA">COAL INDIA</option>
+                <option value="GAIL">GAIL</option>
+              </select>
+            </div>
           )}
 
           {/* Status Select */}
@@ -618,7 +698,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
               borderRadius: '6px',
               border: '1px solid #cbd5e1',
               fontSize: '12px',
-              fontWeight: 500,
+              fontWeight: 600,
               color: '#334155',
               backgroundColor: '#ffffff',
               outline: 'none'
@@ -633,28 +713,38 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
 
           {/* Micro Tier Pills */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '3px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', marginRight: '2px' }}>Tier:</span>
-            {['ALL', '1', '2', '3', '4', '5', '6', '7'].map((t) => {
-              const active = selectedTier === t;
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', marginRight: '3px' }}>Tier:</span>
+            {[
+              { id: 'ALL', label: 'All' },
+              { id: '1', label: 'T1' },
+              { id: '2', label: 'T2' },
+              { id: '3', label: 'T3' },
+              { id: '4', label: 'T4' },
+              { id: '5', label: 'T5' },
+              { id: '6', label: 'T6' },
+              { id: '7', label: 'T7' }
+            ].map((t) => {
+              const active = selectedTier === t.id;
               return (
                 <button
-                  key={t}
+                  key={t.id}
                   type="button"
-                  onClick={() => setSelectedTier(t)}
+                  onClick={() => setSelectedTier(t.id)}
                   style={{
-                    padding: '3px 7px',
-                    borderRadius: '4px',
+                    padding: '4px 8px',
+                    borderRadius: '6px',
                     fontSize: '11px',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     border: active ? '1px solid #2563eb' : '1px solid #e2e8f0',
                     backgroundColor: active ? '#2563eb' : '#f8fafc',
                     color: active ? '#ffffff' : '#64748b',
                     cursor: 'pointer',
-                    transition: 'all 0.1s ease'
+                    boxShadow: active ? '0 1px 3px rgba(37, 99, 235, 0.25)' : 'none',
+                    transition: 'all 0.12s ease'
                   }}
-                  title={t === 'ALL' ? 'All Tiers' : `Tier ${t}`}
+                  title={t.id === 'ALL' ? 'All Sovereign Tiers' : `Tier ${t.id} Requisitions`}
                 >
-                  {t === 'ALL' ? 'All' : `T${t}`}
+                  {t.label}
                 </button>
               );
             })}
@@ -663,7 +753,7 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
           {/* Results count & reset */}
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11.5px', color: '#64748b', fontWeight: 500 }}>
-              Showing <strong>{tickets.length}</strong> of {totalCount}
+              Showing <strong style={{ color: '#0f172a' }}>{tickets.length}</strong> of {totalCount}
             </span>
             {(selectedTier !== 'ALL' || selectedStatus !== 'ALL' || (isNationalGov && selectedCpse !== 'ALL') || searchQuery) && (
               <button
@@ -678,15 +768,17 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                 }}
                 style={{
                   fontSize: '11px',
-                  fontWeight: 600,
-                  color: '#ef4444',
-                  background: 'none',
-                  border: 'none',
+                  fontWeight: 700,
+                  color: '#dc2626',
+                  backgroundColor: '#fee2e2',
+                  border: '1px solid #fecaca',
+                  borderRadius: '4px',
                   cursor: 'pointer',
-                  padding: '2px 4px',
+                  padding: '3px 7px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '2px'
+                  gap: '4px',
+                  transition: 'all 0.15s ease'
                 }}
               >
                 <RotateCcw size={11} />
@@ -698,33 +790,211 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
 
         {/* Tickets Listing */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px 20px', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <RefreshCw size={24} className="spinning" style={{ margin: '0 auto 12px auto', color: '#2563eb' }} />
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#334155' }}>Loading 7-Tier Requisition Tickets...</div>
-            <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>Querying multi-tier audit ledger from PostgreSQL...</div>
+          <div style={{ textAlign: 'center', padding: '60px 20px', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(15, 23, 42, 0.04)' }}>
+            <RefreshCw size={26} className="spinning" style={{ margin: '0 auto 12px auto', color: '#2563eb' }} />
+            <div style={{ fontSize: '14.5px', fontWeight: 700, color: '#0f172a' }}>Loading 7-Tier Requisition Tickets...</div>
+            <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>Querying sovereign multi-tier audit ledger from PostgreSQL...</div>
           </div>
         ) : tickets.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '60px 20px', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <AlertCircle size={32} style={{ margin: '0 auto 12px auto', color: '#94a3b8' }} />
-            <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b' }}>No Request Tickets Found</div>
-            <div style={{ fontSize: '13px', color: '#64748b', marginTop: '6px', maxWidth: '420px', margin: '6px auto 16px auto' }}>
-              No tickets matched your filter criteria. Try changing filters or submit a new Tier 1 Request Ticket.
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '14px',
+            border: '1px solid #e2e8f0',
+            boxShadow: '0 2px 10px rgba(15, 23, 42, 0.03)',
+            overflow: 'hidden'
+          }}>
+            {/* Top Empty State Hero */}
+            <div style={{
+              textAlign: 'center',
+              padding: '48px 24px 36px 24px',
+              borderBottom: '1px solid #f1f5f9',
+              background: 'radial-gradient(ellipse at top, rgba(239, 246, 255, 0.6) 0%, #ffffff 70%)'
+            }}>
+              <div style={{
+                width: '56px',
+                height: '56px',
+                margin: '0 auto 16px auto',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+                border: '1px solid #bfdbfe',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#2563eb',
+                boxShadow: '0 4px 14px rgba(37, 99, 235, 0.15)'
+              }}>
+                <ShieldCheck size={28} />
+              </div>
+
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '3px 10px',
+                borderRadius: '12px',
+                background: 'rgba(37, 99, 235, 0.07)',
+                border: '1px solid rgba(37, 99, 235, 0.18)',
+                fontSize: '11px',
+                fontWeight: 700,
+                color: '#2563eb',
+                marginBottom: '8px'
+              }}>
+                <Sparkles size={12} />
+                SOVEREIGN INDUCTION PIPELINE SYNCHRONIZED
+              </div>
+
+              <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '4px 0 8px 0', letterSpacing: '-0.01em' }}>
+                {searchQuery || selectedTier !== 'ALL' || selectedStatus !== 'ALL' ? 'No Matching Induction Tickets' : 'No Induction Tickets in Pipeline'}
+              </h2>
+
+              <p style={{ fontSize: '13px', color: '#64748b', maxWidth: '520px', margin: '0 auto 20px auto', lineHeight: 1.5 }}>
+                {searchQuery || selectedTier !== 'ALL' || selectedStatus !== 'ALL' 
+                  ? 'No tickets match the currently selected search or status filters. Try clearing your filters or submit a new proposal.'
+                  : 'All enterprise stores and operating units are currently harmonized. When an uncataloged item is indented at plant level, it enters the sovereign 7-tier verification ledger.'}
+              </p>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => setShowCreateModal(true)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '7px',
+                    padding: '9px 18px',
+                    backgroundColor: '#2563eb',
+                    backgroundImage: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                    color: '#ffffff',
+                    border: '1px solid #1d4ed8',
+                    borderRadius: '8px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(37, 99, 235, 0.28)'
+                  }}
+                >
+                  <Plus size={15} />
+                  <span>Initiate Tier 1 Material Application</span>
+                </button>
+
+                {(searchQuery || selectedTier !== 'ALL' || selectedStatus !== 'ALL') && (
+                  <button
+                    onClick={() => {
+                      setSelectedTier('ALL');
+                      setSelectedStatus('ALL');
+                      setSearchQuery('');
+                      if (isNationalGov) setSelectedCpse('ALL');
+                    }}
+                    style={{
+                      padding: '9px 16px',
+                      backgroundColor: '#ffffff',
+                      color: '#475569',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Clear Filter Criteria
+                  </button>
+                )}
+              </div>
             </div>
-            <button
-              onClick={() => setShowCreateModal(true)}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#2563eb',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '13px',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              + Create First Ticket
-            </button>
+
+            {/* Visual 7-Tier Induction Lifecycle Stepper */}
+            <div style={{ padding: '24px 28px', backgroundColor: '#fcfcfd' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Layers size={16} color="#2563eb" />
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                    Sovereign 7-Tier Verification & Induction Lifecycle
+                  </span>
+                </div>
+                <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 500 }}>
+                  Statutory Multi-Level RBAC Governance Process
+                </span>
+              </div>
+
+              {/* Step cards grid */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))',
+                gap: '10px'
+              }}>
+                {TIER_STEPS.map((s) => (
+                  <div
+                    key={s.tier}
+                    style={{
+                      backgroundColor: '#ffffff',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '8px',
+                      padding: '12px 10px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{
+                        fontSize: '10.5px',
+                        fontWeight: 800,
+                        color: s.tier === 1 ? '#2563eb' : s.tier === 7 ? '#15803d' : '#475569',
+                        backgroundColor: s.tier === 1 ? '#eff6ff' : s.tier === 7 ? '#dcfce7' : '#f1f5f9',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        border: s.tier === 1 ? '1px solid #bfdbfe' : s.tier === 7 ? '1px solid #86efac' : '1px solid #e2e8f0'
+                      }}>
+                        TIER {s.tier}
+                      </span>
+                      {s.tier === 7 && <BookmarkCheck size={13} color="#15803d" />}
+                    </div>
+
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', lineHeight: 1.3 }}>
+                      {s.title.replace(`Tier ${s.tier}: `, '')}
+                    </div>
+
+                    <div style={{ fontSize: '10.5px', color: '#64748b', lineHeight: 1.3 }}>
+                      {s.role.split('/')[0].trim()}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Governance Assurance Pillars */}
+              <div style={{
+                marginTop: '18px',
+                paddingTop: '16px',
+                borderTop: '1px solid #e2e8f0',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: '14px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                  <Lock size={15} color="#2563eb" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0f172a' }}>Zero-Trust Cryptographic Ledger</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Every tier progression is permanently stamped with officer ID, role, and statutory rationale.</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                  <Cpu size={15} color="#2563eb" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0f172a' }}>AI Deduplication Matrix</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Tier 5 Laya AI scans multi-CPSE inventories to prevent redundant capital expenditure.</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                  <Award size={15} color="#15803d" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0f172a' }}>Cabinet Sovereign Minting</div>
+                    <div style={{ fontSize: '11px', color: '#64748b' }}>Tier 7 gazettes a standardized 7-digit CNMC code locked across all CPSE ERP systems.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -1749,25 +2019,45 @@ export const TierWorkflowTicketsPage: React.FC<{ onNavigate: (page: string) => v
                       <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                         CPSE Enterprise:
                       </label>
-                      <select
-                        value={createForm.cpse_name}
-                        onChange={(e) => setCreateForm({ ...createForm, cpse_name: e.target.value })}
-                        style={{
-                          width: '100%',
+                      {!isNationalGov && user?.cpseCode ? (
+                        <div style={{
                           padding: '8px 12px',
+                          background: '#f8fafc',
+                          border: '1px solid #e2e8f0',
                           borderRadius: '6px',
-                          border: '1px solid #cbd5e1',
-                          fontSize: '13px'
-                        }}
-                      >
-                        <option value="BHEL">BHEL</option>
-                        <option value="NTPC">NTPC</option>
-                        <option value="ONGC">ONGC</option>
-                        <option value="SAIL">SAIL</option>
-                        <option value="IOCL">IOCL</option>
-                        <option value="COAL INDIA">COAL INDIA</option>
-                        <option value="GAIL">GAIL</option>
-                      </select>
+                          fontSize: '13px',
+                          fontWeight: 700,
+                          color: '#0f172a',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}>
+                          <Building2 size={14} color="#2563eb" />
+                          <span>{user.cpseCode} {user?.cpseName ? `— ${user.cpseName}` : ''}</span>
+                        </div>
+                      ) : (
+                        <select
+                          value={createForm.cpse_name}
+                          onChange={(e) => setCreateForm({ ...createForm, cpse_name: e.target.value })}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            borderRadius: '6px',
+                            border: '1px solid #cbd5e1',
+                            fontSize: '13px',
+                            fontWeight: 600,
+                            color: '#0f172a'
+                          }}
+                        >
+                          <option value="BHEL">BHEL</option>
+                          <option value="NTPC">NTPC</option>
+                          <option value="ONGC">ONGC</option>
+                          <option value="SAIL">SAIL</option>
+                          <option value="IOCL">IOCL</option>
+                          <option value="COAL INDIA">COAL INDIA</option>
+                          <option value="GAIL">GAIL</option>
+                        </select>
+                      )}
                     </div>
 
                     <div>
