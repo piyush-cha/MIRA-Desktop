@@ -503,88 +503,37 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
           <div style={{ 
-
-
-
-            fontSize: '9.5px', 
-
-
-
+            fontSize: '10px', 
             fontWeight: 700, 
-
-
-
-            padding: '3px 8px', 
-
-
-
-            background: 'rgba(37, 99, 235, 0.08)', 
-
-
-
-            color: '#2563eb', 
-
-
-
-            borderRadius: '12px', 
-
-
-
-            border: '1px solid rgba(37, 99, 235, 0.22)',
-
-
-
-            display: 'inline-flex',
-
-
-
+            padding: '5px 10px', 
+            background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(30, 64, 175, 0.04) 100%)', 
+            color: '#1e40af', 
+            borderRadius: '8px', 
+            border: '1px solid rgba(37, 99, 235, 0.2)',
+            display: 'flex',
             alignItems: 'center',
-
-
-
-            gap: '5px',
-
-
-
+            justifyContent: 'space-between',
             width: '100%',
-
-
-
-            boxSizing: 'border-box'
-
-
-
+            boxSizing: 'border-box',
+            marginTop: '8px',
+            letterSpacing: '0.03em'
           }}>
-
-
-
-            <Lock size={10} color="#2563eb" />
-
-
-
-            <span>ENTERPRISE SILO: </span>
-            <select 
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#1e40af',
-                fontWeight: '700',
-                outline: 'none',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                fontSize: 'inherit'
-              }}
-              defaultValue={user?.cpseCode || 'BHEL'}
-            >
-              <option value="BHEL">BHEL</option>
-              <option value="NTPC">NTPC</option>
-              <option value="ONGC">ONGC</option>
-              <option value="GAIL">GAIL</option>
-              <option value="IOCL">IOCL</option>
-            </select>
-
-
-
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Lock size={11} color="#2563eb" />
+              <span style={{ color: '#475569', fontSize: '9.5px', fontWeight: 600 }}>ENTERPRISE SILO:</span>
+              <span style={{ color: '#0f172a', fontWeight: 800 }}>{user?.cpseCode || 'BHEL'}</span>
+            </div>
+            <span style={{ 
+              fontSize: '8.5px', 
+              background: '#dbeafe', 
+              color: '#1e40af', 
+              padding: '1.5px 6px', 
+              borderRadius: '4px', 
+              fontWeight: 800,
+              letterSpacing: '0.05em'
+            }}>
+              ISOLATED
+            </span>
           </div>
 
 
