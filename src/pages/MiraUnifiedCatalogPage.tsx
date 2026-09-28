@@ -716,43 +716,7 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                 </div>
               </div>
 
-              {/* 3. Machine Code Connection */}
-              <div style={{ background: 'rgba(37, 99, 235, 0.04)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(37, 99, 235, 0.2)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
-                  <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#1d4ed8', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <Cpu size={13} color="#2563eb" />
-                    CONNECTED SOVEREIGN MACHINE CODE (URN)
-                  </div>
-                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#15803d', background: '#dcfce7', padding: '1px 6px', borderRadius: '4px' }}>
-                    Sovereign Twin Bound
-                  </span>
-                </div>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-medium)',
-                  fontFamily: 'monospace',
-                  fontSize: '12px'
-                }}>
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selectedMaterial.machine_urn}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(selectedMaterial.machine_urn)}
-                    style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', fontWeight: 600, flexShrink: 0, marginLeft: '8px' }}
-                  >
-                    <Copy size={12} /> Copy URN
-                  </button>
-                </div>
-                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '6px' }}>
-                  Sovereign Standard Code <b>{selectedMaterial.human_code}</b> is bi-directionally mapped to this machine URN for zero-error ERP & SCADA procurement interchange.
-                </div>
-              </div>
-
-              {/* 4. Same Material Linked Across CPSEs */}
+              {/* 3. Same Material Linked Across CPSEs */}
               {selectedMaterial.mapped_cpses && selectedMaterial.mapped_cpses.length > 0 && (
                 <div>
                   <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
