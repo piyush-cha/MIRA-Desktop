@@ -142,7 +142,7 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
       title="Users & Access Governance (RBAC)"
       subtitle="Zero-Trust Identity Federation, Organizational Hierarchy Scopes & Privilege Grants"
     >
-      <div className="gov-page-container">
+      <div className="gov-page-container" style={{ gap: '12px', paddingTop: '14px', paddingBottom: '40px' }}>
         
         {successMsg && (
           <div style={{ background: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -169,19 +169,19 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
           background: '#FFFFFF',
           border: '1px solid #E2E8F0',
           borderRadius: '12px',
-          padding: '16px 20px',
-          marginBottom: '16px',
+          padding: '12px 18px',
+          marginBottom: '0px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '16px',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.04)'
+          gap: '12px',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.03)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
-              width: '46px',
-              height: '46px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
               background: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
               color: '#FFFFFF',
@@ -189,44 +189,44 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '16px',
+              fontSize: '15px',
               letterSpacing: '0.04em',
-              boxShadow: '0 2px 8px rgba(15, 23, 42, 0.15)',
+              boxShadow: '0 2px 6px rgba(15, 23, 42, 0.12)',
               flexShrink: 0
             }}>
               {selectedCpse === 'ALL' ? 'ALL' : selectedCpse.substring(0, 2).toUpperCase()}
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: '#2563EB', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#2563EB', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                   {selectedCpse === 'ALL' ? 'CROSS-CPSE FEDERATION' : `ISOLATED ENTERPRISE SILO: ${selectedCpse}`}
                 </span>
                 <span style={{
                   fontSize: '9.5px',
-                  fontWeight: 800,
-                  padding: '2px 7px',
+                  fontWeight: 700,
+                  padding: '2px 6px',
                   borderRadius: '4px',
                   background: '#ECFDF5',
                   color: '#059669',
                   border: '1px solid #A7F3D0',
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px'
                 }}>
                   <Lock size={10} /> ZERO-TRUST RBAC 100%
                 </span>
               </div>
-              <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+              <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: 0, letterSpacing: '-0.01em' }}>
                 {activeCpseInfo.name}
               </h2>
             </div>
           </div>
 
           {/* Specified CPSE Silo Selector */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#F8FAFC', border: '1px solid #CBD5E1', padding: '6px 12px', borderRadius: '8px' }}>
-              <Building2 size={15} color="#475569" />
-              <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#475569' }}>Connected Silo:</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 12px', borderRadius: '8px' }}>
+              <Building2 size={14} color="#64748B" />
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Connected Silo:</span>
               <select
                 value={selectedCpse}
                 onChange={(e) => setSelectedCpse(e.target.value)}
@@ -234,8 +234,8 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
                   background: 'transparent',
                   border: 'none',
                   color: '#0F172A',
-                  fontWeight: 800,
-                  fontSize: '13px',
+                  fontWeight: 700,
+                  fontSize: '12.5px',
                   cursor: 'pointer',
                   outline: 'none',
                   paddingLeft: '4px'
@@ -253,21 +253,23 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
               className="gov-refresh-btn" 
               onClick={() => fetchUsers(selectedCpse)} 
               title="Refresh Silo Directory"
-              style={{ padding: '8px', borderRadius: '8px', border: '1px solid #CBD5E1', background: '#FFFFFF', cursor: 'pointer' }}
+              style={{ width: '34px', height: '34px', borderRadius: '8px', border: '1px solid #E2E8F0', background: '#FFFFFF', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <RefreshCw size={14} className={loading ? 'spinning' : ''} />
+              <RefreshCw size={13} className={loading ? 'spinning' : ''} />
             </button>
           </div>
         </div>
 
         {/* Executive KPI Strip */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '16px' }}>
-          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '14px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.03)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Total Provisioned Officers</span>
-              <Users size={15} color="#2563EB" />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginBottom: '0px' }}>
+          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Total Provisioned Officers</span>
+              <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Users size={14} color="#2563EB" />
+              </div>
             </div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A' }}>
+            <div style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A' }}>
               {totalOfficers}
             </div>
             <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 600, marginTop: '2px' }}>
@@ -275,12 +277,14 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
             </div>
           </div>
 
-          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '14px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.03)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Nodal Administrators</span>
-              <Shield size={15} color="#1D4ED8" />
+          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Nodal Administrators</span>
+              <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: '#EEF2FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Shield size={14} color="#4338CA" />
+              </div>
             </div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#1D4ED8' }}>
+            <div style={{ fontSize: '20px', fontWeight: 800, color: '#1D4ED8' }}>
               {adminCount}
             </div>
             <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '2px' }}>
@@ -288,12 +292,14 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
             </div>
           </div>
 
-          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '14px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.03)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Area & Zone Officers</span>
-              <UserCheck size={15} color="#4F46E5" />
+          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Area & Zone Officers</span>
+              <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: '#F5F3FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <UserCheck size={14} color="#6D28D9" />
+              </div>
             </div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#4F46E5' }}>
+            <div style={{ fontSize: '20px', fontWeight: 800, color: '#4F46E5' }}>
               {areaCount}
             </div>
             <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '2px' }}>
@@ -301,12 +307,14 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
             </div>
           </div>
 
-          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '14px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.03)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Plant Specialists</span>
-              <Cpu size={15} color="#059669" />
+          <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 16px', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Plant Specialists</span>
+              <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: '#ECFDF5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Cpu size={14} color="#059669" />
+              </div>
             </div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#059669' }}>
+            <div style={{ fontSize: '20px', fontWeight: 800, color: '#059669' }}>
               {plantCount}
             </div>
             <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '2px' }}>
@@ -315,228 +323,240 @@ export const UsersRolesPage: React.FC<{ onNavigate: (page: string) => void }> = 
           </div>
         </div>
 
-        {/* Top Control Bar & Role Filter Toolbar */}
-        <div style={{
-          background: '#FFFFFF',
-          border: '1px solid #E2E8F0',
-          borderRadius: '10px',
-          padding: '12px 16px',
-          marginBottom: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px'
-        }}>
-          {/* Search Box */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#F8FAFC', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '6px 12px', minWidth: '320px', flex: 1 }}>
-            <Search size={15} color="#64748B" />
-            <input 
-              type="text" 
-              placeholder={`Search ${selectedCpse === 'ALL' ? 'all officers' : selectedCpse + ' officers'} by name, email, role, or scope...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ background: 'transparent', border: 'none', outline: 'none', fontSize: '13px', width: '100%', color: '#0F172A' }}
-            />
-            {searchQuery && (
-              <button onClick={() => setSearchQuery('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', fontSize: '14px' }}>×</button>
-            )}
-          </div>
-
-          {/* Role Filter Tabs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            {[
-              { id: 'ALL', label: 'All Roles' },
-              { id: 'ADMIN', label: 'HQ Admins' },
-              { id: 'AREA', label: 'Area Managers' },
-              { id: 'PLANT', label: 'Plant Specialists' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setRoleFilter(tab.id)}
-                style={{
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  fontSize: '11.5px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  border: roleFilter === tab.id ? '1px solid #2563EB' : '1px solid #E2E8F0',
-                  background: roleFilter === tab.id ? '#EFF6FF' : '#FFFFFF',
-                  color: roleFilter === tab.id ? '#1D4ED8' : '#64748B',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Provision Button */}
-          <button 
-            onClick={() => setCreateModalOpen(true)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
-              color: '#FFFFFF',
-              border: 'none',
-              padding: '7px 14px',
-              borderRadius: '8px',
-              fontSize: '12.5px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              boxShadow: '0 2px 4px rgba(37, 99, 235, 0.2)'
-            }}
-          >
-            <Plus size={15} />
-            <span>Provision Officer</span>
-          </button>
-        </div>
-
-        {/* Users Table */}
-        <div className="gov-table-card" style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-          <table className="gov-data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', textAlign: 'left' }}>
-                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Officer Identity</th>
-                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Enterprise Email</th>
-                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Primary Role Title</th>
-                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Connected Silo Scope</th>
-                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clearance Tier</th>
-                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Security Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.length === 0 ? (
-                <tr>
-                  <td colSpan={6} style={{ padding: '36px', textAlign: 'center', color: '#64748B' }}>
-                    <Shield size={32} color="#CBD5E1" style={{ margin: '0 auto 8px', display: 'block' }} />
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A' }}>No Provisioned Officers Found</div>
-                    <div style={{ fontSize: '12px', marginTop: '4px' }}>
-                      {searchQuery ? 'Try clearing your search query.' : `Click "+ Provision Officer" to bind a new officer to the ${selectedCpse} silo.`}
-                    </div>
-                  </td>
-                </tr>
-              ) : (
-                filteredUsers.map((u, idx) => {
-                  const roleCode = u.primary_role_code || 'USER';
-                  let roleColor = { bg: '#EFF6FF', text: '#1D4ED8', border: '#BFDBFE' };
-                  let tierLabel = 'Tier 2 - Plant Facility';
-                  
-                  if (roleCode === 'CPSE_ADMIN' || roleCode === 'TIER_5_HQ') {
-                    roleColor = { bg: '#EFF6FF', text: '#1E40AF', border: '#BFDBFE' };
-                    tierLabel = 'Tier 4 - Enterprise HQ';
-                  } else if (roleCode === 'NATIONAL_GOVERNANCE') {
-                    roleColor = { bg: '#F1F5F9', text: '#0F172A', border: '#CBD5E1' };
-                    tierLabel = 'Tier 5 - National Overseer';
-                  } else if (roleCode === 'AREA_ADMIN' || roleCode === 'ZONE_ADMIN') {
-                    roleColor = { bg: '#EEF2FF', text: '#4338CA', border: '#C7D2FE' };
-                    tierLabel = 'Tier 3 - Area Subsidiary';
-                  } else if (roleCode === 'PLANT_USER') {
-                    roleColor = { bg: '#ECFDF5', text: '#047857', border: '#A7F3D0' };
-                    tierLabel = 'Tier 2 - Plant Specialist';
-                  }
-
-                  const userCpseCode = u.cpse_code || (u.scope_type === 'NATIONAL' ? 'NATIONAL' : selectedCpse);
-
-                  return (
-                    <tr key={u.user_id || idx} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                      <td style={{ padding: '12px 16px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <div style={{
-                            width: '34px',
-                            height: '34px',
-                            borderRadius: '8px',
-                            background: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
-                            color: '#FFFFFF',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 800,
-                            fontSize: '12.5px',
-                            flexShrink: 0
-                          }}>
-                            {u.full_name ? u.full_name.charAt(0).toUpperCase() : 'U'}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: 700, fontSize: '13px', color: '#0F172A' }}>{u.full_name || u.username}</div>
-                            <div style={{ fontSize: '11px', color: '#64748B' }}>@{u.username}</div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td style={{ padding: '12px 16px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span style={{ fontSize: '12px', fontFamily: 'monospace', color: '#334155' }}>{u.email}</span>
-                          <button
-                            onClick={() => handleCopyEmail(u.email)}
-                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px', color: '#64748B' }}
-                            title="Copy Email"
-                          >
-                            {copiedEmail === u.email ? <Check size={12} color="#10B981" /> : <Copy size={12} />}
-                          </button>
-                        </div>
-                      </td>
-
-                      <td style={{ padding: '12px 16px' }}>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '5px',
-                          background: roleColor.bg,
-                          color: roleColor.text,
-                          border: `1px solid ${roleColor.border}`,
-                          padding: '3px 9px',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          letterSpacing: '0.03em'
-                        }}>
-                          <Shield size={11} />
-                          <span>{roleCode.replace(/_/g, ' ')}</span>
-                        </span>
-                      </td>
-
-                      <td style={{ padding: '12px 16px' }}>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '3px 8px', borderRadius: '6px' }}>
-                          <Lock size={10} color="#2563EB" />
-                          <span style={{ fontWeight: 800, fontSize: '11px', color: '#0F172A' }}>{userCpseCode}</span>
-                          <span style={{ fontSize: '10px', color: '#64748B' }}>Silo</span>
-                        </div>
-                      </td>
-
-                      <td style={{ padding: '12px 16px', fontSize: '11.5px', color: '#475569', fontWeight: 600 }}>
-                        {tierLabel}
-                      </td>
-
-                      <td style={{ padding: '12px 16px' }}>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '5px',
-                          background: '#ECFDF5',
-                          color: '#047857',
-                          border: '1px solid #A7F3D0',
-                          padding: '2.5px 8px',
-                          borderRadius: '9999px',
-                          fontSize: '10.5px',
-                          fontWeight: 800,
-                          letterSpacing: '0.04em'
-                        }}>
-                          <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#10B981' }} />
-                          ACTIVE
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })
+        {/* Unified Users & Roles Table Card (One Professional Box) */}
+        <div className="gov-table-card" style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+          {/* Integrated Header Toolbar */}
+          <div style={{
+            padding: '12px 16px',
+            background: '#FFFFFF',
+            borderBottom: '1px solid #E2E8F0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '12px'
+          }}>
+            {/* Search Box */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '6px 12px', minWidth: '280px', flex: 1 }}>
+              <Search size={14} color="#64748B" />
+              <input 
+                type="text" 
+                placeholder={`Search ${selectedCpse === 'ALL' ? 'all officers' : selectedCpse + ' officers'} by name, email, role, or scope...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{ background: 'transparent', border: 'none', outline: 'none', fontSize: '12.5px', width: '100%', color: '#0F172A' }}
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', fontSize: '14px', padding: 0 }}>×</button>
               )}
-            </tbody>
-          </table>
-        </div>
+            </div>
 
-        {/* Create User Modal */}
+            {/* Role Filter Tabs */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#F1F5F9', padding: '3px', borderRadius: '8px' }}>
+              {[
+                { id: 'ALL', label: 'All Roles' },
+                { id: 'ADMIN', label: 'HQ Admins' },
+                { id: 'AREA', label: 'Area Managers' },
+                { id: 'PLANT', label: 'Plant Specialists' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setRoleFilter(tab.id)}
+                  style={{
+                    padding: '5px 11px',
+                    borderRadius: '6px',
+                    fontSize: '11px',
+                    fontWeight: roleFilter === tab.id ? 700 : 500,
+                    cursor: 'pointer',
+                    border: 'none',
+                    background: roleFilter === tab.id ? '#FFFFFF' : 'transparent',
+                    color: roleFilter === tab.id ? '#0F172A' : '#64748B',
+                    boxShadow: roleFilter === tab.id ? '0 1px 2px rgba(0,0,0,0.06)' : 'none',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Provision Button */}
+            <button 
+              onClick={() => setCreateModalOpen(true)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                color: '#FFFFFF',
+                border: 'none',
+                padding: '7px 14px',
+                borderRadius: '8px',
+                fontSize: '12px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 1px 3px rgba(37, 99, 235, 0.25)',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <Plus size={14} />
+              <span>Provision Officer</span>
+            </button>
+          </div>
+
+          {/* Users Table */}
+          <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
+            <table className="gov-data-table" style={{ width: '100%', tableLayout: 'fixed', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', textAlign: 'left' }}>
+                  <th style={{ width: '22%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Officer Identity</th>
+                  <th style={{ width: '24%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Enterprise Email</th>
+                  <th style={{ width: '18%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Primary Role Title</th>
+                  <th style={{ width: '14%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Connected Silo Scope</th>
+                  <th style={{ width: '12%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clearance Tier</th>
+                  <th style={{ width: '10%', padding: '10px 14px', fontSize: '10.5px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Security Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} style={{ padding: '36px', textAlign: 'center', color: '#64748B' }}>
+                      <Shield size={32} color="#CBD5E1" style={{ margin: '0 auto 8px', display: 'block' }} />
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A' }}>No Provisioned Officers Found</div>
+                      <div style={{ fontSize: '12px', marginTop: '4px' }}>
+                        {searchQuery ? 'Try clearing your search query.' : `Click "+ Provision Officer" to bind a new officer to the ${selectedCpse} silo.`}
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  filteredUsers.map((u, idx) => {
+                    const roleCode = u.primary_role_code || 'USER';
+                    let roleColor = { bg: '#EFF6FF', text: '#1D4ED8', border: '#BFDBFE' };
+                    let tierLabel = 'Tier 2 · Plant Facility';
+                    
+                    if (roleCode === 'CPSE_ADMIN' || roleCode === 'TIER_5_HQ') {
+                      roleColor = { bg: '#EFF6FF', text: '#1E40AF', border: '#BFDBFE' };
+                      tierLabel = 'Tier 4 · Enterprise HQ';
+                    } else if (roleCode === 'NATIONAL_GOVERNANCE') {
+                      roleColor = { bg: '#F1F5F9', text: '#0F172A', border: '#CBD5E1' };
+                      tierLabel = 'Tier 5 · National Overseer';
+                    } else if (roleCode === 'AREA_ADMIN' || roleCode === 'ZONE_ADMIN') {
+                      roleColor = { bg: '#EEF2FF', text: '#4338CA', border: '#C7D2FE' };
+                      tierLabel = 'Tier 3 · Area Subsidiary';
+                    } else if (roleCode === 'PLANT_USER') {
+                      roleColor = { bg: '#ECFDF5', text: '#047857', border: '#A7F3D0' };
+                      tierLabel = 'Tier 2 · Plant Specialist';
+                    } else if (roleCode === 'TIER_1_OPERATOR') {
+                      roleColor = { bg: '#F0F9FF', text: '#0369A1', border: '#BAE6FD' };
+                      tierLabel = 'Tier 1 · Field Operator';
+                    }
+
+                    const userCpseCode = u.cpse_code || (u.scope_type === 'NATIONAL' ? 'NATIONAL' : selectedCpse);
+
+                    return (
+                      <tr key={u.user_id || idx} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                        <td style={{ padding: '10px 14px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <div style={{
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '8px',
+                              background: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
+                              color: '#FFFFFF',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontWeight: 800,
+                              fontSize: '12px',
+                              flexShrink: 0
+                            }}>
+                              {u.full_name ? u.full_name.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                              <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {u.full_name || u.username}
+                              </div>
+                              <div style={{ fontSize: '11px', color: '#64748B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                @{u.username}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td style={{ padding: '10px 14px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{ fontSize: '12px', color: '#334155', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {u.email}
+                            </span>
+                            <button
+                              onClick={() => handleCopyEmail(u.email)}
+                              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px', color: '#94A3B8', display: 'flex', alignItems: 'center', flexShrink: 0 }}
+                              title="Copy Email"
+                            >
+                              {copiedEmail === u.email ? <Check size={12} color="#10B981" /> : <Copy size={12} />}
+                            </button>
+                          </div>
+                        </td>
+
+                        <td style={{ padding: '10px 14px' }}>
+                          <span style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            background: roleColor.bg,
+                            color: roleColor.text,
+                            border: `1px solid ${roleColor.border}`,
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            fontSize: '10.5px',
+                            fontWeight: 700,
+                            letterSpacing: '0.02em',
+                            whiteSpace: 'nowrap'
+                          }}>
+                            <Shield size={11} />
+                            <span>{roleCode.replace(/_/g, ' ')}</span>
+                          </span>
+                        </td>
+
+                        <td style={{ padding: '10px 14px' }}>
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '3px 8px', borderRadius: '6px' }}>
+                            <Lock size={10} color="#2563EB" />
+                            <span style={{ fontWeight: 800, fontSize: '11px', color: '#0F172A' }}>{userCpseCode}</span>
+                            <span style={{ fontSize: '10px', color: '#64748B' }}>Silo</span>
+                          </div>
+                        </td>
+
+                        <td style={{ padding: '10px 14px', fontSize: '11px', color: '#475569', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {tierLabel}
+                        </td>
+
+                        <td style={{ padding: '10px 14px' }}>
+                          <span style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            background: '#ECFDF5',
+                            color: '#047857',
+                            border: '1px solid #A7F3D0',
+                            padding: '2px 7px',
+                            borderRadius: '9999px',
+                            fontSize: '10px',
+                            fontWeight: 700,
+                            letterSpacing: '0.03em'
+                          }}>
+                            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#10B981' }} />
+                            ACTIVE
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+{/* Create User Modal */}
         {createModalOpen && (
           <div className="modal-backdrop">
             <div className="modal-dialog" style={{ maxWidth: '480px', borderRadius: '14px', overflow: 'hidden' }}>
