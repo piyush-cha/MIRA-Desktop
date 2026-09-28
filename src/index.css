@@ -59572,47 +59572,61 @@ html, body, #root {
 /* --- PREMIUM MIRA NAVY THEME OVERRIDES --- */
 
 
-/* Professional Sidebar Polishing */
-
+/* Professional Sidebar Navigation Polishing */
 .nav-item {
-  position: relative;
-  z-index: 1;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  font-size: 13px !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  transition: all 0.15s ease-in-out !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-.nav-item::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: transparent;
-  z-index: -1;
-  transition: all 0.2s ease;
+.nav-item::before,
+.nav-item::after {
+  display: none !important;
+  content: none !important;
 }
 
-.nav-item:hover::before {
-  background: var(--bg-hover);
+.nav-item svg {
+  color: #64748b !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  filter: none !important;
+  transition: color 0.15s ease-in-out !important;
+}
+
+.nav-item:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.nav-item:hover svg {
+  color: #1e293b !important;
 }
 
 .nav-item.active { 
-  background: rgba(37, 99, 235, 0.05); 
-  color: var(--text-primary); 
-  font-weight: 600; 
-  border-right: 3px solid #2563eb; 
-}
-
-.nav-item.active::before {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  background: #eff6ff !important; 
+  color: #1d4ed8 !important; 
+  font-weight: 600 !important; 
+  border: 1px solid #bfdbfe !important;
+  border-left: 3.5px solid #2563eb !important; 
 }
 
 .nav-item.active svg {
-  color: #38bdf8;
-  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.4));
+  color: #2563eb !important;
+  filter: none !important;
 }
 
 /* Expert Review Page Polish */
