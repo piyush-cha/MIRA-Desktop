@@ -542,12 +542,8 @@ export const MiraUnifiedCatalogPage: React.FC<{ onNavigate: (page: string) => vo
                   </div>
 
                   {/* Footer */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: '#f8fafc', borderTop: '1px solid var(--border-light)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: '#64748b', fontFamily: 'monospace' }}>
-                      <Cpu size={10} color="#94a3b8" />
-                      {mat.machine_urn} <Copy size={10} style={{ cursor: 'pointer' }} onClick={() => handleCopy(mat.machine_urn)} />
-                    </div>
-                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#4f46e5', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '8px 12px', background: '#f8fafc', borderTop: '1px solid var(--border-light)' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#4f46e5', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '2px' }} onClick={() => setSelectedMaterial(mat)}>
                       Inspect Specs <ChevronRight size={12} />
                     </div>
                   </div>
