@@ -29779,3 +29779,17 @@ html, body, #root {
 
 
 }
+
+/* --- PREMIUM MIRA NAVY THEME OVERRIDES --- */
+.sidebar { background-color: #1B2332 !important; border-right: 1px solid #2A3649 !important; }
+.sidebar-logo-text { color: #F8FAFC !important; }
+.sidebar .nav-section-title { color: #64748B !important; }
+.sidebar .nav-item { color: #94A3B8 !important; }
+.sidebar .nav-item:hover { background-color: #2A3649 !important; color: #F8FAFC !important; }
+.sidebar .nav-item.active { background-color: rgba(224, 152, 60, 0.15) !important; color: #E0983C !important; border-right: 3px solid #E0983C !important; font-weight: 600 !important; }
+.sidebar .sidebar-profile-row { border-top: 1px solid #2A3649 !important; }
+.sidebar .profile-name { color: #F8FAFC !important; }
+.sidebar .profile-role-meta { color: #E0983C !important; }
+.sidebar .sidebar-search input { background-color: #0F1520 !important; color: #F8FAFC !important; border: 1px solid #2A3649 !important; }
+.sidebar .sidebar-search input::placeholder { color: #64748B !important; }
+.sidebar .sidebar-search svg { color: #64748B !important; }

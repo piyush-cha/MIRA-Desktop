@@ -503,7 +503,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-              <div style={{ fontSize: '11px', color: '#2563eb', fontWeight: 700, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+              <div style={{ fontSize: '11px', color: 'inherit', fontWeight: 700, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
 
 
 
@@ -543,7 +543,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            color: '#2563eb', 
+            color: 'inherit', 
 
 
 
@@ -650,7 +650,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 500 }}>
+            <div className="sidebar-subtitle" style={{ fontSize: '10px', fontWeight: 500 }}>
 
 
 
@@ -730,7 +730,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
 
 
-            color: 'var(--text-primary)', 
+            color: 'inherit', 
 
 
 
