@@ -1749,7 +1749,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
             }}>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-canvas, #f8fafc)', border: '1px solid var(--border-medium, #cbd5e1)', borderRadius: '6px', padding: '6px 12px', width: '340px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#FFFFFF', border: '1px solid rgba(27,35,50,0.2)', borderRadius: '6px', padding: '6px 12px', width: '340px', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)' }}>
 
                 <Search size={14} color="var(--text-muted)" />
 
@@ -1801,7 +1801,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                 <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
 
-                  Showing <b>{catalogData.length > 0 ? ((catalogPage - 1) * catalogPageSize) + 1 : 0}</b> – <b>{Math.min(catalogPage * catalogPageSize, catalogTotal)}</b> of <b style={{ color: '#2563EB' }}>{catalogTotal.toLocaleString()}</b> active records
+                  Showing <b>{catalogData.length > 0 ? ((catalogPage - 1) * catalogPageSize) + 1 : 0}</b> – <b>{Math.min(catalogPage * catalogPageSize, catalogTotal)}</b> of <b style={{ color: '#1B2332' }}>{catalogTotal.toLocaleString()}</b> enterprise records
 
                 </span>
 
