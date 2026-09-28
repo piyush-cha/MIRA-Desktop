@@ -479,25 +479,51 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
 
 
 
-      <div className="panel-card" style={{ width: '420px', padding: '34px 30px', alignItems: 'center' }}>
+      <div className="panel-card" style={{ width: '450px', padding: '44px 36px', display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#ffffff', borderRadius: '24px', boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.08)' }}>
 
-
-
-        {/* Official MIRA Logo */}
-
-
-
-        <div style={{ background: '#f8f9fa', borderRadius: '18px', padding: '16px', display: 'inline-flex', marginBottom: '16px', alignItems: 'center', justifyContent: 'center' }}>
-          <img src="/mira-logo.png" alt="MIRA Logo" style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
+        {/* Official MIRA Logo Squircle */}
+        <div style={{ 
+          width: '108px', 
+          height: '108px', 
+          background: '#f4f5f8', 
+          borderRadius: '28px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          marginBottom: '26px',
+          border: '1px solid rgba(0, 0, 0, 0.04)',
+          boxShadow: '0 4px 16px -2px rgba(0, 0, 0, 0.03)'
+        }}>
+          <img 
+            src="/mira-logo.png" 
+            alt="MIRA Logo" 
+            style={{ width: '66px', height: '66px', objectFit: 'contain' }} 
+          />
         </div>
 
-
-
-        <h2 style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.8px', color: '#1B2332' }}>
-          MIRA Sovereign <span style={{ color: '#E0983C' }}>Grid</span>
+        <h2 style={{ 
+          fontSize: '34px', 
+          fontWeight: 800, 
+          marginBottom: '10px', 
+          letterSpacing: '-1px', 
+          color: '#111827',
+          textAlign: 'center',
+          lineHeight: '1.15',
+          fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        }}>
+          MIRA Sovereign <span style={{ color: '#c58b38' }}>Grid</span>
         </h2>
 
-        <p style={{ fontSize: '11px', fontWeight: 700, color: '#273449', marginBottom: '32px', textTransform: 'uppercase', lineHeight: '1.6', letterSpacing: '0.5px' }}>
+        <p style={{ 
+          fontSize: '13px', 
+          fontWeight: 800, 
+          color: '#1e293b', 
+          marginBottom: '32px', 
+          textTransform: 'uppercase', 
+          lineHeight: '1.55', 
+          letterSpacing: '0.8px',
+          textAlign: 'center'
+        }}>
           NATIONAL MATERIAL GOVERNANCE<br/>& AUTONOMOUS CPSE PORTAL
         </p>
 
