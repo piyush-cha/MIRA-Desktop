@@ -995,7 +995,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                 <div className="metric-label">CNMC Alignment</div>
 
-                <div className="metric-value" style={{ color: '#10B981' }}>{overviewData?.kpis?.cnmc_coverage_pct ?? 0}%</div>
+                <div className="metric-value" style={{ color: '#0284c7' }}>{overviewData?.kpis?.cnmc_coverage_pct ?? 0}%</div>
 
                 <div className="metric-sub">National Golden Coverage</div>
 
@@ -2684,7 +2684,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                     borderRadius: '10px',
 
-                    background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(79, 70, 229, 0.2))',
+                    background: 'linear-gradient(135deg, #1e293b, #0f172a)',
 
                     border: '1px solid rgba(37, 99, 235, 0.3)',
 
@@ -2696,7 +2696,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                   }}>
 
-                    <Sparkles size={20} color="#2563EB" />
+                    <Sparkles size={20} color="#38bdf8" />
 
                   </div>
 
@@ -2722,11 +2722,11 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         letterSpacing: '0.04em',
 
-                        background: reviewItem.has_duplicate ? 'rgba(239, 68, 68, 0.12)' : 'rgba(16, 185, 129, 0.12)',
+                        background: reviewItem.has_duplicate ? 'rgba(239, 68, 68, 0.12)' : 'rgba(56, 189, 248, 0.1)',
 
-                        color: reviewItem.has_duplicate ? '#DC2626' : '#059669',
+                        color: reviewItem.has_duplicate ? '#DC2626' : '#0284c7',
 
-                        border: `1px solid ${reviewItem.has_duplicate ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)'}`
+                        border: `1px solid ${reviewItem.has_duplicate ? 'rgba(239, 68, 68, 0.3)' : 'rgba(56, 189, 248, 0.2)'}`
 
                       }}>
 
@@ -2888,7 +2888,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         ? 'linear-gradient(135deg, #2563EB, #4F46E5)'
 
-                        : 'linear-gradient(135deg, #10B981, #059669)',
+                        : 'linear-gradient(135deg, #334155, #1e293b)',
 
                       display: 'flex',
 
@@ -2900,7 +2900,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         ? '0 4px 12px rgba(37, 99, 235, 0.35)'
 
-                        : '0 4px 12px rgba(16, 185, 129, 0.35)',
+                        : '0 4px 12px rgba(30, 41, 59, 0.35)',
 
                       color: '#ffffff'
 
@@ -2914,7 +2914,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                     <div style={{ textAlign: 'center' }}>
 
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: reviewItem.has_duplicate ? '#2563EB' : '#059669' }}>
+                      <div style={{ fontSize: '15px', fontWeight: 800, color: reviewItem.has_duplicate ? '#2563EB' : '#1e293b' }}>
 
                         {reviewItem.has_duplicate ? `${reviewItem.confidence_score}%` : 'UNIQUE'}
 
@@ -2984,13 +2984,13 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '8px' }}>
 
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: reviewItem.has_duplicate ? '#DC2626' : '#64748B', letterSpacing: '0.05em' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: reviewItem.has_duplicate ? '#DC2626' : '#0284c7', letterSpacing: '0.05em' }}>
 
                         {reviewItem.has_duplicate ? 'MATCHED DUPLICATE CANDIDATE' : 'NATIONAL REPOSITORY STATUS'}
 
                       </span>
 
-                      <span style={{ fontSize: '11px', background: reviewItem.has_duplicate ? 'rgba(239, 68, 68, 0.1)' : 'rgba(100, 116, 139, 0.1)', color: reviewItem.has_duplicate ? '#DC2626' : '#64748B', padding: '2px 6px', borderRadius: '4px', fontWeight: 600 }}>
+                      <span style={{ fontSize: '11px', background: reviewItem.has_duplicate ? 'rgba(239, 68, 68, 0.1)' : 'rgba(56, 189, 248, 0.08)', color: reviewItem.has_duplicate ? '#DC2626' : '#0284c7', padding: '2px 6px', borderRadius: '4px', fontWeight: 600 }}>
 
                         {reviewItem.has_duplicate ? reviewItem.matched_plant : 'Repository Empty / Unmatched'}
 
@@ -3030,7 +3030,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                         ) : (
 
-                          <span style={{ background: '#f1f5f9', color: '#64748B', padding: '2px 6px', borderRadius: '4px' }}>
+                          <span style={{ background: '#f0f9ff', color: '#0369a1', padding: '2px 6px', borderRadius: '4px' }}>
 
                             Distinct Single-Sourced Engineering Profile
 
@@ -3138,7 +3138,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Dimensional & Rating Alignment:</span>
 
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#10B981' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#0284c7' }}>
 
                         {reviewItem.spec_breakdown?.spec_similarity || '98.2% Metric Correlation'}
 
@@ -3166,7 +3166,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Cross-Enterprise Validation Gate:</span>
 
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#059669' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#0284c7' }}>
 
                         {reviewItem.spec_breakdown?.rules_gate || 'PASSED'}
 
@@ -3242,7 +3242,7 @@ export const CpseAdminPortalPage: React.FC<CpseAdminPortalPageProps> = ({ onNavi
 
                       ? { color: '#7C3AED', borderColor: 'rgba(124, 58, 237, 0.4)' }
 
-                      : { background: 'linear-gradient(135deg, #10B981, #059669)', gap: '6px' }}
+                      : { background: '#1e293b', gap: '6px', color: '#fff', border: 'none' }}
 
                   >
 
