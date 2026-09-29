@@ -129,7 +129,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/CpseAdminPortalPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/CpseAdminPortalPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.36%20AM.jpeg" alt="CPSE Executive Dashboard" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/01_cpse_executive_dashboard.jpeg" alt="CPSE Executive Dashboard" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -146,7 +146,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/CpseAdminPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/CpseAdminPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.34%20AM.jpeg" alt="Material Catalog Studio" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/02_material_catalog_studio.jpeg" alt="Material Catalog Studio" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -164,7 +164,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/PlantAreaDashboardPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/PlantAreaDashboardPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.34%20AM%20(1).jpeg" alt="Plant Hierarchy and Nodes" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/03_plant_hierarchy_nodes.jpeg" alt="Plant Hierarchy and Nodes" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -183,7 +183,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/PlantAreaDashboardPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/PlantAreaDashboardPage.tsx) & [`src/components/admin/InterPlantCollaborationGraph.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/components/admin/InterPlantCollaborationGraph.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.35%20AM.jpeg" alt="Inter-Plant Collaboration Canvas" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/04_inter_plant_collaboration.jpeg" alt="Inter-Plant Collaboration Canvas" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -201,7 +201,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/PlantAreaDashboardPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/PlantAreaDashboardPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.35%20AM%20(1).jpeg" alt="SAP S4HANA PR Gateway" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/05_sap_s4hana_pr_gateway.jpeg" alt="SAP S4HANA PR Gateway" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -216,7 +216,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/UsersRolesPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/UsersRolesPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.39%20AM.jpeg" alt="Users and Access Governance" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/06_users_access_governance_rbac.jpeg" alt="Users and Access Governance" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -234,7 +234,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/ProfilePage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/ProfilePage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.35%20AM%20(2).jpeg" alt="Officer Profile and Sovereign Identity" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/07_officer_sovereign_identity.jpeg" alt="Officer Profile and Sovereign Identity" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -249,7 +249,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/AuditCompliancePage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/AuditCompliancePage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.38%20AM%20(1).jpeg" alt="Audit Trail and Sovereign Compliance" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/08_audit_trail_compliance.jpeg" alt="Audit Trail and Sovereign Compliance" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -267,11 +267,11 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/NationalGovernancePage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/NationalGovernancePage.tsx) & [`src/pages/CnmcMaterialPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/CnmcMaterialPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.40%20AM.jpeg" alt="Sovereign Unified Material Master Grid" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/09_sovereign_material_master_grid.jpeg" alt="Sovereign Unified Material Master Grid" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.40%20AM%20(1).jpeg" alt="Sovereign Unified Material Master Filtering" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/10_sovereign_material_master_filter.jpeg" alt="Sovereign Unified Material Master Filtering" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -291,7 +291,7 @@ Every view depicted below represents verified runtime execution of the MIRA soft
 *   **Path in Code**: [`src/pages/ExpertReviewerPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/ExpertReviewerPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.36%20AM%20(1).jpeg" alt="Expert Review Queue" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/11_expert_reviewer_queue.jpeg" alt="Expert Review Queue" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -337,7 +337,7 @@ sequenceDiagram
 *   **Path in Code**: [`src/pages/LegacyCodesPage.tsx`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/web-desktop/src/pages/LegacyCodesPage.tsx)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-29%20at%209.27.36%20AM%20(2).jpeg" alt="Legacy Material Codes Harmonization" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="docs/images/12_legacy_codes_mapping.jpeg" alt="Legacy Material Codes Harmonization" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 *   **Key Capabilities**:
@@ -354,7 +354,7 @@ sequenceDiagram
 *   **Path in Code**: [`apps/mobile/`](file:///c:/Users/PIYUSH/Desktop/BMUI/apps/mobile) (`src/screens/ReviewerQueueScreen.tsx`, `AIRefinementModal.tsx`, `GovernanceDashboardScreen.tsx`)
 
 <p align="center">
-  <img src="../../Software_images/WhatsApp%20Image%202026-09-28%20at%207.28.24%20PM.jpeg" alt="MIRA Sovereign Governance Mobile Terminal for CNMC Expert" width="380" style="border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); border: 4px solid #1e293b;" />
+  <img src="docs/images/14_cnmc_expert_mobile_terminal.jpeg" alt="MIRA Sovereign Governance Mobile Terminal for CNMC Expert" width="380" style="border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); border: 4px solid #1e293b;" />
 </p>
 
 *   **Specialized Purpose**:
