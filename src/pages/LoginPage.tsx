@@ -514,12 +514,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccessLogin }) => {
           fontWeight: 800, 
           marginBottom: '10px', 
           letterSpacing: '-1px', 
-          color: '#111827',
           textAlign: 'center',
           lineHeight: '1.15',
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
         }}>
-          MIRA Sovereign <span style={{ color: '#c58b38' }}>Grid</span>
+          <span style={{ color: '#111827' }}>MIRA </span>
+          <span style={{ 
+            background: 'linear-gradient(90deg, #1d4ed8 0%, #2563eb 45%, #3b82f6 100%)', 
+            WebkitBackgroundClip: 'text', 
+            WebkitTextFillColor: 'transparent',
+            display: 'inline-block'
+          }}>
+            Sovereign Grid
+          </span>
         </h2>
 
         <p style={{ 
