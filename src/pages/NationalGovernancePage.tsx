@@ -396,31 +396,37 @@ function AttentionSection({ onNavigate }: NavigationProps) {
 
         <div className="attention-list">
 
-          {state.data.map((item) => (
-
-            <div key={item.key} className={`attention-item sev-${item.severity.toLowerCase()}`}>
-
-              <div className="attention-item-icon">
-
-                <AlertTriangle size={14} />
-
+          {state.data.map((item) => {
+            const targetRoute = (item.action_route || 'national').replace(/^\//, '');
+            return (
+              <div 
+                key={item.key} 
+                className={`attention-item sev-${item.severity.toLowerCase()}`}
+                onClick={() => onNavigate(targetRoute)}
+                style={{ cursor: 'pointer' }}
+                title={`Navigate to ${item.title}`}
+              >
+                <div className="attention-item-icon">
+                  <AlertTriangle size={14} />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div className="attention-item-title">{item.title}</div>
+                  <div className="attention-item-desc">{item.description}</div>
+                </div>
+                <div className="attention-count">{item.count}</div>
+                <button 
+                  className="btn-ghost icon-only" 
+                  title={`Open ${item.title}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onNavigate(targetRoute);
+                  }}
+                >
+                  <ArrowRight size={13} />
+                </button>
               </div>
-
-              <div style={{ flex: 1, minWidth: 0 }}>
-
-                <div className="attention-item-title">{item.title}</div>
-
-                <div className="attention-item-desc">{item.description}</div>
-
-              </div>
-
-              <div className="attention-count">{item.count}</div>
-
-              <button className="btn-ghost icon-only" title="Go to section"><ArrowRight size={13} /></button>
-
-            </div>
-
-          ))}
+            );
+          })}
 
         </div>
 
@@ -440,86 +446,59 @@ function AttentionSection({ onNavigate }: NavigationProps) {
 
 // ---------------------------------------------------------------------------
 
-function SnapshotSection() {
+function SnapshotSection({ onNavigate }: NavigationProps) {
 
   const [state, reload] = useApiData<OverviewData>(api.getOverview, (r) => r.data);
 
-
-
   const metrics = state.status === 'ok' ? [
-
-    { label: 'Participating CPSEs', value: state.data.participating_cpses.toString(), sub: 'Registered enterprises' },
-
-    { label: 'Material Records', value: state.data.total_material_records.toLocaleString(), sub: 'Across all CPSEs' },
-
-    { label: 'MIRA Definitions', value: state.data.cnmc_definitions.toLocaleString(), sub: 'National standard codes' },
-
-    { label: 'MIRA Coverage', value: `${state.data.cnmc_coverage_pct}%`, sub: `${state.data.standardized_materials_count.toLocaleString()} standardized` },
-
+    { label: 'Participating CPSEs', value: state.data.participating_cpses.toString(), sub: 'Registered enterprises', target: 'onboarding' },
+    { label: 'Material Records', value: state.data.total_material_records.toLocaleString(), sub: 'Across all CPSEs', target: 'mira-catalog' },
+    { label: 'MIRA Definitions', value: state.data.cnmc_definitions.toLocaleString(), sub: 'National standard codes', target: 'mira-catalog' },
+    { label: 'MIRA Coverage', value: `${state.data.cnmc_coverage_pct}%`, sub: `${state.data.standardized_materials_count.toLocaleString()} standardized`, target: 'legacy-codes' },
   ] : [];
 
-
-
   return (
-
     <div className="section-block">
-
       <div className="section-header">
-
         <div className="section-title">National Snapshot</div>
-
         <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
-
       </div>
 
       {state.status === 'loading' && (
-
         <div className="metric-row">
-
           {[1, 2, 3, 4].map(i => (
-
             <div key={i} className="metric-card">
-
               <div className="skeleton" style={{ height: '12px', width: '60%', marginBottom: '8px', borderRadius: '4px' }} />
-
               <div className="skeleton" style={{ height: '24px', width: '40%', borderRadius: '4px' }} />
-
             </div>
-
           ))}
-
         </div>
-
       )}
 
       {state.status === 'error' && <ErrorState message={state.message} onRetry={reload} />}
 
       {state.status === 'ok' && (
-
         <div className="metric-row">
-
           {metrics.map((m) => (
-
-            <div key={m.label} className="metric-card">
-
-              <div className="metric-label">{m.label}</div>
-
+            <div 
+              key={m.label} 
+              className="metric-card"
+              onClick={() => onNavigate(m.target)}
+              style={{ cursor: 'pointer', transition: 'transform 0.15s ease, box-shadow 0.15s ease' }}
+              title={`Click to open ${m.label}`}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="metric-label">{m.label}</div>
+                <ArrowRight size={12} color="var(--text-muted)" />
+              </div>
               <div className="metric-value">{m.value}</div>
-
               <div className="metric-sub">{m.sub}</div>
-
             </div>
-
           ))}
-
         </div>
-
       )}
-
     </div>
-
   );
-
 }
 
 
@@ -778,7 +757,7 @@ function CpseTableSection({ onNavigate }: NavigationProps) {
 
 // ---------------------------------------------------------------------------
 
-function HarmonizationAndCnmc() {
+function HarmonizationAndCnmc({ onNavigate }: NavigationProps) {
 
   const [trendState, reloadTrend] = useApiData<{ trend_available: boolean; message: string; data: any[] }>(
 
@@ -804,7 +783,18 @@ function HarmonizationAndCnmc() {
 
           <div className="section-title">Harmonization Trend</div>
 
-          <button className="btn-ghost icon-only" onClick={reloadTrend} title="Refresh"><RefreshCw size={13} /></button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <button 
+              className="btn-outline" 
+              style={{ padding: '3px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+              onClick={() => onNavigate('cross-cpse')}
+              title="Open Cross-CPSE Intel"
+            >
+              <span>Cross-CPSE</span>
+              <ArrowRight size={11} />
+            </button>
+            <button className="btn-ghost icon-only" onClick={reloadTrend} title="Refresh"><RefreshCw size={13} /></button>
+          </div>
 
         </div>
 
@@ -836,7 +826,18 @@ function HarmonizationAndCnmc() {
 
           <div className="section-title">MIRA Mapping Status</div>
 
-          <button className="btn-ghost icon-only" onClick={reloadCnmc} title="Refresh"><RefreshCw size={13} /></button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <button 
+              className="btn-outline" 
+              style={{ padding: '3px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+              onClick={() => onNavigate('mira-catalog')}
+              title="Open CNMC Unified Master"
+            >
+              <span>Unified Master</span>
+              <ArrowRight size={11} />
+            </button>
+            <button className="btn-ghost icon-only" onClick={reloadCnmc} title="Refresh"><RefreshCw size={13} /></button>
+          </div>
 
         </div>
 
@@ -914,7 +915,7 @@ function HarmonizationAndCnmc() {
 
 // ---------------------------------------------------------------------------
 
-function ExpertReviewSection() {
+function ExpertReviewSection({ onNavigate }: NavigationProps) {
 
   const [state, reload] = useApiData<ExpertReview[]>(api.getExpertReviews, (r) => r.data);
 
@@ -928,7 +929,18 @@ function ExpertReviewSection() {
 
         <div className="section-title">Expert Review Queue</div>
 
-        <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button 
+            className="btn-outline" 
+            style={{ padding: '3px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+            onClick={() => onNavigate('master-approvals')}
+            title="Open Master Approvals"
+          >
+            <span>Master Approvals</span>
+            <ArrowRight size={11} />
+          </button>
+          <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        </div>
 
       </div>
 
@@ -1036,7 +1048,7 @@ function ExpertReviewSection() {
 
 // ---------------------------------------------------------------------------
 
-function DataQualitySection() {
+function DataQualitySection({ onNavigate }: NavigationProps) {
 
   const [state, reload] = useApiData<DataQualityIssue[]>(api.getDataQuality, (r) => r.data);
 
@@ -1050,7 +1062,18 @@ function DataQualitySection() {
 
         <div className="section-title">Data Quality Issues</div>
 
-        <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button 
+            className="btn-outline" 
+            style={{ padding: '3px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+            onClick={() => onNavigate('data-quality')}
+            title="Open Data Quality Center"
+          >
+            <span>Data Quality</span>
+            <ArrowRight size={11} />
+          </button>
+          <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        </div>
 
       </div>
 
@@ -1146,7 +1169,7 @@ function DataQualitySection() {
 
 // ---------------------------------------------------------------------------
 
-function OpportunitiesSection() {
+function OpportunitiesSection({ onNavigate }: NavigationProps) {
 
   const [state, reload] = useApiData<Opportunity[]>(api.getOpportunities, (r) => r.data);
 
@@ -1160,7 +1183,18 @@ function OpportunitiesSection() {
 
         <div className="section-title">Cross-CPSE Intelligence</div>
 
-        <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button 
+            className="btn-outline" 
+            style={{ padding: '3px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+            onClick={() => onNavigate('cross-cpse')}
+            title="Open Cross-CPSE Intel"
+          >
+            <span>Network Visualizer</span>
+            <ArrowRight size={11} />
+          </button>
+          <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        </div>
 
       </div>
 
@@ -1232,7 +1266,7 @@ function OpportunitiesSection() {
 
 // ---------------------------------------------------------------------------
 
-function ActivitySection() {
+function ActivitySection({ onNavigate }: NavigationProps) {
 
   const [state, reload] = useApiData<ActivityLog[]>(api.getActivity, (r) => r.data);
 
@@ -1264,7 +1298,18 @@ function ActivitySection() {
 
         <div className="section-title">Recent Governance Activity</div>
 
-        <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button 
+            className="btn-outline" 
+            style={{ padding: '3px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+            onClick={() => onNavigate('audit')}
+            title="Open Audit & Compliance Trail"
+          >
+            <span>Audit Trail</span>
+            <ArrowRight size={11} />
+          </button>
+          <button className="btn-ghost icon-only" onClick={reload} title="Refresh"><RefreshCw size={13} /></button>
+        </div>
 
       </div>
 
@@ -1346,11 +1391,14 @@ export const NationalGovernancePage: React.FC<NavigationProps> = ({ onNavigate }
 
         </div>
 
-        <button className="btn-outline" onClick={() => onNavigate('onboarding')}>
-
-          + Onboard CPSE
-
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn-outline" onClick={() => onNavigate('onboarding')}>
+            CPSE Directory
+          </button>
+          <button className="btn-primary" onClick={() => onNavigate('onboard-new')}>
+            + Onboard CPSE
+          </button>
+        </div>
 
       </div>
 
@@ -1358,27 +1406,27 @@ export const NationalGovernancePage: React.FC<NavigationProps> = ({ onNavigate }
 
       <AttentionSection onNavigate={onNavigate} />
 
-      <SnapshotSection />
+      <SnapshotSection onNavigate={onNavigate} />
 
       <CpseTableSection onNavigate={onNavigate} />
 
-      <HarmonizationAndCnmc />
+      <HarmonizationAndCnmc onNavigate={onNavigate} />
 
-      <ExpertReviewSection />
+      <ExpertReviewSection onNavigate={onNavigate} />
 
 
 
       <div className="two-col-row">
 
-        <div style={{ flex: '1 1 0' }}><DataQualitySection /></div>
+        <div style={{ flex: '1 1 0' }}><DataQualitySection onNavigate={onNavigate} /></div>
 
-        <div style={{ flex: '1 1 0' }}><OpportunitiesSection /></div>
+        <div style={{ flex: '1 1 0' }}><OpportunitiesSection onNavigate={onNavigate} /></div>
 
       </div>
 
 
 
-      <ActivitySection />
+      <ActivitySection onNavigate={onNavigate} />
 
     </AppShell>
 
