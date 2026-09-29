@@ -1,0 +1,27 @@
+sequenceDiagram
+    autonumber
+    actor StoreOfficer as Plant Store Officer (Desktop)
+    participant ERP as SAP S/4HANA (Port 3300)
+    participant MIRA as MIRA Ingestion & AI Gateway
+    participant Queue as Review Task Queue
+    actor Expert as CNMC Domain Expert (Mobile)
+    participant Ledger as Master DB & Immutable Audit Ledger
+
+    StoreOfficer->>ERP: Create Purchase Requisition (PR)
+    ERP->>MIRA: Ingest Material "BRG 6205 2Z C3" via OData v4
+    MIRA->>MIRA: Cleanse & Extract Attributes (Noun: Bearing, Spec: 6205-2Z-C3)
+    MIRA->>MIRA: Compute Vector Cosine Similarity (Score = 0.88, Medium Risk)
+    MIRA->>Queue: Dispatch to Expert Review Queue (Confidence in 0.60-0.89 Range)
+    
+    Queue->>Expert: Mobile Push Notification on Sovereign Terminal
+    Expert->>Queue: Open Task & Inspect Candidate Specs Side-by-Side
+    Expert->>Expert: Verify ASME / ISO 15 Dimension Compliance
+    opt Attribute Refinement via Mobile
+        Expert->>MIRA: Request AI Refinement (/api/v1/reviewer/refine)
+        MIRA-->>Expert: Synthesized Normalized Golden Attributes
+    end
+    Expert->>MIRA: Submit Cryptographic Approval (Ed25519 MIRA-SIG Seal)
+    
+    MIRA->>Ledger: Update Mapping to CNMC-MEC-BRG-6205ZZ & Anchor SHA-256 Hash
+    MIRA->>StoreOfficer: Real-Time WebSocket Notification on Web Desktop
+    MIRA->>ERP: Release Pre-Sanction Gating & Synchronize SAP MM

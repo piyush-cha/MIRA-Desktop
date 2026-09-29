@@ -17,12 +17,21 @@ import { SapSettingsPage } from './pages/SapSettingsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { PlantAreaDashboardPage } from './pages/PlantAreaDashboardPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { ExpertReviewerPage } from './pages/ExpertReviewerPage';
 import { MiraFloatingBot } from './components/ai/MiraFloatingBot';
 
 export default function App() {
   const { isAuthenticated, user } = useAuthStore();
   const isCpseAdmin = user?.roleCode === 'CPSE_ADMIN';
-  const [currentPage, setCurrentPage] = useState<string>(isCpseAdmin ? 'cpse-overview' : 'national');
+
+  const getDefaultPage = () => {
+    if (user?.roleCode === 'EXPERT_REVIEWER' || user?.roleCode === 'REVIEWER') return 'expert-reviewer';
+    if (user?.roleCode === 'PLANT_USER' || user?.roleCode === 'AREA_ADMIN') return 'plant-dashboard';
+    if (user?.roleCode === 'CPSE_ADMIN') return 'cpse-overview';
+    return 'national';
+  };
+
+  const [currentPage, setCurrentPage] = useState<string>(getDefaultPage());
 
   // Guard routes if role is CPSE Admin
   useEffect(() => {
@@ -42,15 +51,10 @@ export default function App() {
     return (
       <LoginPage 
         onSuccessLogin={(role) => {
-          if (role === 'NATIONAL_GOVERNANCE') {
-            setCurrentPage('national');
-          } else if (role === 'PLANT_USER' || role === 'AREA_ADMIN') {
-            setCurrentPage('plant-dashboard');
-          } else if (role === 'CPSE_ADMIN') {
-            setCurrentPage('cpse-overview');
-          } else {
-            setCurrentPage('national');
-          }
+          if (role === 'EXPERT_REVIEWER' || role === 'REVIEWER') setCurrentPage('expert-reviewer');
+          else if (role === 'PLANT_USER' || role === 'AREA_ADMIN') setCurrentPage('plant-dashboard');
+          else if (role === 'CPSE_ADMIN') setCurrentPage('cpse-overview');
+          else setCurrentPage('national');
         }} 
       />
     );
@@ -102,7 +106,9 @@ export default function App() {
       case 'cross-cpse':
         return <CrossCpseIntelPage onNavigate={handleNavigate} />;
       case 'expert-reviews':
-        return <ExpertReviewsPage onNavigate={handleNavigate} />;
+      case 'expert-reviewer':
+      case 'reviewer':
+        return <ExpertReviewerPage onNavigate={handleNavigate} />;
       case 'data-quality':
         return <DataQualityPage onNavigate={handleNavigate} />;
       case 'legacy-codes':

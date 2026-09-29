@@ -13,7 +13,8 @@ import {
   Check,
   RotateCcw
 } from 'lucide-react';
-import { api } from '../../api/client';
+import { api, getApiErrorMessage } from '../../api/client';
+
 
 interface CpseOnboardFormProps {
   onSuccess: (credentials: {
@@ -77,7 +78,7 @@ export const CpseOnboardForm: React.FC<CpseOnboardFormProps> = ({ onSuccess }) =
         licenseTier: res.license_tier,
       });
     } catch (err: any) {
-      setErrorMsg(err?.message || 'Error communicating with backend database.');
+      setErrorMsg(getApiErrorMessage(err));
     } finally {
       setLoading(false);
     }

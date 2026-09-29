@@ -333,23 +333,34 @@ export const api = {
     return response.data;
   },
 
-  // ---------------------------------------------------------------------------
-  // Plant & Area Operations Telemetry & Workflows
-  // ---------------------------------------------------------------------------
-  getPlantOverview: async (unitCode: string) => {
+  // ===========================================================================
+  // Plant & Area Operations (SECL, Coalfields, Refineries, etc.)
+  // ===========================================================================
+  getPlantOverview: async (unitCode: string = 'PLANT-GEVRA') => {
     const response = await apiClient.get(`/plant-ops/overview/${unitCode}`);
     return response.data;
   },
 
-  getPlantInventory: async (unitCode: string, search?: string, statusFilter?: string, sloc?: string) => {
-    const response = await apiClient.get(`/plant-ops/inventory/${unitCode}`, {
-      params: { search, status_filter: statusFilter, sloc }
-    });
+  getPlantInventory: async (
+    unitCode: string = 'PLANT-GEVRA',
+    searchOrParams?: string | { sloc?: string; search?: string; status?: string },
+    statusFilter?: string,
+    sloc?: string
+  ) => {
+    let params: Record<string, any> = {};
+    if (typeof searchOrParams === 'object' && searchOrParams !== null) {
+      params = searchOrParams;
+    } else {
+      if (searchOrParams) params.search = searchOrParams;
+      if (statusFilter) params.status_filter = statusFilter;
+      if (sloc) params.sloc = sloc;
+    }
+    const response = await apiClient.get(`/plant-ops/inventory/${unitCode}`, { params });
     return response.data;
   },
 
-  getPlantTransfers: async (unitCode: string) => {
-    const response = await apiClient.get(`/plant-ops/transfers/${unitCode}`);
+  getPlantTransfers: async (unitCode: string = 'PLANT-GEVRA', direction?: string) => {
+    const response = await apiClient.get(`/plant-ops/transfers/${unitCode}`, { params: { direction } });
     return response.data;
   },
 
@@ -392,6 +403,74 @@ export const api = {
     criticality: string;
   }) => {
     const response = await apiClient.post('/plant-ops/indent', payload);
+    return response.data;
+  },
+
+  // ===========================================================================
+  // Expert Reviewer & AI Refinement Hub
+  // ===========================================================================
+  getReviewerQueue: async (params?: {
+    category?: string;
+    cpse_code?: string;
+    risk_level?: string;
+    status_filter?: string;
+    search?: string;
+    limit?: number;
+  }) => {
+    const response = await apiClient.get('/reviewer/queue', { params });
+    return response.data;
+  },
+
+  refineItemWithAI: async (payload: {
+    material_id: string;
+    raw_description: string;
+    current_cnmc?: string;
+    user_instruction?: string;
+    refinement_type?: string;
+  }) => {
+    const response = await apiClient.post('/reviewer/refine', payload);
+    return response.data;
+  },
+
+  approveReviewItem: async (payload: {
+    review_id: string;
+    material_id: string;
+    approved_cnmc_code: string;
+    approved_standard_name: string;
+    approved_attributes?: Record<string, any>;
+    standard_uom?: string;
+    reviewer_name?: string;
+    reviewer_comments?: string;
+  }) => {
+    const response = await apiClient.post('/reviewer/approve', payload);
+    return response.data;
+  },
+
+  rejectReviewItem: async (payload: {
+    review_id: string;
+    material_id: string;
+    rejection_reason: string;
+    reviewer_name?: string;
+  }) => {
+    const response = await apiClient.post('/reviewer/reject', payload);
+    return response.data;
+  },
+
+  bulkApproveReviewItems: async (payload: {
+    review_ids: string[];
+    reviewer_name?: string;
+  }) => {
+    const response = await apiClient.post('/reviewer/bulk-approve', payload);
+    return response.data;
+  },
+
+  getReviewerStats: async () => {
+    const response = await apiClient.get('/reviewer/stats');
+    return response.data;
+  },
+
+  getAuditLedger: async (limit: number = 30) => {
+    const response = await apiClient.get('/reviewer/audit-ledger', { params: { limit } });
     return response.data;
   },
 };

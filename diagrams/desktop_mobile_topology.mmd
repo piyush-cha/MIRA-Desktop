@@ -1,0 +1,23 @@
+graph TD
+    subgraph "CLIENT APPLICATION TIER"
+        Desktop["🖥️ MIRA Enterprise Web Desktop (Electron + Vite + React)<br/>• CPSE Executive Dashboard<br/>• Material Catalog Studio<br/>• Plant Hierarchy & Surplus Corridors<br/>• SAP PR Gateway & Audit Trail"]
+        Mobile["📱 MIRA Sovereign Mobile Terminal (Expo React Native)<br/>• CNMC Expert Review Queue<br/>• In-App AI Refinement Modal<br/>• One-Tap Cryptographic Signing<br/>• Physical Barcode / QR Scanner"]
+    end
+
+    subgraph "MIDDLEWARE & API GATEWAY"
+        Gateway["⚡ FastAPI Sovereign Gateway (Python 3.13)<br/>• JWT RBAC Authorization (Perimeters: Nat'l -> CPSE -> Area -> Plant -> Expert)<br/>• WebSocket Live Notification Stream<br/>• Rate Limiting & Zero-Trust Verification"]
+    end
+
+    subgraph "COGNITIVE & DATA TIER"
+        AI["🧠 AI & Embedding Pipeline<br/>• 400+ Domain Regex Cleanser<br/>• Sentence-Transformers / PyTorch<br/>• SHAP Feature Attribution"]
+        VectorDB[("🗄️ PostgreSQL 16 + pgvector<br/>• HNSW Vector Index (<50ms)<br/>• Unified Master & Silo Databases")]
+        Cache[("⚡ Redis 7 + Apache Kafka<br/>• L2 Query Cache<br/>• Event Bus")]
+        ERP["🔗 Enterprise Connectors<br/>• SAP S/4HANA (OData v4 / RFC)<br/>• Oracle Cloud ERP<br/>• GeM National Procurement Portal"]
+    end
+
+    Desktop <-->|HTTPS REST & WebSockets| Gateway
+    Mobile <-->|HTTPS REST & WebSockets| Gateway
+    Gateway --> AI
+    Gateway --> VectorDB
+    Gateway --> Cache
+    Gateway --> ERP

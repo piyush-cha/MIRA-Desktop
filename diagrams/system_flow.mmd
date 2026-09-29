@@ -1,0 +1,38 @@
+flowchart TD
+    A([User Requisition / ERP Sync]) --> B[Unified Ingestion Service]
+    B --> C[Data Quality & Validation Filter]
+    C --> D[Text Normalizer & Abbreviation Expander]
+    D --> E[Domain NER & Attribute Extractor]
+    E --> F[Rule-Based Technical Filter Engine]
+    
+    F --> G[Bi-Encoder Dense Vector Generation]
+    G --> H[(PostgreSQL 16 + pgvector HNSW Index)]
+    H --> I[Top-50 Semantic Candidate Retrieval]
+    
+    I --> J[Cross-Encoder ML Re-Ranker]
+    J --> K[Deterministic Physical Compatibility Matrix]
+    K --> L[Integrated Confidence Calculation Engine]
+    
+    L --> M[SHAP Feature Attribution Engine]
+    M --> N{Confidence >= 0.90?}
+    
+    N -- Yes --> O[Auto-Link to Golden CNMC Code]
+    N -- 0.60 to 0.89 --> P[Human-in-the-Loop Maker-Checker Queue]
+    N -- < 0.60 --> Q[Generate New CNMC Candidate Proposal]
+    
+    P --> R[Domain Expert Review on Desktop / Mobile]
+    R -- Approved --> O
+    R -- Refined --> S[Adjust Attributes & Link]
+    R -- Rejected --> Q
+    
+    O --> T[Publish to Master DB & Ledger]
+    S --> T
+    Q --> T
+    
+    T --> U[Event Stream -> Kafka Topics]
+    U --> V[Procurement Intelligence & Disparity Engine]
+    U --> W[Alert & Notification Engine]
+    U --> X[Audit Trail -> PostgreSQL + Hyperledger]
+    
+    V --> Y[Dormant / Duplicate / Aggregation Alerts]
+    W --> Z([Web Desktop / Mobile Real-Time Dispatch])

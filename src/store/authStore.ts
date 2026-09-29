@@ -1,6 +1,15 @@
 import { create } from 'zustand';
 
-export type UserRole = 'NATIONAL_GOVERNANCE' | 'CPSE_ADMIN' | 'AREA_ADMIN' | 'PLANT_USER' | 'DOMAIN_EXPERT' | 'PLATFORM_ADMIN' | 'GUEST';
+export type UserRole = 
+  | 'NATIONAL_GOVERNANCE' 
+  | 'CPSE_ADMIN' 
+  | 'AREA_ADMIN' 
+  | 'PLANT_USER' 
+  | 'DOMAIN_EXPERT' 
+  | 'PLATFORM_ADMIN' 
+  | 'EXPERT_REVIEWER' 
+  | 'REVIEWER' 
+  | 'GUEST';
 
 export interface UserProfile {
   id: string;

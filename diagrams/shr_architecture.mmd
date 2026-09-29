@@ -1,0 +1,38 @@
+flowchart TD
+    %% MIRA Sovereign Three-Pillar Architecture: Standardize, Harmonize, Rationalize (SHR)
+    
+    subgraph S1["1. STANDARDIZE: Unstructured ERP to Golden Specs"]
+        A1[Heterogeneous Raw ERP Strings] -->|SAP S/4HANA, ECC, Oracle, CSV| B1[Domain Regex & Normalizer Engine]
+        B1 -->|Expand 400+ Abbreviations| C1[Engineering Attribute Extraction]
+        C1 -->|ASME, ASTM, IS, DIN Standards| D1[ISO-8000 & UNSPSC Taxonomy Binding]
+        D1 --> E1[(Canonical Golden Material Catalog)]
+    end
+
+    subgraph S2["2. HARMONIZE: Cross-Enterprise Semantic Deduplication"]
+        E1 --> F2[768-Dim Dense Vector Embedding]
+        F2 --> G2[(PostgreSQL pgvector / HNSW Vector Index)]
+        G2 -->|Cosine Similarity Search| H2{Confidence Score >= 0.90?}
+        H2 -->|Yes: Direct Auto-Match| I2[Bind Local ERP Code to CNMC Alias Graph]
+        H2 -->|0.60 to 0.89: Ambiguous Match| J2[Maker-Checker Technical Review Queue]
+        H2 -->|< 0.60: Unique Item| K2[Mint Pending / Nominate New CNMC Record]
+        J2 -->|Domain Expert Inspection + SHAP| L2{Expert Signoff?}
+        L2 -->|Approved| I2
+        L2 -->|Refined Attributes| C1
+        L2 -->|Rejected / New SKU| K2
+    end
+
+    subgraph S3["3. RATIONALIZE: Cross-Plant Capital & Inventory Optimization"]
+        I2 --> M3[Inter-Plant Surplus Stock Canvas]
+        M3 -->|Trichy <-> Haridwar <-> Bhopal| N3[Virtual Surplus Transfer Corridors]
+        I2 --> O3[Cross-CPSE Procurement Price Disparity]
+        O3 -->|Flag >15% Variance Outliers| P3[Joint Demand Aggregation Tender Pooling]
+        I2 --> Q3[Pre-Sanction Purchase Requisition Gateway]
+        Q3 -->|Block Redundant PR before SAP MM Dispatch| R3([Direct Multi-Crore Treasury Savings])
+    end
+
+    classDef stageStyle fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#f8fafc;
+    classDef nodeStyle fill:#0f172a,stroke:#64748b,stroke-width:1px,color:#e2e8f0;
+    classDef highlight fill:#1d4ed8,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+    class S1,S2,S3 stageStyle;
+    class A1,B1,C1,D1,E1,F2,G2,H2,I2,J2,K2,L2,M3,N3,O3,P3,Q3 nodeStyle;
+    class R3 highlight;
